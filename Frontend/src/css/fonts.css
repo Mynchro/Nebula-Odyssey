@@ -1,0 +1,28 @@
+@font-face {
+    font-family: Inconsolata-light;
+    src: url(../assets/fonts/Inconsolata-Light.ttf) 
+    format("truetype");
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: Inconsolata-regular;
+    src: url(../assets/fonts/Inconsolata-Regular.ttf) 
+    format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Inconsolata-bold;
+    src: url(../assets/fonts/Inconsolata-Bold.ttf) 
+    format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Inconsolata-extra-bold;
+    src: url(../assets/fonts/Inconsolata-ExtraBold.ttf) 
+    format("truetype");
+    font-weight: 800;
+}
+

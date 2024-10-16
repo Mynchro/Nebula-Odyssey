@@ -1,0 +1,110 @@
+@import '../../css/fonts.css';
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
+  
+  .logo img {
+    width: auto;
+    max-height: 200px;
+  } 
+  
+  .menu-box {
+    width: 250px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 5px;
+    margin-top: 20px;
+    justify-self: center;
+  }
+  
+  /* menu-buttons */
+  .btn {
+    font-family: Inconsolata-bold, sans-serif;
+    --background-color: var(--tertiary-color);
+    --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+    --border-width: 0.2em;
+    --edge-size: 0.5em;
+    color: #0e1b24;
+    cursor: pointer;
+    background: var(--background-color);
+    padding: 0.5em 1.5em;
+    border: 0;
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    clip-path: polygon(
+      var(--edge-size) 0%,
+      100% 0,
+      100% calc(100% - var(--edge-size)),
+      calc(100% - var(--edge-size)) 100%,
+      0 100%,
+      0% var(--edge-size)
+    );
+    transition: color 250ms;
+    width: 150px;
+  }
+  
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--border-color);
+    z-index: -2;
+  } 
+  
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--background-color);
+    z-index: -1;
+    clip-path: polygon(
+      var(--border-width) calc(var(--edge-size) + var(--border-width) * 0.5),
+      calc(var(--edge-size) + var(--border-width) * 0.5) var(--border-width),
+      calc(100% - var(--border-width)) var(--border-width),
+      calc(100% - var(--border-width))
+        calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+        calc(100% - var(--border-width)),
+      calc(var(--border-width)) calc(100% - var(--border-width))
+    );
+    transition: clip-path 500ms;
+  }
+  
+  .btn:hover {
+    color: white;
+  }
+  
+  .btn:hover::after {
+    clip-path: polygon(
+      calc(100% - var(--border-width))
+        calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+      calc(100% - var(--border-width)) var(--border-width),
+      calc(100% - var(--border-width)) var(--border-width),
+      calc(100% - var(--border-width))
+        calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+        calc(100% - var(--border-width)),
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+        calc(100% - var(--border-width))
+    );
+  }
+  
+  
+  .uebersicht {
+    --background-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+    color: white;
+  }
+
+  .active .btn{
+    --background-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+    color: white;
+  }
+  

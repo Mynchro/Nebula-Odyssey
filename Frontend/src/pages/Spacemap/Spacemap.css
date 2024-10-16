@@ -1,0 +1,149 @@
+.content-box div img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .galaxy {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .content-box div p {
+    color: white;
+  }
+  .galaxy div p {
+    margin: 10px 0px 0px 10px;
+  }
+  
+  .planet-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 20%;
+    background-color: var(--accent-color);
+    border-radius: 10%;
+    margin: 10px;
+  }
+  
+  .planetnumber {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .planet-data {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 2px;
+    padding-bottom: 5px;
+  }
+  
+  .planet-content{
+      display: none;
+      justify-content: center;
+      align-self: center;
+      margin: 5% 10%;
+      width: 80%;
+      height: 80%;
+      background: var(--accent-color);
+      border: 1px solid white;
+  }
+  .planet-uebersicht{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: var(--accent-color);
+    width: 86%;
+    height: 185px;
+    margin-top: 10px;
+    border-radius: 25px;
+  }
+  #planet-uebersicht-img{
+    width: 225px;
+    height: 225px;
+  }
+  
+  .koordinate{
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    background-color: rgba(255, 255, 255, 0.481);
+  }
+  
+  .sonnensystem {
+    border-bottom: 1px solid var(--secondary-color);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: var(--accent-color);
+    padding: 5px 0;
+  }
+  
+  .koordinaten-menu{
+    display: flex;
+    gap: 10px;
+  }
+  
+  .arrow-button {
+    display: flex;
+    color: #C2FFE9;
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    transition: all .3s ease;
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+  }
+  
+  .arrow-button > .arrow-right {
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    position: relative;
+    transform: rotate(-45deg);
+    margin: 0 3px;
+    transition: all .3s ease;
+  }
+  
+  
+  .arrow-button > .arrow-left {
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    position: relative;
+    transform: rotate(135deg);
+    margin: 0 3px;
+  }
+  
+  .legend{
+    grid-area: 1 / 8  / 2 / 9;
+    width: 50%;
+    height: fit-content;
+    background: var(--accent-color);
+    align-self: auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: white;
+    font-size: smaller;
+  }
+  
+  .legend-title{
+    border-bottom: 1px solid var(--secondary-color)
+  }
+  
+  .alert-icons{
+    display: flex;
+    justify-content: space-around;
+    width: 80px;
+    margin: 10px 10px 0px 0px;
+  }

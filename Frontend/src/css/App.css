@@ -1,0 +1,62 @@
+@import './fonts.css';
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Inconsolata-regular, sans-serif;
+}
+
+:root{
+  font-size: 62.5%;
+  
+  background-image: url(/background-img/background-a.jpg);
+    /* Allgemeine Farben */
+    --primary-color: #0e1b24;
+    --secondary-color: #c91e1e;
+    --tertiary-color: #8d867b6b;
+    --highlight-color: #9cf741;
+    --accent-color: #08151d;
+  
+    /* Farben für die Legende */
+    --inactive-color: #adadad;
+    --legend1-color: #62d117;
+    --legend2-color: #ffdb39;
+    --legend3-color: #fd0d0d;
+    --legend4-color: #081282;
+    --legend5-color: #0bccd2;
+  }
+#root{
+  height: 100vh;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.main-container{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 715px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+/**/
+.content-box {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  min-height: 1000px;
+  height: fit-content;
+  background: var(--primary-color);
+  border: 5px solid var(--accent-color);
+  align-self: center;
+  color: white;
+}
+
+@media screen and (max-width: 1440px) {
+  .content-box {
+    max-width: 750px;
+    margin: 50px 50px;
+  }
+}

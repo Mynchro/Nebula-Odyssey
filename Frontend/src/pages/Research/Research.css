@@ -1,0 +1,219 @@
+.researchheader {
+  width: 100%;
+  height: 400px;
+  /* background-image: url("../img/img/forschung/mining-weit.jpg"); */
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.researchflex {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+  /* flex-wrap: wrap; */
+}
+
+
+
+.researchimg {
+  /*background-color: lightblue;*/
+  z-index: 99999;
+  flex: 2;
+}
+
+.researchcosts {
+  /*background-color: lightgreen;*/
+  z-index: 99999;
+  flex: 1;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+  align-items: end;
+}
+
+td:nth-child(even) {
+  text-align: right;
+}
+
+tr>th:nth-child(2) {
+  text-align: right;
+}
+
+#forschungs-title {
+  font-size: 2rem;
+  padding: 0 0 10px 0;
+  font-weight: 800;
+}
+
+.researchheader p {
+  width: 100%;
+  height: 100px;
+  /* background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)); */
+}
+
+.researchcosts>h1 {
+  text-align: center;
+  font-size: xx-large;
+  left: 0%;
+  margin: 0;
+  color: white;
+}
+
+.researchcosts th {
+  color: white;
+  text-align: start;
+}
+
+.researchcosts td {
+  color: white;
+}
+
+.researchoverview {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.researchoverview>div {
+  margin: 2%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.researchoverview input {
+  width: 160px;
+  height: 160px;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  padding: 5px;
+}
+
+/* Bilder für die Input-Elemente */
+.test {
+  background-image: url(/Nebula-Odyssey/Frontend/public/forschung/schildtechnik-weit.jpg);
+}
+
+.f-bergbau {
+  background-image: url(/research-img/mining-box.jpg);
+}
+
+.f-funktechnik {
+  background-image: url(/research-img/funk-box.jpg);
+}
+
+.f-panzerung {
+  background-image: url(/research-img/panzerung-box.jpg);
+}
+
+.f-ballistik {
+  background-image: url(/research-img/ballistik-box.jpg);
+}
+
+.f-energiewaffen {
+  background-image: url(/research-img/energiewaffen-box.jpg);
+}
+
+.f-schildtechnik {
+  background-image: url(/research-img/schildtechnik-box.jpg);
+}
+
+.f-sprungantrieb {
+  background-image: url(/research-img/sprungantrieb-box.jpg);
+}
+
+.f-verbrennung {
+  background-image: url(/research-img/verbrennungstriebwerke-box.jpg);
+}
+
+.researchfooter {
+  display: flex;
+  align-items: end;
+  height: 50%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+}
+
+.box-left {
+  width: 70%;
+  height: 100px;
+
+  /* background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)); */
+}
+
+/* .left {
+  font-size: 1.2em;
+  color: rgb(255, 255, 255);
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+} */
+
+.left {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  text-align: start;
+  padding: 5px 10px 0 10px;
+}
+
+.detail-box {
+  height: 100px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+}
+
+/* .left {
+    padding: 2%;
+    flex: 4;
+    font-size: small;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+  } */
+/* .right {
+    margin-top: 5%;
+    width: 50%;
+    height: 50%;
+    flex: 1;
+  } */
+/*
+  .tooltip {
+    display: none;
+    position: absolute;
+    background-color: var(--highlight-color);
+    border: 1px solid black;
+    padding: 0;
+    margin-top: 0.5%;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+  }
+  
+  .element:hover .tooltip {
+    display: block;
+  }
+  
+  .element img:hover {
+    transform: scale(1.05);
+  }
+    */
+/* Muss in jeder Seite eingefügt werden, da der button durch die home.css sonst immer 
+  gehighlighted ist */
+
+.uebersicht {
+  --background-color: var(--tertiary-color);
+  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+  color: #0e1b24;
+}

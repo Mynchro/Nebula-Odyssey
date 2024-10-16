@@ -1,0 +1,24 @@
+.planete-bar {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .planetes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .planet img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.5s ease;
+  }
+  
+  .planet img:hover {
+    transform: translateY(-30px) scale(1.2);
+  }
+
+  

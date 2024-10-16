@@ -1,0 +1,90 @@
+/* Allgemeine Styles */
+.content-box {
+}
+
+.uebersicht-title h1 {
+  margin: 0;
+}
+
+.gebaeude-heading {
+  margin: 10px 0 10px 10px;
+  text-decoration: underline var(--secondary-color);
+  text-align: left;
+  width: 100%;
+}
+
+.buildings-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Abstand zwischen den Boxen */
+  margin-left: 10px;
+}
+
+.gebaeude-box {
+  width: calc(50% - 20px); /* Zwei Boxen nebeneinander mit 20px Abstand */
+  height: 200px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Platz zwischen Text und Button */
+  align-items: flex-end; /* Rechtsbündig ausrichten */
+  padding: 10px;
+  border: var(--secondary-color) 1px solid;
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+}
+
+.gebaeude-box .text {
+  width: 55%;
+  margin: 20px 0;
+  font-family: Inconsolata-light, sans-serif;
+  text-align: right; /* Rechtsbündig ausrichten */
+  font-size: 15px; /* Schriftgröße auf 15px setzen */
+}
+
+.gebaeude-box h1 {
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+.text p {
+  font-family: Inconsolata-light, sans-serif;
+  font-size: 15px; /* Schriftgröße auf 15px setzen */
+}
+
+.button-box {
+  align-self: flex-end; /* Button rechtsbündig ausrichten */
+}
+
+/* Bildklassen für die einzelnen Gebäude */
+.bergwerk { background-image: url(/buildings-img/bergwerk.png); }
+.munitionsfabrik { background-image: url(/buildings-img/munitionsfabrik.png); }
+.treibstofffabrik { background-image: url(/buildings-img/treibstofffabrik.png); }
+.solaranlage { background-image: url(/buildings-img/solaranlage.png); }
+.kraftwerk { background-image: url(/buildings-img/kraftwerk.png); }
+.raffinerie { background-image: url(/buildings-img/raffinerie.png); }
+.schrottplatz { background-image: url(/buildings-img/schrottplatz.png); }
+.recycler { background-image: url(/buildings-img/recycler.png); }
+.spionagezentrum { background-image: url(/buildings-img/spionagezentrum.png); }
+.treibstoffdepot { background-image: url(/buildings-img/treibstoffdepot.png); }
+.chemikaliendepot { background-image: url(/buildings-img/chemikaliendepot.png); }
+.erzdepot { background-image: url(/buildings-img/erzdepot.png); }
+.munitionsdepot { background-image: url(/buildings-img/munitionsdepot.png); }
+.energiespeicher { background-image: url(/buildings-img/energiespeicher.png); }
+.stahldepot { background-image: url(/buildings-img/stahldepot.png); }
+.kleine-raumwerft { background-image: url(/buildings-img/kleine-raumwerft.png); }
+.mittlere-raumwerft { background-image: url(/buildings-img/mittlere-raumwerft.png); }
+.grosse-raumwerft { background-image: url(/buildings-img/grosse-raumwerft.png); }
+
+/* nav-bar für die building kategorien */
+.building-nav-bar {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+/*.building-section {
+  padding-left: 20px;
+}*/

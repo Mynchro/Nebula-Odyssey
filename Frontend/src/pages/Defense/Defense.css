@@ -1,0 +1,186 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h4 {
+  color: white;
+}
+
+h3 {
+  text-align: center;
+  text-decoration: underline;
+  margin-top: 5px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.defense-info ul li {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.uebersicht {
+  --background-color: var(--tertiary-color);
+  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+  color: #0e1b24;
+}
+
+.defense-top {
+  border: 2px solid var(--primary-color);
+  width: 95%;
+  height: 500px;
+  margin-bottom: 40px;
+  display: flex;
+  border-radius: 10px;
+  padding: 25px 0 0 25px;
+}
+
+.defense-info {
+  width: 200px;
+  height: 100%;
+  border: 2px solid var(--secondary-color);
+  margin: auto 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.defense-img {
+  width: 70%;
+  height: 80%;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--secondary-color);
+}
+
+.content-box .defense-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.defense-bot {
+  border: 2px solid var(--primary-color);
+  width: 95%;
+  height: 300px;
+  display: flex;
+  border-radius: 10px;
+  padding: 25px 0 0 25px;
+}
+
+.defense-btnbox {
+  width: 200px;
+  height: 100%;
+  border: 2px solid var(--secondary-color);
+  margin: auto 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.defense-description {
+  width: 70%;
+  height: 100%;
+  border: 2px solid var(--secondary-color);
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.btn {
+  --background-color: var(--tertiary-color);
+  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+  --border-width: 0.2em;
+  --edge-size: 0.5em;
+  color: #0e1b24;
+  cursor: pointer;
+  background: var(--background-color);
+  padding: 0.5em 1.5em;
+  border: 0;
+  position: relative;
+  display: inline-grid;
+  place-content: center;
+  clip-path: polygon(
+    var(--edge-size) 0%,
+    100% 0,
+    100% calc(100% - var(--edge-size)),
+    calc(100% - var(--edge-size)) 100%,
+    0 100%,
+    0% var(--edge-size)
+  );
+  transition: color 250ms;
+  width: 150px;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border-color);
+  z-index: -2;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--background-color);
+  z-index: -1;
+  clip-path: polygon(
+    var(--border-width) calc(var(--edge-size) + var(--border-width) * 0.5),
+    calc(var(--edge-size) + var(--border-width) * 0.5) var(--border-width),
+    calc(100% - var(--border-width)) var(--border-width),
+    calc(100% - var(--border-width))
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+    calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+      calc(100% - var(--border-width)),
+    calc(var(--border-width)) calc(100% - var(--border-width))
+  );
+  transition: clip-path 500ms;
+}
+
+.btn:hover {
+  color: white;
+}
+
+.btn:hover::after {
+  clip-path: polygon(
+    calc(100% - var(--border-width))
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+    calc(100% - var(--border-width)) var(--border-width),
+    calc(100% - var(--border-width)) var(--border-width),
+    calc(100% - var(--border-width))
+      calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5)),
+    calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+      calc(100% - var(--border-width)),
+    calc(100% - calc(var(--edge-size) + var(--border-width) * 0.5))
+      calc(100% - var(--border-width))
+  );
+}
+
+.defense-description {
+  color: white;
+  font-size: larger;
+  padding: 10px;
+  display: flex;
+}
+
+.active {
+  --background-color: linear-gradient(to bottom right, #091e2c, var(--secondary-color));
+  color: white;
+}
