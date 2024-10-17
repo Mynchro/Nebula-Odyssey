@@ -8,14 +8,14 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState(""); // State für Confirm Password
     const [eMail, setEmail] = useState(""); // State für E-Mail
-    const [isRegistering, setIsRegistering] = useState(false); // State für Modus (Login/Register)
+    const [isRegistered, setIsRegistered] = useState(false); // State für Modus (Login/Register)
     const navigate = useNavigate();
     const { playerData, setCurrentPlayer } = useContext(PlayerContext);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Verhindert das Standard-Formular-Submit-Verhalten
     
-    if (!isRegistering) {
+    if (!isRegistered) {
         playerData.map((currentUser) => {
             if (currentUser.username === username && currentUser.password === password){
                 setCurrentPlayer({...currentUser});
@@ -25,7 +25,7 @@ const Login = () => {
       }
 
       // Registrierungs-Logik
-    if (isRegistering) {
+    if (isRegistered) {
         if (password !== confirmPassword) {
           alert("Passwörter stimmen nicht überein!");
           return;
@@ -34,13 +34,13 @@ const Login = () => {
         const newUser = { username, password, eMail };
         console.log("Neuer Benutzer registriert:", newUser);
         // Füge Registrierungscode hier hinzu...
-        setIsRegistering(false); // Wechsel zurück zum Login-Modus nach Registrierung
+        setIsRegistered(false); // Wechsel zurück zum Login-Modus nach Registrierung
       }
     };
   
     // Wechsel zwischen Login und Register
     const toggleMode = () => {
-      setIsRegistering(!isRegistering);
+      setIsRegistered(!isRegistered);
       // Felder zurücksetzen, wenn der Modus gewechselt wird
       setUsername("");
       setPassword("");
@@ -57,7 +57,7 @@ const Login = () => {
             />
             <h1 className="login-title">Nebula Odyssey</h1>
             <div className="login-box">
-                <h2>{isRegistering ? "Register" : "Login"}</h2>
+                <h2>{isRegistered ? "Register" : "Login"}</h2>
                 <input 
                     type="text" 
                     placeholder="Username" 
@@ -75,7 +75,7 @@ const Login = () => {
                         }
                       }}
                 />
-                {isRegistering && (
+                {isRegistered && (
           <>
             <input 
               type="password" 
@@ -93,14 +93,14 @@ const Login = () => {
         )}
 
         <button onClick={handleLogin}>
-          {isRegistering ? "Register" : "Login"}
+          {isRegistered ? "Register" : "Login"}
         </button>
 
         {/* Link zum Umschalten zwischen Login und Register */}
         <p>
-          {isRegistering ? "Already have an account? " : "Don't have an account? "}
+          {isRegistered ? "Already have an account? " : "Don't have an account? "}
           <a className="loginATag" href="#" onClick={toggleMode}>
-            {isRegistering ? "Login here" : "Register here"}
+            {isRegistered ? "Login here" : "Register here"}
           </a>
         </p>
       </div>
