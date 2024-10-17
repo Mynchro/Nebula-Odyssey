@@ -50,23 +50,6 @@ export const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    // const buildings = await Building.find();
-
-    // const buildingIds = buildings.map((building) => building._id);
-
-    // // Create a new home planet for the user
-    // const newPlanet = new Planet({
-    //   owner: newUser._id, // Set the owner as the new user's ID
-    //   name: "Heimatplanet", // You can set default values for the planet here
-    //   buildings: buildingIds, // Building-IDS zum Array hinzufügen
-    // });
-
-    // // Save the planet
-    // const savedPlanet = await newPlanet.save();
-
-    // // Assign the planet to the user
-    // newUser.planets.push(savedPlanet._id);
-
     const homePlanet = await createHomeplanet(newUser._id);
 
     newUser.planets.push(homePlanet._id);

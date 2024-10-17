@@ -19,8 +19,6 @@ export const createGameworld = async () => {
       );
     }
 
-    const resourceId = defaultResources._id;
-
     const planets = [];
     for (let i = 1; i <= 10; i++) {
       const newPlanet = new Planet({
@@ -32,7 +30,7 @@ export const createGameworld = async () => {
           level: building.level,
           productionRate: building.productionRate,
         })),
-        resources: resourceId,
+        resources: defaultResources._id,
       });
 
       planets.push(newPlanet);

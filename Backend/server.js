@@ -3,8 +3,6 @@ import { connectToDB } from "./libs/db.js";
 import userRoute from "./routes/userRoute.js";
 import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
-import { seedResources } from "./seeder/resourceSeeder.js";
-import { calculateResources } from "./middleware/calculateResources.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 
 const port = 3000;
