@@ -35,7 +35,9 @@ export const resourceSchema = new Schema({
     type: Number,
     default: 0,
   },
-  _id: false,
+  // _id: false,
 });
 
-export default resourceSchema;
+const Resource = mongoose.model("Resource", resourceSchema);
+
+export { Resource };
