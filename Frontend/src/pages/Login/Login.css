@@ -12,7 +12,6 @@
     align-items: center;
     flex-direction: column;
     width: 425px;
-    height: 210px;
     padding: 30px;
     border-radius: 25px;
     background-color: rgba(0, 0, 0, 0.6);
@@ -54,7 +53,7 @@
     display: block;
     width: 60%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -63,6 +62,7 @@
     width: 65%;
     padding: 10px;
     background: var(--legend4-color);
+    margin-bottom: 12px;
     --edge-size: 1.25em;
     clip-path: polygon(
       var(--edge-size) 0%,
@@ -84,4 +84,7 @@
 
 .login-box button:hover {
     background-color: var(--tertiary-color);
+}
+.loginATag{
+    color: white;
 }
