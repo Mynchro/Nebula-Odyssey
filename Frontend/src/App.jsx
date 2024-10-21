@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import StarField from "./components/Starfield/StarField";
 import Playermanager from "./components/Playermanager/Playermanager";
+import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route index element={<Login />} />
           <Route path="/" element={<SharedLayout />}>
+            <Route path="comingsoon" element={<ComingSoon/>}/>
             <Route path="overview" element={<Overview />} />
             <Route path="spacemap" element={<Spacemap />} />
             <Route path="buildings" element={<Buildings />} />

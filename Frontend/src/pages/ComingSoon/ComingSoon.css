@@ -1,0 +1,13 @@
+.comingSoon-img{
+    display: flex;
+    justify-content: center;
+    background-image: url(/public/background-img/comingsoon.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 1000px;
+}
+.comingSoon-h1{
+    margin-top: 30px;
+    letter-spacing: .15em;
+    text-shadow: 1px -1px 0 #767676, -1px 2px 1px #737272, -2px 4px 1px #767474, -3px 6px 1px #787777
+}

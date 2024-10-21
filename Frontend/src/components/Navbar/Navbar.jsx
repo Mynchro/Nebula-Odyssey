@@ -30,25 +30,25 @@ const Navbar = () => {
           HOME
         </NavLink>
         <NavLink
-          to="#"
+          to="/comingsoon"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           NOTIZEN
         </NavLink>
         <NavLink
-          to="#"
+          to="/comingsoon"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           HIGHSCORE
         </NavLink>
         <NavLink
-          to="#"
+          to="/comingsoon"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           EINSTELLUNGEN
         </NavLink>
         <NavLink
-          to="#"
+          to="/comingsoon"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           SUPPORT
@@ -63,7 +63,12 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="player">
-        <a href="#">{currentPlayer.username}</a>
+        <NavLink
+          to="/overview"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          {currentPlayer.username}
+        </NavLink>
       </div>
       <div className="audio">
         <Audio />
