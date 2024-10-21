@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 import Planet from "../models/Planet.js";
 import Building from "../models/Buildings.js";
 import { createHomeplanet } from "../seeder/createHomeplanet.js";

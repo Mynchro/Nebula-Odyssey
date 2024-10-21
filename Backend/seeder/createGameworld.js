@@ -24,6 +24,7 @@ export const createGameworld = async () => {
       const newPlanet = new Planet({
         owner: null,
         name: `Planet ${i}`,
+        // image: `/public/planets/p-${i}.png`,
         buildings: defaultBuildings.map((building) => ({
           originalBuildingId: building._id,
           buildingType: building.buildingType,

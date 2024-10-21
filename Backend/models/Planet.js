@@ -20,6 +20,10 @@ const planetSchema = new Schema({
     type: resourceSchema, // Ressourcen bleiben gleich
     default: {},
   },
+  // image: {
+  //   type: String,
+  //   required: true
+  // }
 });
 
 const Planet = mongoose.model("Planet", planetSchema);

@@ -5,6 +5,7 @@ import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const port = 3000;
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 //Middleware
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 await connectToDB();
 app.use("/admin", adminRoute);
