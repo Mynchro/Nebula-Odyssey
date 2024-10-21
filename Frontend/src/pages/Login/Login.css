@@ -58,7 +58,7 @@
   width: 60%;
 }
 
-form{
+.login-form{
   display: flex;
   align-items: center;
   justify-content: center;
