@@ -51,11 +51,20 @@
 
 .login-box input {
   display: block;
-  width: 60%;
   padding: 10px;
   margin-bottom: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 60%;
+}
+
+form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+
 }
 
 .login-box button {
@@ -92,5 +101,6 @@
 .error-message {
   color: red;
   font-size: 12px;
-  margin-top: 5px;
+  margin-bottom: 12px;
+  font-weight: bolder;
 }
