@@ -79,7 +79,7 @@ const Login = () => {
       <h1 className="login-title">Nebula Odyssey</h1>
       <div className="login-box">
         <h2>{isRegistered ? "Register" : "Login"}</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           {/* Username */}
           <input
             {...register("userName", { required: "Username is required!" })}
