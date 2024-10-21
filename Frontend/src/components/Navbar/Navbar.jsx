@@ -19,6 +19,7 @@ const Clock = () => {
 
 const Navbar = () => {
   const { currentPlayer } = useContext(PlayerContext);
+  const { userName } = currentPlayer.user;
 
   return (
     <header>
@@ -57,18 +58,14 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          {currentPlayer && currentPlayer.username === "Guest"
+          {currentPlayer && currentPlayer.userName === "Guest"
             ? "LOGIN"
             : "LOGOUT"}
         </NavLink>
       </div>
       <div className="player">
-        <NavLink
-          to="/overview"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          {currentPlayer.username}
-        </NavLink>
+        <a href="#">{userName || ""}</a>
+        {console.log(currentPlayer)}
       </div>
       <div className="audio">
         <Audio />

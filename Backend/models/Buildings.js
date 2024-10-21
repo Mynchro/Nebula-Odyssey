@@ -1,5 +1,6 @@
+// Buildings.js
 import mongoose from "mongoose";
-import resourceSchema from "./Resources.js";
+import { resourceSchema } from "./Resources.js";
 const { Schema } = mongoose;
 
 export const buildingSchema = new Schema({
@@ -27,16 +28,23 @@ export const buildingSchema = new Schema({
       "Silicondepot",
       "Mikrochipdepot",
     ],
-    // required: true,
+    required: true, // Es ist wichtig, den Gebäudetyp als erforderlich zu setzen
   },
   level: {
     type: Number,
     default: 0,
   },
-  productionRate: { type: resourceSchema, default: {} },
-  _id: false,
+  originalBuildingId: {
+    // Füge die originalBuildingId hinzu
+    type: Schema.Types.ObjectId,
+  },
+  productionRate: {
+    type: resourceSchema,
+    default: {}, // Standardmäßig leeres Objekt
+  },
 });
 
 const Building = mongoose.model("Building", buildingSchema);
 
-export default { Building };
+// Default-Export für Building
+export default Building;

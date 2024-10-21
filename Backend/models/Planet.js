@@ -1,48 +1,33 @@
 import mongoose from "mongoose";
 import { buildingSchema } from "./Buildings.js";
-import resourceSchema from "./resources.js";
+// import { buildingSchema } from "./Buildings.js";
+import { resourceSchema } from "./Resources.js";
 const { Schema } = mongoose;
 
 const planetSchema = new Schema({
-  starSystem: {
-    // type: Schema.Types.ObjectId,
-    // ref: 'Galaxy',
-    type: String,
-    required: true,
-  },
-  position: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 16,
-  },
   owner: {
-    type: String,
-    // ref: 'User',
-    // default: null,
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    default: null,
   },
   name: {
     type: String,
     required: true,
+    default: "",
   },
-  resources: resourceSchema,
-  buildings: { type: [buildingSchema], default: [] },
-  research: [
-    {
-      // type: Schema.Types.ObjectId,
-      type: String,
-      // ref: 'Research',
-    },
-  ],
-  shipyard: [
-    {
-      // type: Schema.Types.ObjectId,
-      type: String,
-      // ref: 'Shipyard',
-    },
-  ],
+  buildings: [buildingSchema], // Gebäude als Unterdokumente
+  resources: {
+    type: resourceSchema, // Ressourcen bleiben gleich
+    default: {},
+  },
 });
 
 const Planet = mongoose.model("Planet", planetSchema);
 
 export default Planet;
+
+// Planet X -> Building = leeres Array (default), Owner = null
+// User nimmt Planet X ein
+// -> if owner = User:
+//      planet.buildings populate (? anhand der building-collection, liegt bereits in der DB)
+//      owner = user.id

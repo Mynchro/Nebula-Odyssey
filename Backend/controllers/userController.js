@@ -1,5 +1,8 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import Planet from "../models/Planet.js";
+import Building from "../models/Buildings.js";
+import { createHomeplanet } from "../seeder/createHomeplanet.js";
 
 // user-registration
 
@@ -7,7 +10,6 @@ export const register = async (req, res) => {
   const { userName, email, password, confirmPassword } = req.body;
 
   // check if password and confirmPassword match
-
   if (password !== confirmPassword) {
     return res
       .status(400)
@@ -15,7 +17,6 @@ export const register = async (req, res) => {
   }
 
   // check password-safety with regex
-
   const isPasswordStrong = (password) => {
     const passwordRequirements =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/; // Mindestens 8 Zeichen, mindestens 1 Kleinbuchstabe, 1 Großbuchstabe, 1 Zahl und 1 Sonderzeichen
@@ -31,7 +32,6 @@ export const register = async (req, res) => {
 
   try {
     // check existing User
-
     const existingUser = await User.findOne({ userName });
     if (existingUser) {
       return res.status(400).json({
@@ -40,21 +40,26 @@ export const register = async (req, res) => {
     }
 
     // hash password with bcrypt
-
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    // Create a new user
     const newUser = new User({
       userName,
       email,
       password: hashedPassword,
     });
 
+    const homePlanet = await createHomeplanet(newUser._id);
+
+    newUser.planets.push(homePlanet._id);
+
+    // Save the user
     await newUser.save();
 
-    return res
-      .status(201)
-      .json({ message: "Benutzer erfolgreich registriert!" });
+    return res.status(201).json({
+      message: "Benutzer erfolgreich registriert! Heimatplanet zugewiesen!",
+    });
   } catch (error) {
     console.error("Fehler bei der Registrierung:", error);
     return res
@@ -70,16 +75,13 @@ export const login = async (req, res) => {
 
   try {
     // check if user exists in the db
-    const existingUser = await User.findOne({ userName });
-    if (!existingUser) {
+    const user = await User.findOne({ userName }).populate("planets");
+    if (!user) {
       return res.status(400).json({ message: "User existiert nicht!" });
       // user exists? proceed
     }
     // compare password with hash via bcrypt
-    const isPasswordMatch = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
       return res
@@ -87,7 +89,11 @@ export const login = async (req, res) => {
         .json({ message: "Benutzername oder Passwort sind ungültig!" });
     }
 
-    return res.status(200).json({ message: "Login erfolgreich!" });
+    return res.status(200).json({
+      message: "Login erfolgreich!",
+      user: { userName: user.userName, planets: user.planets },
+      completeUser: user,
+    });
   } catch (error) {
     console.error("Fehler beim Login:", error);
     return res
