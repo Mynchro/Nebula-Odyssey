@@ -12,14 +12,14 @@ import Armada from "./pages/Armada/Armada";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import StarField from "./components/Starfield/StarField";
-import Playermanager from "./components/Playermanager/Playermanager";
+// import Playermanager from "./components/Playermanager/Playermanager";
 
 function App() {
   return (
     <PlayerProvider>
       <BrowserRouter>
         <StarField />
-        <Playermanager />
+        {/* <Playermanager /> */}
         <Routes>
           <Route index element={<Login />} />
           <Route path="/" element={<SharedLayout />}>

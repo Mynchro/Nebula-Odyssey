@@ -1,123 +1,145 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PlayerContext } from '../../context/PlayerContext';
+import { useState, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./Login.css";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState(""); // State für Confirm Password
-    const [eMail, setEmail] = useState(""); // State für E-Mail
-    const [isRegistered, setIsRegistered] = useState(false); // State für Modus (Login/Register)
-    const navigate = useNavigate();
-    const { playerData, setCurrentPlayer } = useContext(PlayerContext);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const { setCurrentPlayer } = useContext(PlayerContext);
+  const [isRegistered, setIsRegistered] = useState(false); // State für Modus (Login/Register)
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Verhindert das Standard-Formular-Submit-Verhalten
-    
-    if (!isRegistered) {
-        playerData.map((currentUser) => {
-            if (currentUser.username === username && currentUser.password === password){
-                setCurrentPlayer({...currentUser});
-                navigate("/overview");
-            }
-        });
+  const handleLogin = async (data) => {
+    console.log(data);
+    try {
+      const response = await fetch("http://localhost:3000/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log("result:", result);
+      if (response.status === 200) {
+        setCurrentPlayer(result);
+        navigate("/overview");
+      } else {
+        console.log(result.message);
       }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+  const handleRegister = async (data) => {
+    try {
+      const response = await fetch("http://localhost:3000/user/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (response.status === 201) {
+        console.log("Registered successfully:", result.message);
+        setIsRegistered(false); // Nach erfolgreicher Registrierung zum Login-Modus wechseln
+      } else {
+        console.log(result.message);
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
 
-      // Registrierungs-Logik
+  const onSubmit = (data) => {
     if (isRegistered) {
-        if (password !== confirmPassword) {
-          alert("Passwörter stimmen nicht überein!");
-          return;
-        }
-        // Registriere neuen Benutzer (hier könntest du deine eigene Logik einbauen)
-        const newUser = { username, password, eMail };
-        console.log("Neuer Benutzer registriert:", newUser);
-        // Füge Registrierungscode hier hinzu...
-        setIsRegistered(false); // Wechsel zurück zum Login-Modus nach Registrierung
-      }
-    };
-  
-    // Wechsel zwischen Login und Register
-    const toggleMode = () => {
-      setIsRegistered(!isRegistered);
-      // Felder zurücksetzen, wenn der Modus gewechselt wird
-      setUsername("");
-      setPassword("");
-      setConfirmPassword("");
-      setEmail("");
-    };
+      handleRegister(data);
+    } else {
+      handleLogin(data);
+    }
+  };
 
-    return (
-        <div className="login-content">
-            <img 
-                className="login-logo" 
-                src="/icons/logo_placeholder.png" 
-                alt="Logo Nebula Odyssey" 
-            />
-            <h1 className="login-title">Nebula Odyssey</h1>
-            <div className="login-box">
-                <h2>{isRegistered ? "Register" : "Login"}</h2>
-                <input 
-                    type="text" 
-                    placeholder="Username" 
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <input 
-                    type="password" 
-                    placeholder="Password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          handleLogin(e);
-                        }
-                      }}
-                />
-                {isRegistered && (
-          <>
-            <input 
-              type="password" 
-              placeholder="Confirm Password" 
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <input 
-              type="email" 
-              placeholder="E-mail" 
-              value={eMail}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </>
-        )}
+  // Umschalten zwischen Login und Registrierung
+  const toggleMode = () => {
+    setIsRegistered(!isRegistered);
+  };
 
-        <button onClick={handleLogin}>
-          {isRegistered ? "Register" : "Login"}
-        </button>
+  return (
+    <div className="login-content">
+      <img
+        className="login-logo"
+        src="/icons/logo_placeholder.png"
+        alt="Logo Nebula Odyssey"
+      />
+      <h1 className="login-title">Nebula Odyssey</h1>
+      <div className="login-box">
+        <h2>{isRegistered ? "Register" : "Login"}</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            {...register("userName", { required: "Username is required!" })}
+            type="text"
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            {...register("password", { required: "Password is required!" })}
+          />
+          {isRegistered && (
+            <>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                  validate: (value) =>
+                    value === watch("password" || "Passwords do not match"),
+                })}
+              />
+              <input
+                type="email"
+                placeholder="E-mail"
+                {...register("email", {
+                  required: "E-Mail is required!",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Invalid email format!",
+                  },
+                })}
+              />
+            </>
+          )}
+
+          <button type="submit">{isRegistered ? "Register" : "Login"}</button>
+        </form>
 
         {/* Link zum Umschalten zwischen Login und Register */}
         <p>
-          {isRegistered ? "Already have an account? " : "Don't have an account? "}
+          {isRegistered
+            ? "Already have an account? "
+            : "Don't have an account? "}
           <a className="loginATag" href="#" onClick={toggleMode}>
             {isRegistered ? "Login here" : "Register here"}
           </a>
         </p>
       </div>
-            <img
-                className="schlachtkreuzer-img" 
-                src="/werften/große_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png" 
-                alt="schlachtkreuzer" 
-            />
-            <img
-                className="schlachtschiff-img" 
-                src="/werften/große_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png" 
-                alt="schlachtschiff" 
-            />
-        </div>
-    );
+      <img
+        className="schlachtkreuzer-img"
+        src="/werften/große_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png"
+        alt="schlachtkreuzer"
+      />
+      <img
+        className="schlachtschiff-img"
+        src="/werften/große_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png"
+        alt="schlachtschiff"
+      />
+    </div>
+  );
 };
 
 export default Login;
-
-

@@ -4,12 +4,14 @@ import userRoute from "./routes/userRoute.js";
 import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
+import cors from "cors";
 
 const port = 3000;
 const app = express();
 
 //Middleware
 app.use(express.json());
+app.use(cors());
 
 await connectToDB();
 app.use("/admin", adminRoute);

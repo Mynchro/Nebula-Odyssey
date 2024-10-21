@@ -75,16 +75,13 @@ export const login = async (req, res) => {
 
   try {
     // check if user exists in the db
-    const existingUser = await User.findOne({ userName });
-    if (!existingUser) {
+    const user = await User.findOne({ userName }).populate("planets");
+    if (!user) {
       return res.status(400).json({ message: "User existiert nicht!" });
       // user exists? proceed
     }
     // compare password with hash via bcrypt
-    const isPasswordMatch = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
       return res
@@ -92,7 +89,10 @@ export const login = async (req, res) => {
         .json({ message: "Benutzername oder Passwort sind ungültig!" });
     }
 
-    return res.status(200).json({ message: "Login erfolgreich!" });
+    return res.status(200).json({
+      message: "Login erfolgreich!",
+      user: { userName: user.userName, planets: user.planets },
+    });
   } catch (error) {
     console.error("Fehler beim Login:", error);
     return res
