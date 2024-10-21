@@ -64,7 +64,7 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="player">
-        <a href="#">{userName}</a>
+        <a href="#">{userName || ""}</a>
         {console.log(currentPlayer)}
       </div>
       <div className="audio">

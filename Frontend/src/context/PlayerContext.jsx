@@ -5,7 +5,9 @@ export const PlayerContext = createContext();
 
 const PlayerProvider = ({ children }) => {
   const [playerData, setPlayerData] = useState({});
-  const [currentPlayer, setCurrentPlayer] = useState({});
+  const [currentPlayer, setCurrentPlayer] = useState({
+    user: { userName: "Test" },
+  });
 
   useEffect(() => {
     setPlayerData(playerData);

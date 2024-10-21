@@ -80,16 +80,27 @@ const Login = () => {
       <div className="login-box">
         <h2>{isRegistered ? "Register" : "Login"}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Username */}
           <input
             {...register("userName", { required: "Username is required!" })}
             type="text"
             placeholder="Username"
           />
+          {errors.userName && (
+            <span className="error-message">{errors.userName.message}</span>
+          )}
+
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
             {...register("password", { required: "Password is required!" })}
           />
+          {errors.password && (
+            <span className="error-message">{errors.password.message}</span>
+          )}
+
+          {/* Confirm Password - Nur anzeigen, wenn Registrierung */}
           {isRegistered && (
             <>
               <input
@@ -98,9 +109,16 @@ const Login = () => {
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) =>
-                    value === watch("password" || "Passwords do not match"),
+                    value === watch("password") || "Passwords do not match",
                 })}
               />
+              {errors.confirmPassword && (
+                <span className="error-message">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
+
+              {/* E-Mail */}
               <input
                 type="email"
                 placeholder="E-mail"
@@ -112,6 +130,9 @@ const Login = () => {
                   },
                 })}
               />
+              {errors.email && (
+                <span className="error-message">{errors.email.message}</span>
+              )}
             </>
           )}
 

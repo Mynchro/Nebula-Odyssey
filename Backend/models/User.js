@@ -44,6 +44,14 @@ const userSchema = new Schema({
   ],
 });
 
+// don't send password/email as server-response
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  delete user.password;
+  delete user.email;
+  return user;
+};
+
 const User = mongoose.model("User", userSchema);
 
 export default User;
