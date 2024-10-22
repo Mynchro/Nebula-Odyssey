@@ -131,6 +131,14 @@ const Buildings = () => {
     },
     {
       level: "Stufe 1",
+      category: "Lagerung",
+      name: "Mikrochipdepot",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
+      imageClass: "mikrochipdepot",
+    },
+    {
+      level: "Stufe 1",
       category: "Werften",
       name: "Kleine Raumwerft",
       description:
