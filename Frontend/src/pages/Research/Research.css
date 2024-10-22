@@ -211,9 +211,3 @@ tr>th:nth-child(2) {
     */
 /* Muss in jeder Seite eingefügt werden, da der button durch die home.css sonst immer 
   gehighlighted ist */
-
-.uebersicht {
-  --background-color: var(--tertiary-color);
-  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
-  color: #0e1b24;
-}

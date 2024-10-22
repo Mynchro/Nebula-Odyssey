@@ -1,10 +1,20 @@
 
-.uebersicht {
+.overview {
     --background-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
     color: white;
-  }  
+  }
 
-.uebersicht-title {
+  .overview {
+    --background-color: var(--tertiary-color);
+    --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+    color: #0e1b24;
+  } /* aus der Defense.css*/
+
+  .overview-title h1 {
+    margin: 0;
+  } /* aus der Buildings.css*/
+
+.overview-title {
     height: 100px;
     width: 100%;
     border-bottom: var(--secondary-color) 2px solid;
@@ -14,13 +24,13 @@
     margin-bottom: 25px;
   }
   
-  .uebersicht-title > h1 {
+  .overview-title > h1 {
     color: white;
     padding-bottom: 5px;
     font-size: 5rem;
   }
 
-  .uebersicht-user{
+  .overview-user{
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.6);
     padding: 15px;
@@ -35,10 +45,10 @@
     align-items: center;
   }
   
-  .uebersicht-topcontent {
+  .overview-topcontent {
     width: 75%;
     height: 400px;
-    background-image: url(/uebersicht/uebersicht-hintergrund-2.jpg);
+    background-image: url(/overview/overview-background-2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     --edge-size: 1.25em;
@@ -59,7 +69,7 @@
     color: white;
   }
   
-  .uebersicht-midcontent {
+  .overview-midcontent {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -80,7 +90,7 @@
     margin-top: 35px;
   }
   
-  .uebersicht-status {
+  .overview-status {
     --edge-size: 1.25em;
     width: 225px;
     height: 140px;
@@ -105,7 +115,7 @@
       1px -2px 31px 34px rgba(0, 0, 0, 0);
   }
   
-  .uebersicht-status > h4 {
+  .overview-status > h4 {
     margin-bottom: 0.8rem;
     padding-bottom: 5px;
     border-bottom: 1px var(--secondary-color) solid;

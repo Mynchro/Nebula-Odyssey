@@ -161,7 +161,7 @@ const Buildings = () => {
 
   return (
     <div className="content-box">
-      <div className="uebersicht-title">
+      <div className="overview-title">
         <h1>Gebaeude</h1>
       </div>
 

@@ -27,11 +27,11 @@ ul {
   border-radius: 5px;
 }
 
-.uebersicht {
+/*.overview {
   --background-color: var(--tertiary-color);
   --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
   color: #0e1b24;
-}
+}*/
 
 .defense-top {
   border: 2px solid var(--primary-color);
