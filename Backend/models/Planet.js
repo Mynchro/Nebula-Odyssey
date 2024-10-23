@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { buildingSchema } from "./Buildings.js";
 // import { buildingSchema } from "./Buildings.js";
 import { resourceSchema } from "./Resources.js";
+import { shipSchema } from "./Ships.js";
 const { Schema } = mongoose;
 
 const planetSchema = new Schema({
@@ -16,6 +17,7 @@ const planetSchema = new Schema({
     default: "",
   },
   buildings: [buildingSchema], // Gebäude als Unterdokumente
+  ships: [shipSchema],
   resources: {
     type: resourceSchema, // Ressourcen bleiben gleich
     default: {},
