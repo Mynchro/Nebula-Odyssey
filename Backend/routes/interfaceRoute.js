@@ -1,17 +1,18 @@
 import express from "express";
 import {
-  upgradeBuilding,
-  downgradeBuilding,
-  getAllBuildings,
-  getUserResources,
+    upgradeBuilding,
+    downgradeBuilding,
+    getAllBuildings,
+    getUserResources,
+    getAllPlanets,
 } from "../controllers/interfaceController.js";
 
 const router = express.Router();
 
 router.post("/user/:userId/building/:buildingType/upgrade", upgradeBuilding);
 router.post(
-  "/user/:userId/building/:buildingType/downgrade",
-  downgradeBuilding
+    "/user/:userId/building/:buildingType/downgrade",
+    downgradeBuilding
 );
 router.get("/user/:userId/buildings", getAllBuildings);
 
@@ -20,6 +21,8 @@ router.get("/user/:userId/buildings", getAllBuildings);
 // GET: http://localhost:3000/api/user/6707f5b128946e558e271814/buildings für abfrufen aller Gebäude
 
 router.get("/user/:userId/resources", getUserResources);
+
+router.get("/planets", getAllPlanets);
 
 export default router;
 

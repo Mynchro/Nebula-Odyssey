@@ -14,6 +14,10 @@ const planetSchema = new Schema({
         required: true,
         default: "",
     },
+    image: {
+        type: String,
+        default: "",
+    },
     buildings: [buildingSchema], // Gebäude als Unterdokumente
     resources: {
         type: resourceSchema, // Ressourcen bleiben gleich

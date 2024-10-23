@@ -7,7 +7,7 @@ const Overview = () => {
   const { currentPlayer } = useContext(PlayerContext);
   const { userName, planets } = currentPlayer.user;
 
-  const { selectedPlanetName } = useOutletContext();
+  const { selectedPlanet } = useOutletContext();
 
   return (
     <div className="content-box">
@@ -17,7 +17,7 @@ const Overview = () => {
       <div className="topcontent">
         <div className="overview-topcontent">
           <h1 className="overview-user">
-            Willkommen auf {selectedPlanetName}, <em>{userName}</em>!
+            Willkommen auf {selectedPlanet.name}, <em>{userName}</em>!
           </h1>
         </div>
       </div>

@@ -29,7 +29,8 @@ const SharedLayout = () => {
         <Planets planets={planets} onPlanetSelect={handlePlanetSelect} />
         <main className='main-container'>
             <Menubox />
-            <Outlet context={{ selectedPlanetName: planets[selectedPlanetIndex].name }} />
+            <Outlet context={{ planets,
+                               selectedPlanet: planets[selectedPlanetIndex] }} />
             <Chatbox />
         </main>
         {/* footer */} 
