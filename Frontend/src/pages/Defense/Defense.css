@@ -27,11 +27,11 @@ ul {
   border-radius: 5px;
 }
 
-.uebersicht {
+/*.overview {
   --background-color: var(--tertiary-color);
   --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
   color: #0e1b24;
-}
+}*/
 
 .defense-top {
   border: 2px solid var(--primary-color);
@@ -107,7 +107,8 @@ ul {
   --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
   --border-width: 0.2em;
   --edge-size: 0.5em;
-  color: #0e1b24;
+  color: #f2f9ff;
+  font-weight: lighter;
   cursor: pointer;
   background: var(--background-color);
   padding: 0.5em 1.5em;
@@ -183,4 +184,5 @@ ul {
 .active {
   --background-color: linear-gradient(to bottom right, #091e2c, var(--secondary-color));
   color: white;
+  font-weight: bolder;
 }

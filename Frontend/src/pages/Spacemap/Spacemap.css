@@ -1,6 +1,6 @@
 .content-box div img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
   
   .galaxy {
@@ -21,10 +21,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 20%;
+    justify-content: space-between;
+    width: 28%;
+    height: 190px;
     background-color: var(--accent-color);
     border-radius: 10%;
     margin: 10px;
+    padding: 10px;
   }
   
   .planetnumber {
@@ -53,19 +56,19 @@
       background: var(--accent-color);
       border: 1px solid white;
   }
-  .planet-uebersicht{
+  .planet-overview{
     display: flex;
     justify-content: space-around;
     align-items: center;
     background: var(--accent-color);
-    width: 86%;
-    height: 185px;
+    width: 94%;
+    height: 245px;
     margin-top: 10px;
     border-radius: 25px;
   }
-  #planet-uebersicht-img{
-    width: 225px;
-    height: 225px;
+  #planet-overview-img{
+    width: 200px;
+    height: 200px;
   }
   
   .koordinate{

@@ -17,7 +17,7 @@ const Menubox = () => {
                 <button className="btn raumkarte">Raumkarte</button>
             </NavLink>
             <NavLink to='/buildings' className={({ isActive }) => isActive ? 'active' : ''}>
-                <button className="btn ziviler">Gebaeude</button>
+                <button className="btn ziviler">Gebäude</button>
             </NavLink>
             <NavLink to='/research' className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn forschung">Forschung</button>
