@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-export const PlanetBox = ({ number, image, circleColor, triangleColor, skullColor, planetName, playerName, onClick }) => {
+export const PlanetBox = ({ className, number, image, alt, circleColor, triangleColor, skullColor, planetName, playerName, onClick }) => {
   
     // Generiere eine zufällige Zahl zwischen 2 und 22 für den Fallback
     const getRandomPlanetImage = () => {
@@ -9,7 +9,7 @@ export const PlanetBox = ({ number, image, circleColor, triangleColor, skullColo
     };
   
     return (
-      <div className="planet-box" onClick={(e) => {
+      <div className={`planet-box ${className}`} onClick={(e) => {
           e.stopPropagation();
           onClick();
         }}>
@@ -25,7 +25,7 @@ export const PlanetBox = ({ number, image, circleColor, triangleColor, skullColo
   
         {/* Verwende entweder das Bild aus der API oder einen zufälligen Fallback */}
         <div>
-          <img src={image || getRandomPlanetImage()} alt="planet" />
+          <img src={image || getRandomPlanetImage()} alt={alt} />
         </div>
   
         <div className="planet-data">

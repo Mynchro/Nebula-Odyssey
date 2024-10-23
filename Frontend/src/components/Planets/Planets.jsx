@@ -21,7 +21,7 @@ const Planets = ({ planets, onPlanetSelect }) => {
             onClick={() => handlePlanetClick(index)} // Klick-Event für Planeten-Auswahl
             style={{ cursor: 'pointer' }} // Zeiger für bessere UX
           >
-            <img src={`/planets/p-${index + 1}.png`} alt={planet.name} />
+            <img src={planet.image || `/planets/p-${index + 1}.png`} alt={planet.name} />
           </div>
         ))}
       </div>

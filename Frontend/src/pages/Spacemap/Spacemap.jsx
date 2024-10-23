@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import "./Spacemap.css";
-import {PlanetBox} from "../../components/Spacemap/Planetbox";
+import { PlanetBox } from "../../components/Spacemap/Planetbox";
 
 const Spacemap = () => {
-  const [selectedPlanet, setSelectedPlanet] = useState(null);
+  const [choicePlanet, setChoicePlanet] = useState(null); // Umbenannt
   const [planets, setPlanets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const planetsPerPage = 9;
@@ -34,8 +34,8 @@ const Spacemap = () => {
   };
 
   return (
-    <div className="content-box" onClick={() => setSelectedPlanet(null)}>
-      <div className="sonnensystem">
+    <div className="content-box" onClick={() => setChoicePlanet(null)}>
+      <div className="solarsystem">
         <i className="fa-solid fa-spaghetti-monster-flying" style={{ color: '#ffffff' }}></i>
         <p>Sonnensystem</p>
         {/* Navigation zwischen den Seiten */}
@@ -46,7 +46,7 @@ const Spacemap = () => {
         >
           <span className="arrow-left"></span>
         </button>
-        <div className="koordinate">{String(currentPage).padStart(2, '0')}</div>
+        <div className="coordinate">{String(currentPage).padStart(2, '0')}</div>
         <button 
           className="arrow-button" 
           onClick={() => handlePageChange(currentPage + 1)} 
@@ -57,13 +57,13 @@ const Spacemap = () => {
       </div>
       <div className="galaxy">
       <div className="planet-overview">
-          {selectedPlanet ? (
+          {choicePlanet ? (
             <>
-              <img id="planet-overview-img" src={selectedPlanet.image} alt={selectedPlanet.name} />
+              <img id="planet-overview-img" src={choicePlanet.image} alt={choicePlanet.name} />
               <div>
-                <p>{selectedPlanet.name}</p>
-                <p>{selectedPlanet.owner ? selectedPlanet.owner : "Unknown Owner"}</p>
-                <p>{`Buildings: ${selectedPlanet.buildings.length}`}</p>
+                <p>{choicePlanet.name}</p>
+                <p>{choicePlanet.owner ? choicePlanet.owner : "Unknown Owner"}</p>
+                <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
               </div>
             </>
           ) : (
@@ -73,7 +73,7 @@ const Spacemap = () => {
         {currentPlanets.map((planet, index) => (
           <PlanetBox
             key={index}
-            number={index + 1 + indexOfFirstPlanet} // Korrekte Nummerierung
+            number={index + 1 + indexOfFirstPlanet}
             image={planet.image} 
             alt="planet"
             info={`Buildings: ${planet.buildings.length}`}
@@ -82,7 +82,9 @@ const Spacemap = () => {
             skullColor={"#0000ff"} 
             planetName={planet.name} 
             playerName={planet.owner ? planet.owner : "Unknown Owner"} 
-            onClick={() => setSelectedPlanet(planet)}
+            // Dynamisch eine Klasse hinzufügen, wenn der Planet ausgewählt ist
+            className={`planet-box ${choicePlanet && choicePlanet.name === planet.name ? 'choice' : ''}`} // Dynamische Klasse 'choice'
+            onClick={() => setChoicePlanet(planet)}
           />
         ))}
       </div>
@@ -91,3 +93,5 @@ const Spacemap = () => {
 };
 
 export default Spacemap;
+
+
