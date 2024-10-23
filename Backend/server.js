@@ -3,6 +3,7 @@ import { connectToDB } from "./libs/db.js";
 import userRoute from "./routes/userRoute.js";
 import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
+import shipYardRoute from "./routes/shipYardRoute.js"
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
 
@@ -17,6 +18,7 @@ await connectToDB();
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/api", interfaceRoute);
+app.use("/shipyard",shipYardRoute)
 
 // seedResources();
 createGameworld();

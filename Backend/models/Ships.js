@@ -104,7 +104,7 @@ export const shipSchema = new Schema({
 
 const ship = mongoose.model("ship", shipSchema);
 
-export default Ships;
+export default shipSchema;
 
 
 
