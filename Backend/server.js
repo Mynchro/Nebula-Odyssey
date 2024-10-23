@@ -5,6 +5,7 @@ import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
+import { calculateResources } from "./middleware/calculateResources.js";
 
 const port = 3000;
 const app = express();
@@ -20,10 +21,10 @@ app.use("/api", interfaceRoute);
 
 // seedResources();
 createGameworld();
-// calculateResources();
+//calculateResources();
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
 
 // const startServer = async () => {
