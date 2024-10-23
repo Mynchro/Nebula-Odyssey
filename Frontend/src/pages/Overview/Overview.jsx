@@ -17,7 +17,7 @@ const Overview = () => {
       <div className="topcontent">
         <div className="overview-topcontent">
           <h1 className="overview-user">
-            Willkommen, auf {selectedPlanetName} <em>{userName}</em>!
+            Willkommen auf {selectedPlanetName}, <em>{userName}</em>!
           </h1>
         </div>
       </div>
@@ -56,9 +56,9 @@ const Overview = () => {
             </p>
           </div>
           <div className="overview-status">
-            <h4>Gebaeude</h4>
+            <h4>Gebäude</h4>
             <p>
-              <em>Keine Gebaeude in Bau</em>
+              <em>Keine Gebäude in Bau</em>
             </p>
           </div>
         </div>
