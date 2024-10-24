@@ -1,3 +1,4 @@
+
 header {
     /*width: 100%;*/
     display: flex;
@@ -48,4 +49,13 @@ header {
     min-width: 100px;
     color: white;
   }
-  
+  .colorpicker{
+    background: transparent;
+    border: none;
+  }
+  .colorpickerbox{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    caret-color: transparent;
+  }

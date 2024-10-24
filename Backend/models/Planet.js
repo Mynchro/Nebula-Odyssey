@@ -23,6 +23,7 @@ const planetSchema = new Schema({
         type: resourceSchema, // Ressourcen bleiben gleich
         default: {},
     },
+    lastResourceUpdate: { type: Date, default: Date.now },
 });
 
 const Planet = mongoose.model("Planet", planetSchema);

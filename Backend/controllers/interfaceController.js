@@ -224,3 +224,37 @@ export const getAllPlanets = async (req, res) => {
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/downgrade für Mine downgrade
 // GET: http://localhost:3000/api/user/6707f5b128946e558e271814/buildings für abfrufen aller Gebäude
+
+export const updatePlayerColor = async (req, res) => {
+    try {
+        const { color } = req.body;
+        const player = await User.findByIdAndUpdate(
+            req.params.id,
+            { color },
+            { new: true }
+        );
+
+        if (!player) {
+            return res.status(404).json({ error: "Spieler nicht gefunden" });
+        }
+
+        res.json(player);
+    } catch (error) {
+        res.status(500).json({ error: "Fehler beim Aktualisieren der Farbe" });
+    }
+};
+
+// Controller zum Abrufen eines Spielers
+export const getPlayer = async (req, res) => {
+    try {
+        const player = await User.findById(req.params.id);
+
+        if (!player) {
+            return res.status(404).json({ error: "Spieler nicht gefunden" });
+        }
+
+        res.json(player); // Gibt das Spielerobjekt zurück
+    } catch (error) {
+        res.status(500).json({ error: "Fehler beim Abrufen des Spielers" });
+    }
+};
