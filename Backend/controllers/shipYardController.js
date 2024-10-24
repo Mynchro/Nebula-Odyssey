@@ -1,6 +1,8 @@
 import User from "../models/User.js";
-import Planet from "../models/Planet.js";
-
+import ship, { shipSchema } from "../models/Ships.js";
+import { connectToDB } from "../libs/db.js";
+import unitData from "../models/Data/unitData.js";
+import Unit from "../models/Data/unit.js";
 export const getUserResources = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -18,29 +20,67 @@ export const getUserResources = async (req, res) => {
     return res.status(500).send("Serverfehler");
   }
 };
-export const instantiateShips = async(req,res)=>{
-    try{
-        const userId = req.params;
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).send("Benutzer nicht gefunden!");
-          }
-          const ships = user.homePlanet.ships;
-          try{
-            console.log("hier");
-            console.log("ships");
-            console.log("hier");
-          }
-          catch{
-            console.log("funzt nicht")
-          }
-          
-          return res.status(200).json(ships);
+export const instantiateShips = async (req, res) => {
+  try {
+    await connectToDB();
+    const existingShips = await ship.find();
+    if (existingShips.length > 1) {
+      return res.status(400).send("es sind schon schiffe vorhanen")
     }
-    catch(error){
-    console.error("fehler beim abrufen der schiffe")
-    return res.status(500).send("serverfehler")
+    else { console.log("bis hier gehts noch") }
+    const ships = [];
+    const shipArray = [
+      new unitData.SchwererJaeger(),
+      new unitData.LeichterJaeger(),
+      new unitData.Bomber(),
+      new unitData.KleinerTransporter(),
+      new unitData.Fregatte(),
+      new unitData.MiningDrohne(),
+      new unitData.GrosserTransporter(),
+      new unitData.Zerstörer(),
+      new unitData.Kreuzer(),
+      new unitData.FlugDeckKreuzer(),
+      new unitData.KolonieSchiff(),
+      new unitData.BergBauSchiff(),
+      new unitData.SchlachtKreuzer(),
+      new unitData.SchlachtSchiff(),
+      new unitData.TraegerSchiff()
+
+    ]
+    console.log("bis hier gehts auch noch")
+    const shipTypes = shipSchema.path('shipType').enumValues;
+    shipTypes.forEach(type => {
+      
+
+      let matchingUnit;
+      const unitTypeStrings = Object.keys(Unit.unittype);
+shipArray.forEach(element => {
+  if(element instanceof Unit){
+    if (unitTypeStrings[element.unittype - 1] === type) {
+      matchingUnit = element; 
     }
+  }
+});
+      if (matchingUnit) {
+        const newShip = new ship();
+        newShip.setValues(type,matchingUnit)
+        ships.push(newShip);
+        //console.log(newShip.ressourceCosts)
+      }
+      else{console.log("geht nicht")}
+    });
+
+  }
+  catch (error) {
+    console.error("funzt nicht")
+  }
+  //const ships = ???;
+  console.log("hier");
+  console.log("ships");
+  console.log("hier");
+
+  //return res.status(200).json(ships);
+
 }
 // GET: http://localhost:3000/api/user/6707f5b128946e558e271814/resources für abfrufen aller Gebäude
 
@@ -119,7 +159,7 @@ export const sellShip = async (req, res) => {
         .send("Konnte nicht verkauft werden , es sind keine Schiffe dieses typs vorhanden");
     }
 
-   
+
     // verringere das Level um 1
     ship.amount -= 1;
 

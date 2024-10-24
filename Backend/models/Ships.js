@@ -1,6 +1,8 @@
 
 import mongoose from "mongoose";
 import { resourceSchema } from "./Resources.js";
+import unitData from "./Data/unitData.js";
+import Unit from "./Data/unit.js";
 const { Schema } = mongoose;
 
 
@@ -8,27 +10,27 @@ export const shipSchema = new Schema({
   shipType: {
     type: String,
     enum: [
-      "lighthunter",
-      "heavyhunter",
+      "lightHunter",
+      "heavyHunter",
       "bomber",
       "frigate",
-      "miningdrone",
-      "smalltransporter",
-      "largetransporter",
+      "miningDrone",
+      "smallTransporter",
+      "largeTransporter",
       "destroyer",
       "cruiser",
-      "smallcarrier",
-      "colonyship",
-      "miningship",
-      "battleship",
-      "battlecruiser",
+      "smallCarrier",
+      "colonyShip",
+      "miningShip",
+      "battleShip",
+      "battleCruiser",
       "carrier",
       "flak",
-      "ioncannon",
-      "lasercannon",
-      "railgun",
-      "particlecannon",
-      "planetaryshield"
+      "ionCannon",
+      "laserCannon",
+      "railGun",
+      "particleCannon",
+      "planetaryShield"
     ],
     required: true, // Es ist wichtig, den Gebäudetyp als erforderlich zu setzen
   },
@@ -100,13 +102,60 @@ export const shipSchema = new Schema({
     vsParticleCannon: { type: Number, default: 0 },
     vsPlanetaryShield: { type: Number, default: 0 }
   }
+  
 });
-
+shipSchema.methods.setValues = function(shipType, unit) {
+  this.shipType = shipType;
+  if(unit instanceof Unit){
+    this.ressourceCosts.steel = unit.steelcosts;
+    console.log(shipType)
+    console.log(this.ressourceCosts)
+  }
+  else{
+    console.log("fehler parameter ist nicht vom typ Unit")
+  }
+};
 const ship = mongoose.model("ship", shipSchema);
 
-export default shipSchema;
+export default ship;
 
-
+/*
+export const resourceSchema = new Schema({
+  silicon: {
+    type: Number,
+    default: 0,
+  },
+  ores: {
+    type: Number,
+    default: 0,
+  },
+  chemicals: {
+    type: Number,
+    default: 0,
+  },
+  fuel: {
+    type: Number,
+    default: 0,
+  },
+  energy: {
+    type: Number,
+    default: 0,
+  },
+  steel: {
+    type: Number,
+    default: 0,
+  },
+  electronics: {
+    type: Number,
+    default: 0,
+  },
+  ammo: {
+    type: Number,
+    default: 0,
+  },
+  // _id: false,
+});
+*/
 
 
 
