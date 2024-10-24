@@ -49,7 +49,7 @@ const calculatePlanetResources = async (planet) => {
 export async function calculateResources() {
     setInterval(async () => {
         try {
-            // Alle Planeten abrufen und die Gebäude befüllen
+            // Alle Planeten abrufen
             const planets = await Planet.find().populate("buildings");
 
             // Berechnung für jeden Planeten einzeln

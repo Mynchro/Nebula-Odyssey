@@ -44,6 +44,9 @@ const Defense = () => {
 
   return (
     <div className="content-box">
+      <div className="overview-title">
+        <h1>Verteidigungsanlagen</h1>
+      </div>
       <div className="defense-top">
         <div className="defense-info">
           <h3>Deine Verteidigungsanlagen</h3>

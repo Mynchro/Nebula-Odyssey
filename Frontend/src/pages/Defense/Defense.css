@@ -26,26 +26,19 @@ ul {
   margin: 5px 0;
   border-radius: 5px;
 }
-
-/*.overview {
-  --background-color: var(--tertiary-color);
-  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
-  color: #0e1b24;
-}*/
-
 .defense-top {
   border: 2px solid var(--primary-color);
   width: 95%;
   height: 500px;
-  margin-bottom: 40px;
+  margin-top: -10px;
   display: flex;
   border-radius: 10px;
-  padding: 25px 0 0 25px;
+  padding: 0px 0 0 25px;
 }
 
 .defense-info {
   width: 200px;
-  height: 100%;
+  height: 90%;
   border: 2px solid var(--secondary-color);
   margin: auto 0;
   padding: 10px;
