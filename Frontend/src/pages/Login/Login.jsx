@@ -11,11 +11,20 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { setCurrentPlayer } = useContext(PlayerContext);
+  const { handleLogin } = useContext(PlayerContext);
   const [isRegistered, setIsRegistered] = useState(false); // State für Modus (Login/Register)
   const navigate = useNavigate();
 
-  const handleLogin = async (data) => {
+  const onSubmit = (data) => {
+    if (isRegistered) {
+      handleRegister(data);
+    } else {
+      handleLogin(data);
+      navigate("/overview") // <----
+    }
+  };
+
+  /*const handleLogin = async (data) => {
     console.log(data);
     try {
       const response = await fetch("http://localhost:3000/user/login", {
@@ -36,7 +45,7 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed:", error);
     }
-  };
+  };*/
   const handleRegister = async (data) => {
     try {
       const response = await fetch("http://localhost:3000/user/register", {
@@ -53,14 +62,6 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Registration failed:", error);
-    }
-  };
-
-  const onSubmit = (data) => {
-    if (isRegistered) {
-      handleRegister(data);
-    } else {
-      handleLogin(data);
     }
   };
 

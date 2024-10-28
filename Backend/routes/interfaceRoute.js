@@ -27,8 +27,8 @@ router.get("/user/:userId/buildings", getAllBuildings);
 router.get("/user/:userId/resources", getUserResources);
 
 router.get("/planets", getAllPlanets);
-router.put("/user/:id", updatePlayerColor);
-router.get("/user/:id", getPlayer);
+router.put("/user/:userId", updatePlayerColor);
+router.get("/user/:userId", getPlayer);
 
 export default router;
 

@@ -227,18 +227,19 @@ export const getAllPlanets = async (req, res) => {
 
 export const updatePlayerColor = async (req, res) => {
     try {
+        const { userId } = req.params;
         const { color } = req.body;
-        const player = await User.findByIdAndUpdate(
-            req.params.id,
-            { color },
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { "settings.color": color },
             { new: true }
         );
 
-        if (!player) {
+        if (!user) {
             return res.status(404).json({ error: "Spieler nicht gefunden" });
         }
 
-        res.json(player);
+        res.json(user);
     } catch (error) {
         res.status(500).json({ error: "Fehler beim Aktualisieren der Farbe" });
     }
@@ -247,13 +248,14 @@ export const updatePlayerColor = async (req, res) => {
 // Controller zum Abrufen eines Spielers
 export const getPlayer = async (req, res) => {
     try {
-        const player = await User.findById(req.params.id);
+        const { userId } = req.params;
+        const user = await User.findById(userId);
 
-        if (!player) {
+        if (!user) {
             return res.status(404).json({ error: "Spieler nicht gefunden" });
         }
 
-        res.json(player); // Gibt das Spielerobjekt zurück
+        res.json(user); // Gibt das Spielerobjekt zurück
     } catch (error) {
         res.status(500).json({ error: "Fehler beim Abrufen des Spielers" });
     }

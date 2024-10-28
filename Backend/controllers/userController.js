@@ -92,8 +92,12 @@ export const login = async (req, res) => {
 
         return res.status(200).json({
             message: "Login erfolgreich!",
-            user: { userName: user.userName, planets: user.planets },
-            completeUser: user,
+            user: {
+                userName: user.userName,
+                planets: user.planets,
+                _id: user._id,
+            },
+            //completeUser: user,
         });
     } catch (error) {
         console.error("Fehler beim Login:", error);

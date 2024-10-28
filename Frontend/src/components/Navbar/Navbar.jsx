@@ -3,14 +3,24 @@ import { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { PlayerContext } from "../../context/PlayerContext";
 import Audio from "../Audio/Audio";
-import axios from 'axios'; // Für die API-Anfragen
+import axios from 'axios';
 
 const Navbar = () => {
   const { currentPlayer, setCurrentPlayer } = useContext(PlayerContext);
-  const { userName, color: initialColor } = currentPlayer.user; // 'color' wird genutzt, falls der Spieler schon eine Farbe gespeichert hat
+  const userName = currentPlayer?.userName;
 
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(initialColor || "#ffffff"); // Standardfarbe
+  const [selectedColor, setSelectedColor] = useState('#ffffff'); // Setze einen Standardwert
+
+  useEffect(() => {
+    if (currentPlayer?.user) {
+      // Setze die Farbe beim Laden der Benutzereinstellungen
+      const initialColor = currentPlayer.user.settings?.color || '#ffffff'; // Fallback auf Weiß
+      setSelectedColor(initialColor);
+      document.documentElement.style.setProperty('--secondary-color', initialColor);
+      console.log("Farbe geladen:", initialColor);
+    }
+  }, [currentPlayer]);
 
   // Funktion, die den Farbwechsel handhabt
   const handleColorChange = async (e) => {
@@ -18,25 +28,31 @@ const Navbar = () => {
     setSelectedColor(newColor);
 
     // Spieler-Daten aktualisieren
-    const updatedPlayer = { ...currentPlayer, user: { ...currentPlayer.user, color: newColor } };
+    const updatedPlayer = { 
+      ...currentPlayer, 
+      user: {
+        ...currentPlayer.user, 
+        settings: { color: newColor } 
+      } 
+    };
     setCurrentPlayer(updatedPlayer);
 
-    try {
-      // Farbe in der Datenbank speichern
-      const response = await axios.put(`http://localhost:3000/api/user/${currentPlayer.user._id}`, { color: newColor });
-      console.log("Farbe erfolgreich gespeichert", response.data);
+    if (!currentPlayer?.user?._id) {
+      console.error("Benutzer-ID ist nicht definiert");
+      return;
+    }
 
-      // CSS-Variable aktualisieren
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/user/${currentPlayer.user._id}`,
+        { color: newColor }
+      );
+      console.log("Farbe erfolgreich gespeichert", response.data);
       document.documentElement.style.setProperty('--secondary-color', newColor);
     } catch (error) {
       console.error("Fehler beim Speichern der Farbe", error);
     }
   };
-
-  // Setze die Farbe beim ersten Laden der Komponente
-  useEffect(() => {
-    document.documentElement.style.setProperty('--secondary-color', selectedColor);
-  }, [selectedColor]);
 
   return (
     <header>
@@ -52,7 +68,7 @@ const Navbar = () => {
       </div>
 
       <div className="player">
-        <a href="#">{userName || ""}</a>
+        <a href="#">{userName}</a>
       </div>
       <div className="audio">
         <Audio />
@@ -73,6 +89,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-

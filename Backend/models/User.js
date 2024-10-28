@@ -37,7 +37,10 @@ const userSchema = new Schema({
         unique: true,
     },
     settings: {
-        type: Object,
+        color: {
+            type: String, // Hex-Wert oder Farbcodes als String
+            default: "#ffffff", // Standardfarbe (z. B. Weiß)
+        },
     },
     planets: [
         {

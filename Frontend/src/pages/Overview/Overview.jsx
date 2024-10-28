@@ -5,9 +5,16 @@ import { useOutletContext } from "react-router-dom";
 
 const Overview = () => {
   const { currentPlayer } = useContext(PlayerContext);
-  const { userName, planets } = currentPlayer.user;
+
+  const userName = currentPlayer.userName || "Guest";
+  const planets = currentPlayer.planets || [];
 
   const { selectedPlanet } = useOutletContext();
+  const planetName = selectedPlanet ? selectedPlanet.name : "Unknown Planet";
+
+  console.log("Aktueller Spieler:", currentPlayer);
+  console.log("Benutzername:", userName);
+  console.log("Aktueller Planet:", selectedPlanet);
 
   return (
     <div className="content-box">
@@ -17,7 +24,7 @@ const Overview = () => {
       <div className="topcontent">
         <div className="overview-topcontent">
           <h1 className="overview-user">
-            Willkommen auf {selectedPlanet.name}, <em>{userName}</em>!
+            Willkommen auf {planetName}, <em>{userName}</em>!
           </h1>
         </div>
       </div>

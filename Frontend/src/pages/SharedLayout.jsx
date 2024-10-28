@@ -13,7 +13,7 @@ const SharedLayout = () => {
     const [selectedPlanetIndex, setSelectedPlanetIndex] = useState(0); // State für den ausgewählten Planeten
 
     // Hol das Planeten-Array vom aktuellen Spieler
-    const planets = currentPlayer.user.planets || [];
+    const planets = currentPlayer?.planets || [];
 
     // Funktion zum Aktualisieren des ausgewählten Planeten
     const handlePlanetSelect = (index) => {
@@ -24,7 +24,7 @@ const SharedLayout = () => {
         {/* nav/header */}
         <Navbar />
         {planets.length > 0 && (
-        <Ressourcebar resources={planets[selectedPlanetIndex].resources} />
+        <Ressourcebar resources={planets[selectedPlanetIndex]?.resources} />
       )}
         <Planets planets={planets} onPlanetSelect={handlePlanetSelect} />
         <main className='main-container'>
