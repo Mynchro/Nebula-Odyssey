@@ -1,7 +1,7 @@
 .comingSoon-img{
     display: flex;
     justify-content: center;
-    background-image: url(/public/background-img/comingsoon.jpg);
+    background-image: url(/background-img/comingsoon.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 1000px;

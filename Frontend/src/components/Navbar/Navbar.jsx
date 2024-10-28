@@ -18,7 +18,6 @@ const Navbar = () => {
       const initialColor = currentPlayer.user.settings?.color || '#ffffff'; // Fallback auf Weiß
       setSelectedColor(initialColor);
       document.documentElement.style.setProperty('--secondary-color', initialColor);
-      console.log("Farbe geladen:", initialColor);
     }
   }, [currentPlayer]);
 
@@ -60,7 +59,9 @@ const Navbar = () => {
         <NavLink to="/overview" className={({ isActive }) => (isActive ? "active" : "")}>HOME</NavLink>
         <NavLink to="/comingsoon" className={({ isActive }) => (isActive ? "active" : "")}>NOTIZEN</NavLink>
         <NavLink to="/comingsoon" className={({ isActive }) => (isActive ? "active" : "")}>HIGHSCORE</NavLink>
-        <NavLink className="colorpicker" onClick={() => setShowColorPicker(!showColorPicker)}>EINSTELLUNGEN</NavLink>
+        <NavLink to="#" className={({ isActive }) => (isActive ? "active colorpicker" : "colorpicker")} onClick={() => setShowColorPicker(!showColorPicker)}>
+    EINSTELLUNGEN
+</NavLink>
         <NavLink to="/comingsoon" className={({ isActive }) => (isActive ? "active" : "")}>SUPPORT</NavLink>
         <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
           {currentPlayer && currentPlayer.userName === "Guest" ? "LOGIN" : "LOGOUT"}

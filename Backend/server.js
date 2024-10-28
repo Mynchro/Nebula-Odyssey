@@ -5,7 +5,7 @@ import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
-//import { startResourceCalculation } from "./middleware/scheduler.js";
+import { startResourceCalculation } from "./middleware/scheduler.js";
 
 const port = 3000;
 const app = express();

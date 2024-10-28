@@ -20,7 +20,7 @@ const Login = () => {
       handleRegister(data);
     } else {
       handleLogin(data);
-      navigate("/overview") // <----
+      navigate("/overview");
     }
   };
 
