@@ -24,10 +24,9 @@ export const instantiateShips = async (req, res) => {
   try {
     await connectToDB();
     const existingShips = await ship.find();
-    if (existingShips.length > 1) {
-      return res.status(400).send("es sind schon schiffe vorhanen")
+    if (existingShips.length > 0) {
+      await ship.deleteMany({});
     }
-    else { console.log("bis hier gehts noch") }
     const ships = [];
     const shipArray = [
       new unitData.SchwererJaeger(),
@@ -44,46 +43,49 @@ export const instantiateShips = async (req, res) => {
       new unitData.BergBauSchiff(),
       new unitData.SchlachtKreuzer(),
       new unitData.SchlachtSchiff(),
-      new unitData.TraegerSchiff()
+      new unitData.TraegerSchiff(),
+      new unitData.FlakGeschütz(),
+      new unitData.Artillerie(),
+      new unitData.LaserGeschütz(),
+      new unitData.IonenKanone(),
+      new unitData.PartikelKanone(),
+      new unitData.PlanetarerSchildGenerator()
 
     ]
-    console.log("bis hier gehts auch noch")
     const shipTypes = shipSchema.path('shipType').enumValues;
     shipTypes.forEach(type => {
-      
+
 
       let matchingUnit;
       const unitTypeStrings = Object.keys(Unit.unittype);
-shipArray.forEach(element => {
-  if(element instanceof Unit){
-    if (unitTypeStrings[element.unittype - 1] === type) {
-      matchingUnit = element; 
-    }
-  }
-});
+      shipArray.forEach(element => {
+        if (element instanceof Unit) {
+          if (unitTypeStrings[element.unittype - 1] === type) {
+            matchingUnit = element;
+          }
+        }
+      });
       if (matchingUnit) {
         const newShip = new ship();
-        newShip.setValues(type,matchingUnit)
+        newShip.setValues(type, matchingUnit)
         ships.push(newShip);
+        newShip.save();
         //console.log(newShip.ressourceCosts)
       }
-      else{console.log("geht nicht")}
+      else { console.log("geht nicht") }
     });
-
+    res.status(200).send("Schiffe erfolgreich erstellt und gespeichert");
   }
   catch (error) {
-    console.error("funzt nicht")
+    res.status(500).send("Fehler beim Erstellen der Schiffe");
   }
-  //const ships = ???;
-  console.log("hier");
-  console.log("ships");
-  console.log("hier");
 
   //return res.status(200).json(ships);
 
 }
-// GET: http://localhost:3000/api/user/6707f5b128946e558e271814/resources für abfrufen aller Gebäude
-
+//"/user/:userId/ship/:shipType/buildShip"
+// GET: http://localhost:3000/shipyard/user/6707f5b128946e558e271814/ship/lightHunter/buildShip
+// POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
 export const buildShip = async (req, res) => {
   try {
     const { userId, shipType } = req.params;
@@ -105,7 +107,7 @@ export const buildShip = async (req, res) => {
 
     // console.log("Verfügbare Gebäude:", homePlanet.buildings); // Debugging
 
-    // Suche das Gebäude anhand des buildingType im Heimatplaneten
+    // Suche das Gebäude anhand des buildingType im planeten
     const ship = planet.ships.find(
       (s) => s.shipType.toLowerCase() === shipType.toLowerCase()
     );

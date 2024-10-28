@@ -108,8 +108,68 @@ shipSchema.methods.setValues = function(shipType, unit) {
   this.shipType = shipType;
   if(unit instanceof Unit){
     this.ressourceCosts.steel = unit.steelcosts;
-    console.log(shipType)
-    console.log(this.ressourceCosts)
+    this.ressourceCosts.electronics = unit.mikroshipkosten;
+    this.ressourceCosts.energy = unit.energycosts;
+    this.ressourceCosts.chemicals = unit.chemicalcost;
+
+    this.values.firepower = unit.firepower;
+    this.values.hull = unit.hull;
+    this.values.shield = unit.shield;
+    this.values.speed = unit.speed;
+    this.values.fuelConsume = unit.fuelconsume;
+    this.values.ammoConsume = unit.ammoconsume;
+    this.values.cargo = unit.cargo;
+    this.values.hangarSlots = unit.hangaring;
+
+    this.rapidFire.vsLightHunter = unit.rapidfirevsleichterjaeger;
+    this.rapidFire.vsHeavyHunter = unit.rapidfirevsschwererjaeger;
+    this.rapidFire.vsBomber = unit.rapidfirevsbomber;
+    this.rapidFire.vsFrigate = unit.rapidfirevsfregatte;
+    this.rapidFire.vsSmallTransporter = unit.rapidfirevskleinertransporter;
+    this.rapidFire.vsLargeTransporter = unit.rapidfirevsgroßertransporter;
+    this.rapidFire.vsMiningDrone = unit.rapidfirevsminingdrohne;
+    this.rapidFire.vsDestroyer = unit.rapidfirevszerstörer;
+    this.rapidFire.vsCruiser = unit.rapidfirevskreuzer;
+    this.rapidFire.vsSmallCarrier = unit.rapidfirevsflugdeckkreuzer;
+    this.rapidFire.vsColonyShip = unit.rapidfirevskolonieschiff;
+    this.rapidFire.vsMiningShip = unit.rapidfirevsbergbauschiff;
+    this.rapidFire.vsBattleship = unit.rapidfirevsschlachtschiff;
+    this.rapidFire.vsBattlecruiser = unit.rapidfirevsschlachtkreuzer;
+    this.rapidFire.vsCarrier = unit.rapidfirevstraegerschiff;
+    this.rapidFire.vsFlak = unit.rapidfirevsflakgeschütz;
+    this.rapidFire.vsIonCannon = unit.rapidfirevsionenkanone;
+    this.rapidFire.vsLaserCannon = unit.rapidfirevslasergeschütz;
+    this.rapidFire.vsRailgun = unit.rapidfirevsrailgun;
+    this.rapidFire.vsParticleCannon = unit.rapidfirevspartikelkanone;
+    this.rapidFire.vsPlanetaryShield = unit.rapidfirevsplanetarerschildgenerator;
+
+    this.dmgVs.vsLightHunter = unit.dmgversusleichterjaeger;
+    this.dmgVs.vsHeavyHunter = unit.dmgversusschwererjaeger;
+    this.dmgVs.vsBomber = unit.dmgversusbomber;
+    this.dmgVs.vsFrigate = unit.dmgversusfregatte;
+    this.dmgVs.vsSmallTransporter = unit.dmgversuskleinertransporter;
+    this.dmgVs.vsLargeTransporter = unit.dmgversusgrossertransporter;
+    this.dmgVs.vsMiningDrone = unit.dmgversusminingdrohne;
+    this.dmgVs.vsDestroyer = unit.dmgversuszerstörer;
+    this.dmgVs.vsCruiser = unit.dmgversuskreuzer;
+    this.dmgVs.vsSmallCarrier = unit.dmgversusflugdeckkreuzer;
+    this.dmgVs.vsColonyShip = unit.dmgversuskolonieschiff;
+    this.dmgVs.vsMiningShip = unit.dmgversusbergbauschiff;
+    this.dmgVs.vsBattleship = unit.dmgversusschlachtschiff;
+    this.dmgVs.vsBattlecruiser = unit.dmgversusschlachtkreuzer;
+    this.dmgVs.vsCarrier = unit.dmgversustraegerschiff;
+    this.dmgVs.vsFlak = unit.dmgversusflakgeschütz;
+    this.dmgVs.vsIonCannon = unit.dmgversusionenkanone;
+    this.dmgVs.vsLaserCannon = unit.dmgversuslasergeschütz;
+    this.dmgVs.vsRailgun = unit.dmgversusrailgun;
+    this.dmgVs.vsParticleCannon = unit.dmgversuspartikelkanone;
+    this.dmgVs.vsPlanetaryShield = unit.dmgversusplanetarerschildgenerator;
+
+    console.log(shipType);
+    console.log(this.ressourceCosts);
+    console.log(this.values);
+    console.log(this.rapidFire);
+    console.log(this.dmgVs);
   }
   else{
     console.log("fehler parameter ist nicht vom typ Unit")

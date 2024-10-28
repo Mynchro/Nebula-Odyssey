@@ -66,8 +66,8 @@ class Bomber extends Unit {
     this.hangaring = -3;
     this.cargo = 500;
     this.unittype = Unit.unittype.bomber;
-    this.dmgversusleichterjaeger = -950;
-    this.dmgversusschwererjaeger = -950;
+    this.dmgversusleichterjaeger = (this.firepower / 100) * -95;
+    this.dmgversusschwererjaeger = (this.firepower / 100) * -95;
     this.rapidfirevszerstörer = 10;
     this.rapidfirevsschlachtschiff = 20;
     this.rapidfirevsschlachtkreuzer = 20;
@@ -388,7 +388,7 @@ class Artillerie extends Unit {
     this.ammoconsume = 50;
     this.hangaring = 0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.artillerie;
+    this.unittype = Unit.unittype.flak;
   }
 }
 class IonenKanone extends Unit {
@@ -408,7 +408,7 @@ class IonenKanone extends Unit {
     this.ammoconsume = 0;
     this.hangaring = 0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.ionenkanone;
+    this.unittype = Unit.unittype.ionCannon;
   }
 }
 class LaserGeschütz extends Unit {
@@ -428,7 +428,7 @@ class LaserGeschütz extends Unit {
     this.ammoconsume = 0;
     this.hangaring = -0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.lasergeschuetz;
+    this.unittype = Unit.unittype.laserCannon;
   }
 }
 class Railgun extends Unit {
@@ -448,7 +448,7 @@ class Railgun extends Unit {
     this.ammoconsume = 300;
     this.hangaring = 0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.railgun;
+    this.unittype = Unit.unittype.railGun;
     this.dmgversusschlachtschiff = (this.firepower / 100) * 100;
     this.dmgversusschlachtkreuzer = (this.firepower / 100) * 100;
     this.rapidfirevszerstörer = 5;
@@ -472,7 +472,7 @@ class PartikelKanone extends Unit {
     this.ammoconsume = 0;
     this.hangaring = 0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.partikelkanone;
+    this.unittype = Unit.unittype.particleCannon;
     this.rapidfirevsschlachtschiff = 5;
     this.rapidfirevszerstörer = 5;
     this.rapidfirevstraegerschiff = 5;
@@ -496,7 +496,7 @@ class PlanetarerSchildGenerator extends Unit {
     this.ammoconsume = 0;
     this.hangaring = 0;
     this.cargo = 0;
-    this.unittype = Unit.unittype.planetarerschildgenerator;
+    this.unittype = Unit.unittype.planetaryShield;
   }
 }
 

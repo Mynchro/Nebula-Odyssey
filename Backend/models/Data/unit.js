@@ -3,6 +3,7 @@ export default class Unit {
   static steelcosts;
   static chemicalcost;
   static energycosts;
+  static mikroshipkosten;
   static firepower;
   static hull;
   static shield;
@@ -112,13 +113,13 @@ export default class Unit {
     battleCruiser: 14,
     carrier: 15,
 
-    flakgeschütz: 16,
+    flak: 16,
     artillerie: 17,
-    ionenkanone: 18,
-    lasergeschütz: 19,
-    railgun: 20,
-    partikelkanone: 21,
-    planetarerschildgenerator: 22,
+    ionCannon: 18,
+    laserCannon: 19,
+    railGun: 20,
+    particleCannon: 21,
+    planetaryShield: 22,
   };
 
   damageVersus(enemy) {
