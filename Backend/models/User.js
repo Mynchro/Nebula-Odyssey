@@ -48,6 +48,12 @@ const userSchema = new Schema({
             ref: "Planet",
         },
     ],
+    score: {
+        type: Number,
+    },
+    notes: {
+        type: Object,
+    },
 });
 
 // don't send password/email as server-response
