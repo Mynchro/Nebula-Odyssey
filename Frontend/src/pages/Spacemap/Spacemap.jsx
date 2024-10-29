@@ -83,7 +83,7 @@ const Spacemap = () => {
             planetName={planet.name} 
             playerName={planet.owner ? planet.owner : "Unknown Owner"} 
             // Dynamisch eine Klasse hinzufügen, wenn der Planet ausgewählt ist
-            className={`planet-box ${choicePlanet && choicePlanet.name === planet.name ? 'choice' : ''}`} // Dynamische Klasse 'choice'
+            className={`planet-box ${choicePlanet && choicePlanet._id === planet._id ? 'choice' : ''}`} // Dynamische Klasse 'choice'
             onClick={() => setChoicePlanet(planet)}
           />
         ))}

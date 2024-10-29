@@ -34,6 +34,9 @@ export const buildingSchema = new Schema({
         type: Number,
         default: 0,
     },
+    status: {
+        type: Boolean,
+    },
     originalBuildingId: {
         type: Schema.Types.ObjectId, // Füge die originalBuildingId hinzu
     },

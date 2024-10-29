@@ -1,0 +1,497 @@
+    [
+        {
+            "buildingType": "Mine",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 10,
+                "steel": 50,
+                "electronics": 20,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 50,
+                "ores": 50,
+                "chemicals": 50,
+                "fuel": 0,
+                "energy": -10,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Refinery",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 40,
+                "steel": 80,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": -40,
+                "ores": -40,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": -20,
+                "steel": 40,
+                "electronics": 40,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Fuelfactory",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 100,
+                "steel": 200,
+                "electronics": 100,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": -50,
+                "fuel": 100,
+                "energy": -50,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Solarplant",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 100,
+                "electronics": 80,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 30,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Powerplant",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 150,
+                "steel": 200,
+                "electronics": 120,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": -80,
+                "energy": 100,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Ammofactory",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 500,
+                "steel": 500,
+                "electronics": 300,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": -100,
+                "fuel": 0,
+                "energy": -100,
+                "steel": -200,
+                "electronics": 0,
+                "ammo": 200
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Fueldepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 200,
+                "steel": 1000,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {},
+            "storageCapacity": 10000
+        },
+        {
+            "buildingType": "Chemicaldepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 200,
+                "steel": 1000,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {},
+            "storageCapacity": 10000
+        },
+        {
+            "buildingType": "Oredepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 100,
+                "fuel": 0,
+                "energy": 500,
+                "steel": 2000,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {},
+            "storageCapacity": 10000
+        },
+        {
+            "buildingType": "Ammodepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 500,
+                "steel": 1500,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {},
+            "storageCapacity": 20000
+        },
+        {
+            "buildingType": "Energystorage",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 1000,
+                "steel": 1000,
+                "electronics": 500,
+                "ammo": 0
+            },
+            "productionRate": {},
+            "storageCapacity": 20000
+        },
+        {
+            "buildingType": "Junkyard",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Recycler",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Spycenter",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "smallShipyard",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "mediumShipyard",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "largeShipyard",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Steeldepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Silicondepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        },
+        {
+            "buildingType": "Mikrochipdepot",
+            "level": 1,
+            "status": false,
+            "constructionTime": 30,
+            "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "storageCapacity": 0
+        }
+    ]
