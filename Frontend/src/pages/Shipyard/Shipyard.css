@@ -12,8 +12,9 @@ h4 {
     gehighlighted ist */
 
 .werften-title {
-  width: 100%;
+  width: 97%;
   height: 50rem;
+  margin: 15px auto 0 auto;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
