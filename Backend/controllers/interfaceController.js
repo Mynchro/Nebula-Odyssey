@@ -213,7 +213,7 @@ export const getAllBuildings = async (req, res) => {
 
 export const getAllPlanets = async (req, res) => {
     try {
-        const planets = await Planet.find();
+        const planets = await Planet.find().populate("owner", "userName");
         res.json(planets);
     } catch (error) {
         console.error("Fehler beim Abrufen der Planeten:", error);

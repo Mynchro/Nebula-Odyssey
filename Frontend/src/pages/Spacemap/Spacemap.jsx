@@ -61,8 +61,8 @@ const Spacemap = () => {
             <>
               <img id="planet-overview-img" src={choicePlanet.image} alt={choicePlanet.name} />
               <div>
-                <p>{choicePlanet.name}</p>
-                <p>{choicePlanet.owner ? choicePlanet.owner : "Unknown Owner"}</p>
+                <p>{`Planetname: ${choicePlanet.name}`}</p>
+                <p>{`Besitzer: ${choicePlanet.owner ? choicePlanet.owner.userName : "Unknown Owner"}`}</p>
                 <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
               </div>
             </>
@@ -81,7 +81,7 @@ const Spacemap = () => {
             triangleColor={"#00ff00"}
             skullColor={"#0000ff"} 
             planetName={planet.name} 
-            playerName={planet.owner ? planet.owner : "Unknown Owner"} 
+            playerName={planet.owner ? planet.owner.userName : "Unknown Owner"} 
             // Dynamisch eine Klasse hinzufügen, wenn der Planet ausgewählt ist
             className={`planet-box ${choicePlanet && choicePlanet._id === planet._id ? 'choice' : ''}`} // Dynamische Klasse 'choice'
             onClick={() => setChoicePlanet(planet)}

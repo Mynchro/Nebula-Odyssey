@@ -7,7 +7,6 @@ const planetSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        default: null,
     },
     name: {
         type: String,
