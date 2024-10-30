@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.post("/user/:userId/ship/:shipType/buildShip", buildShip);
+router.post("/user/:userId/ship/:shipType/buildShip/:planetId", buildShip);
 router.post(
   "/user/:userId/building/:buildingType/downgrade",
   sellShip
