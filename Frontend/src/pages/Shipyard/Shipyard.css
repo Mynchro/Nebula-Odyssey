@@ -3,14 +3,6 @@ h4 {
   color: white;
 }
 
-/* .werften {
-  --background-color: linear-gradient(to bottom right, #0e1b24, #72203b);
-  color: white;
-} */
-
-/* Muss in jeder Seite eingefügt werden, da der button durch die home.css sonst immer 
-    gehighlighted ist */
-
 .werften-title {
   width: 97%;
   height: 50rem;

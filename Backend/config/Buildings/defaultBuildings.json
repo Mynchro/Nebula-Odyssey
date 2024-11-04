@@ -3,6 +3,7 @@
             "buildingType": "Mine",
             "level": 1,
             "status": false,
+            "category": "Produktion",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -30,6 +31,7 @@
             "buildingType": "Refinery",
             "level": 1,
             "status": false,
+            "category": "Veredelung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -57,6 +59,7 @@
             "buildingType": "Fuelfactory",
             "level": 1,
             "status": false,
+            "category": "Produktion",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -84,6 +87,7 @@
             "buildingType": "Solarplant",
             "level": 1,
             "status": false,
+            "category": "Produktion",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -111,6 +115,7 @@
             "buildingType": "Powerplant",
             "level": 1,
             "status": false,
+            "category": "Produktion",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -138,6 +143,7 @@
             "buildingType": "Ammofactory",
             "level": 1,
             "status": false,
+            "category": "Produktion",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -165,6 +171,7 @@
             "buildingType": "Fueldepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -183,6 +190,7 @@
             "buildingType": "Chemicaldepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -201,6 +209,7 @@
             "buildingType": "Oredepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -219,6 +228,7 @@
             "buildingType": "Ammodepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -237,6 +247,7 @@
             "buildingType": "Energystorage",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -255,6 +266,7 @@
             "buildingType": "Junkyard",
             "level": 1,
             "status": false,
+            "category": "Veredelung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -282,6 +294,7 @@
             "buildingType": "Recycler",
             "level": 1,
             "status": false,
+            "category": "Veredelung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -309,6 +322,7 @@
             "buildingType": "Spycenter",
             "level": 1,
             "status": false,
+            "category": "Überwachung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -336,6 +350,7 @@
             "buildingType": "smallShipyard",
             "level": 1,
             "status": false,
+            "category": "Werften",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -363,6 +378,7 @@
             "buildingType": "mediumShipyard",
             "level": 1,
             "status": false,
+            "category": "Werften",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -390,6 +406,7 @@
             "buildingType": "largeShipyard",
             "level": 1,
             "status": false,
+            "category": "Werften",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -417,6 +434,7 @@
             "buildingType": "Steeldepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -444,6 +462,7 @@
             "buildingType": "Silicondepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
@@ -471,6 +490,7 @@
             "buildingType": "Mikrochipdepot",
             "level": 1,
             "status": false,
+            "category": "Lagerung",
             "constructionTime": 30,
             "constructionCosts": {
                 "silicon": 0,
