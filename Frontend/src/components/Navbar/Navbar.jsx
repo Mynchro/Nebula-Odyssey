@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import { useState, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { PlayerContext } from "../../context/PlayerContext";
+import { defaultUser_DEV, PlayerContext } from "../../context/PlayerContext";
 import Audio from "../Audio/Audio";
 import axios from "axios";
 
@@ -21,7 +21,7 @@ const Navbar = () => {
         {},
         { withCredentials: true }
       );
-      setCurrentPlayer(null);
+      setCurrentPlayer(defaultUser_DEV);
       navigate("/");
     } catch (error) {
       console.error("Fehler beim Logout:", error);
