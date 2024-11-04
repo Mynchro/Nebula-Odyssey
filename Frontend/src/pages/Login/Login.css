@@ -40,7 +40,7 @@
 
 .login-title {
   font-size: 5rem;
-  text-shadow: 0 0 15px var(--secondary-color), 0 0 10px var(--secondary-color);
+  text-shadow: 0 0 15px #15cdd7, 0 0 10px #048087;
   margin-bottom: 15px;
 }
 

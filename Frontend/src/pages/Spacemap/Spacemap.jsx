@@ -1,82 +1,97 @@
-/* eslint-disable react/prop-types */
-import React, {useState} from "react";
-import "./Spacemap.css"
-import planetsData from "../../assets/data/planets";
-
-const PlanetBox = ({ number, image, circleColor, triangleColor, skullColor, planetName, playerName, onClick }) => (
-  <div className="planet-box" onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-            }}>
-    <div className="planetnumber">
-      <p>{number}</p>
-      <div className="alert-icons">
-        <i className="fa-solid fa-circle" style={{ color: circleColor }}></i>
-        <i className="fa-solid fa-triangle-exclamation" style={{ color: triangleColor }}></i>
-        <i className="fa-solid fa-skull-crossbones" style={{ color: skullColor }}></i>
-      </div>
-    </div>
-    <div><img src={image} alt="planet" /></div>
-    <div className="planet-data">
-      <p>{planetName}</p>
-      <p>{playerName}</p>
-    </div>
-  </div>
-);
-
+import { useState, useEffect } from "react";
+import "./Spacemap.css";
+import { PlanetBox } from "../../components/Spacemap/Planetbox";
 
 const Spacemap = () => {
-    const [selectedPlanet, setSelectedPlanet] = useState(null);
-    
-      return (
-        <div className="content-box" onClick={() => setSelectedPlanet(null)}>
-          <div className="sonnensystem">
-            <i className="fa-solid fa-spaghetti-monster-flying" style={{ color: '#ffffff' }}></i>
-            <p>Sonnensystem</p>
-            {[...Array(3)].map((_, index) => (
-              <React.Fragment key={index}>
-                <button className="arrow-button">
-                  <span className="arrow-left"></span>
-                </button>
-                <div className="koordinate">01</div>
-                <button className="arrow-button">
-                  <span className="arrow-right"></span>
-                </button>
-              </React.Fragment>
-            ))}
-          </div>
-          <div className="galaxy">
-            {planetsData.map((planet, index) => (
-              <PlanetBox 
-                key={index}
-                number={planet.number}
-                image={planet.image}
-                info={planet.info}
-                circleColor={planet.circleColor}
-                triangleColor={planet.triangleColor}
-                skullColor={planet.skullColor}
-                planetName={planet.planetName}
-                playerName={planet.playerName}
-                onClick={() => setSelectedPlanet(planet)}
-              />
-            ))}
-            <div className="planet-uebersicht">
-              {selectedPlanet ? (
-                <>
-                  <img id="planet-uebersicht-img" src={selectedPlanet.image} alt={selectedPlanet.planetName} />
-                  <div>
-                    <p>{selectedPlanet.planetName}</p>
-                    <p>{selectedPlanet.playerName}</p>
-                    <p>{selectedPlanet.info}</p>
-                  </div>
-                </>
-              ) : (
-                <p>Klicke auf einen Planeten, um Details zu sehen</p>
-              )}
-            </div>
-          </div>
+  const [choicePlanet, setChoicePlanet] = useState(null); // Umbenannt
+  const [planets, setPlanets] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const planetsPerPage = 9;
+
+  // API-Aufruf in useEffect
+  useEffect(() => {
+    fetch('http://localhost:3000/api/planets')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Netzwerkantwort war nicht ok');
+        }
+        return response.json(); // Versuche, die Antwort als JSON zu parsen
+      })
+      .then((data) => {
+        setPlanets(data); // Speichere die Planetendaten im State
+      })
+      .catch((error) => {
+        console.error('Fehler beim Laden der Planeten:', error);
+      });
+  }, []);
+
+  const indexOfLastPlanet = currentPage * planetsPerPage;
+  const indexOfFirstPlanet = indexOfLastPlanet - planetsPerPage;
+  const currentPlanets = planets.slice(indexOfFirstPlanet, indexOfLastPlanet);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  return (
+    <div className="content-box" onClick={() => setChoicePlanet(null)}>
+      <div className="solarsystem">
+        <i className="fa-solid fa-spaghetti-monster-flying" style={{ color: '#ffffff' }}></i>
+        <p>Sonnensystem</p>
+        {/* Navigation zwischen den Seiten */}
+        <button 
+          className="arrow-button" 
+          onClick={() => handlePageChange(currentPage - 1)} 
+          disabled={currentPage === 1}
+        >
+          <span className="arrow-left"></span>
+        </button>
+        <div className="coordinate">{String(currentPage).padStart(2, '0')}</div>
+        <button 
+          className="arrow-button" 
+          onClick={() => handlePageChange(currentPage + 1)} 
+          disabled={currentPage * planetsPerPage >= planets.length}
+        >
+          <span className="arrow-right"></span>
+        </button>
+      </div>
+      <div className="galaxy">
+      <div className="planet-overview">
+          {choicePlanet ? (
+            <>
+              <img id="planet-overview-img" src={choicePlanet.image} alt={choicePlanet.name} />
+              <div>
+                <p>{`Planetname: ${choicePlanet.name}`}</p>
+                <p>{`Besitzer: ${choicePlanet.owner ? choicePlanet.owner.userName : "Unknown Owner"}`}</p>
+                <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
+              </div>
+            </>
+          ) : (
+            <p>Klicke auf einen Planeten, um Details zu sehen</p>
+          )}
         </div>
-      );
-    };
-    
-    export default Spacemap;
+        {currentPlanets.map((planet, index) => (
+          <PlanetBox
+            key={index}
+            number={index + 1 + indexOfFirstPlanet}
+            image={planet.image} 
+            alt="planet"
+            info={`Buildings: ${planet.buildings.length}`}
+            circleColor={"#ff0000"}
+            triangleColor={"#00ff00"}
+            skullColor={"#0000ff"} 
+            planetName={planet.name} 
+            playerName={planet.owner ? planet.owner.userName : "Unknown Owner"} 
+            // Dynamisch eine Klasse hinzufügen, wenn der Planet ausgewählt ist
+            className={`planet-box ${choicePlanet && choicePlanet._id === planet._id ? 'choice' : ''}`} // Dynamische Klasse 'choice'
+            onClick={() => setChoicePlanet(planet)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Spacemap;
+
+

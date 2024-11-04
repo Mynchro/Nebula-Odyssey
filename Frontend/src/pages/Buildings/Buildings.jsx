@@ -1,220 +1,188 @@
-import { useState } from "react";
 import "./Buildings.css";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 const Buildings = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Produktion");
+  const { selectedPlanet } = useOutletContext();
+  const [activeType, setActiveType] = useState("produktion");
+  const [selectedBuilding, setSelectedBuilding] = useState(null);
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
+  const buildingDataMap = {
+    "smallShipyard" : "Kleine Raumwerft",
+    "mediumShipyard" : "Mittlere Raumwerft",
+    "largeShipyard" : "Große Raumwerft",
+    "Mine" : "Bergwerk",
+    "Ammofactory" : "Munitionsfabrik",
+    "Fuelfactory" : "Treibstofffabrik",
+    "Solarplant" : "Solaranlage",
+    "Powerplant" : "Kraftwerk",
+    "Refinery" : "Raffinerie",
+    "Junkyard" : "Schrottplatz",
+    "Recycler" : "Recycler",
+    "Spycenter" : "Spionagezentrum",
+    "Fueldepot" : "Treibstofflager",
+    "Oredepot" : "Erzlager",
+    "Chemicaldepot" : "Chemikalienlager",
+    "Ammodepot" : "Munitionslager",
+    "Steeldepot" : "Stahllager",
+    "Energystorage" : "Energyspeicher",
+    "Silicondepot" : "Siliconlager",
+    "Mikrochipdepot" : "Mikrochiplager",
   };
 
-  const buildings = [
-    {
-      level: "Stufe 1",
-      category: "Produktion",
-      name: "Bergwerk",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "bergwerk",
-    },
-    {
-      level: "Stufe 1",
-      category: "Produktion",
-      name: "Munitionsfabrik",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "munitionsfabrik",
-    },
-    {
-      level: "Stufe 1",
-      category: "Produktion",
-      name: "Treibstofffabrik",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "treibstofffabrik",
-    },
-    {
-      level: "Stufe 1",
-      category: "Produktion",
-      name: "Solaranlage",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "solaranlage",
-    },
-    {
-      level: "Stufe 1",
-      category: "Produktion",
-      name: "Kraftwerk",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "kraftwerk",
-    },
-    {
-      level: "Stufe 1",
-      category: "Veredelung",
-      name: "Raffinerie",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "raffinerie",
-    },
-    {
-      level: "Stufe 1",
-      category: "Veredelung",
-      name: "Schrottplatz",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "schrottplatz",
-    },
-    {
-      level: "Stufe 1",
-      category: "Veredelung",
-      name: "Recycler",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "recycler",
-    },
-    {
-      level: "Stufe 1",
-      category: "Überwachung",
-      name: "Spionagezentrum",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "spionagezentrum",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Treibstoffdepot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "treibstoffdepot",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Chemikaliendepot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "chemikaliendepot",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Erzdepot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "erzdepot",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Munitionsdepot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "munitionsdepot",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Energiespeicher",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "energiespeicher",
-    },
-    {
-      level: "Stufe 1",
-      category: "Lagerung",
-      name: "Stahldepot",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "stahldepot",
-    },
-    {
-      level: "Stufe 1",
-      category: "Werften",
-      name: "Kleine Raumwerft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "kleine-raumwerft",
-    },
-    {
-      level: "Stufe 1",
-      category: "Werften",
-      name: "Mittlere Raumwerft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "mittlere-raumwerft",
-    },
-    {
-      level: "Stufe 1",
-      category: "Werften",
-      name: "Große Raumwerft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, ad nisi. Maiores quasi error minus. Totam laborum iusto.",
-      imageClass: "grosse-raumwerft",
-    },
-  ];
+  const handleBuildingSelect = (building) => {
+    setSelectedBuilding(building);
+  };
 
-  const filteredBuildings = buildings.filter(
-    (building) => building.category === selectedCategory
+  const handleCategorySelect = (type) => {
+    setActiveType(type);
+  };
+
+  if (!selectedPlanet) 
+    return <p>Kein Planet ausgewählt.</p>;
+
+  const filteredBuildings = selectedPlanet.buildings.filter(
+    (building) => building.category.toLowerCase() === activeType
   );
-
   return (
     <div className="content-box">
-      <div className="uebersicht-title">
-        <h1>Gebaeude</h1>
-      </div>
-
-      <div className="building-nav-bar">
-        <button
-          className="btn geb-1"
-          onClick={() => handleCategoryChange("Produktion")}
+      <div className="buildings-content">
+        <div
+          id={ selectedBuilding ? selectedBuilding.buildingType : ''}
+          className="buildings-title"
         >
-          Produktion
-        </button>
-        <button
-          className="btn geb-1"
-          onClick={() => handleCategoryChange("Veredelung")}
-        >
-          Veredelung
-        </button>
-        <button
-          className="btn geb-1"
-          onClick={() => handleCategoryChange("Überwachung")}
-        >
-          Überwachung
-        </button>
-        <button
-          className="btn geb-1"
-          onClick={() => handleCategoryChange("Lagerung")}
-        >
-          Lagerung
-        </button>
-        <button
-          className="btn geb-1"
-          onClick={() => handleCategoryChange("Werften")}
-        >
-          Werften
-        </button>
-      </div>
-
-      <div className="building-section">
-        <h1 className="gebaeude-heading">{selectedCategory}</h1>
-        <div className="buildings-grid">
-          {filteredBuildings.map((building, index) => (
-            <div key={index} className={`gebaeude-box ${building.imageClass}`}>
-              <div className="text">
-                <p>{building.level}</p>
-                <h1>{building.name}</h1>
-                <p>{building.description}</p>
+          <div className="buildings-data">
+            <h3>Planet: {selectedPlanet.name}</h3>
+            
+            {/* Wenn ein spezifisches Gebäude ausgewählt ist, zeige dessen Produktionsrate */}
+            {selectedBuilding ? (
+              <div className="building-details">
+                
+                <ul>
+                  <li>
+                    <h4>Gebäude: {buildingDataMap[selectedBuilding.buildingType]}</h4>
+                    <h4 className="building-data">Level: {selectedBuilding.level}</h4>
+                  </li>
+                  <li>
+                    <p className="building-data">Produktionsrate:</p>
+                  </li>
+                  {/* Produktionsrate anzeigen */}
+                  {selectedBuilding.productionRate && (
+                    <div>
+                      <div className="building-data-box">
+                        {Object.entries(selectedBuilding.productionRate).filter(([resource]) => resource !== "_id").map(([resource, rate]) => (
+                          <li key={resource}>
+                            <p className="data-left">{resource}:</p>
+                            <p className="data-right">{rate}</p>
+                          </li>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </ul>
               </div>
-              <div className="button-box">
-                <a href="#">
-                  <button className="btn geb-1">Bauen</button>
-                </a>
+            ) : (
+              <div className="building-default">
+                <p>Wähle ein Gebäude aus,</p>
+                <p>um die Details anzuzeigen.</p>
               </div>
+            )}
+          </div>
+
+          <div className="building-menu">
+          <ul>
+            {" "}
+            <li>
+              <p className="data-left">Stahlkosten:</p>{" "}
+              <p className="data-right">
+                0
+              </p>
+            </li>
+            <li>
+              <p className="data-left">Mikrochipkosten:</p>{" "}
+              <p className="data-right">
+                0
+              </p>
+            </li>
+            <li>
+              <p className="data-left">Chemiekosten:</p>{" "}
+              <p className="data-right">
+                0
+              </p>
+            </li>
+            <li>
+              <p className="data-left">Energiekosten:</p>{" "}
+              <p className="data-right">
+                0
+              </p>
+            </li>
+          </ul>
+          <div className="increment-decrement">
+            <button className="btn">
+              x0
+            </button>
+            <button className="btn">
+              x1
+            </button>
+            <button className="btn">
+              x2
+            </button>
+          </div>
+          <button className="btn buy-btn">
+            Kaufen
+          </button>
+          <p className="buy-message"></p>
+        </div>
+
+        </div>
+        <div className="buildings-box">
+            <div className="buildings-bar">
+              <button
+                id="change-produktion"
+                className={`building btn ${activeType === "produktion" ? "active" : ""}`}
+                onClick={() => handleCategorySelect("produktion")}
+              >
+                Produktion
+              </button>
+              <button
+                id="change-veredelung"
+                className={`building btn ${activeType === "veredelung" ? "active" : ""}`}
+                onClick={() => handleCategorySelect("veredelung")}
+              >
+                Veredelung
+              </button>
+              <button
+                id="change-überwachung"
+                className={`building btn ${activeType === "überwachung" ? "active" : ""}`}
+                onClick={() => handleCategorySelect("überwachung")}
+              >
+                Überwachung
+              </button>
+              <button
+                id="change-lagerung"
+                className={`building btn ${activeType === "lagerung" ? "active" : ""}`}
+                onClick={() => handleCategorySelect("lagerung")}
+              >
+                Lagerung
+              </button>
+              <button
+                id="change-werften"
+                className={`building btn ${activeType === "werften" ? "active" : ""}`}
+                onClick={() => handleCategorySelect("werften")}
+              >
+                Werften
+              </button>
             </div>
-          ))}
+            <div className="btn-building">
+            {filteredBuildings.map((building, index) => (
+              <button
+                key={index}
+                className={`building btn  ${selectedBuilding === building ? "active" : ""}`}
+                onClick={() => handleBuildingSelect(building)}
+              >
+                {buildingDataMap[building.buildingType] || building.buildingType}
+              </button>))}
+          </div>
         </div>
       </div>
     </div>
@@ -222,3 +190,4 @@ const Buildings = () => {
 };
 
 export default Buildings;
+

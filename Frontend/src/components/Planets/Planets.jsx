@@ -1,27 +1,32 @@
-import "./Planets.css"
+/* eslint-disable react/prop-types */
+import { useState } from 'react';
+import './Planets.css';
 
-const Planets = () => {
-    return (
-        <div className="planete-bar">
-          <div className="planetes">
-            <div className="planet planet1">
-              <img src="/planets/p-1.png" alt="" />
-            </div>
-            <div className="planet planet2">
-              <img src="/planets/p-2.png" alt="" />
-            </div>
-            <div className="planet planet3">
-              <img src="/planets/p-3.png" alt="" />
-            </div>
-            <div className="planet planet4">
-              <img src="/planets/p-4.png" alt="" />
-            </div>
-            <div className="planet planet5">
-              <img src="/planets/p-5.png" alt="" />
-            </div>
+const Planets = ({ planets, onPlanetSelect }) => {
+  const [selectedPlanet, setSelectedPlanet] = useState(null); // State für den ausgewählten Planeten
+
+  const handlePlanetClick = (index) => {
+    setSelectedPlanet(index); // Speichere den ausgewählten Planeten
+    onPlanetSelect(index); // Rufe die Funktion auf, um den Planeten auszuwählen
+  };
+
+  return (
+    <div className="planete-bar">
+      <div className="planetes">
+        {/* Map über das Planeten-Array */}
+        {planets.map((planet, index) => (
+          <div
+            className={`planet ${selectedPlanet === index || (selectedPlanet === null && index === 0) ? 'selected' : 'noselect'}`} // Dynamische Klasse
+            key={planet._id}
+            onClick={() => handlePlanetClick(index)} // Klick-Event für Planeten-Auswahl
+            style={{ cursor: 'pointer' }} // Zeiger für bessere UX
+          >
+            <img src={planet.image || `/planets/p-${index + 1}.png`} alt={planet.name} />
           </div>
-        </div>
-    );
-}
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Planets;
