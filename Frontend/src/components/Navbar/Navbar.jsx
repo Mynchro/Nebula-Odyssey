@@ -36,14 +36,15 @@ const Navbar = () => {
     };
     setCurrentPlayer(updatedPlayer);
 
-    if (!currentPlayer?.user?._id) {
+    if (!currentPlayer?._id) {
+      console.log(currentPlayer._id)
       console.error("Benutzer-ID ist nicht definiert");
       return;
     }
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/user/${currentPlayer.user._id}`,
+        `http://localhost:3000/api/user/${currentPlayer._id}`,
         { color: newColor }
       );
       console.log("Farbe erfolgreich gespeichert", response.data);
