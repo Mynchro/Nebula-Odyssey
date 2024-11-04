@@ -49,16 +49,13 @@ export const instantiateShips = async (req, res) => {
       new unitData.LaserGeschütz(),
       new unitData.IonenKanone(),
       new unitData.PartikelKanone(),
-      new unitData.PlanetarerSchildGenerator()
-
-    ]
-    const shipTypes = shipSchema.path('shipType').enumValues;
-    shipTypes.forEach(type => {
-
-
+      new unitData.PlanetarerSchildGenerator(),
+    ];
+    const shipTypes = shipSchema.path("shipType").enumValues;
+    shipTypes.forEach((type) => {
       let matchingUnit;
       const unitTypeStrings = Object.keys(Unit.unittype);
-      shipArray.forEach(element => {
+      shipArray.forEach((element) => {
         if (element instanceof Unit) {
           if (unitTypeStrings[element.unittype - 1] === type) {
             matchingUnit = element;
@@ -67,22 +64,21 @@ export const instantiateShips = async (req, res) => {
       });
       if (matchingUnit) {
         const newShip = new ship();
-        newShip.setValues(type, matchingUnit)
+        newShip.setValues(type, matchingUnit);
         ships.push(newShip);
         newShip.save();
         //console.log(newShip.ressourceCosts)
+      } else {
+        console.log("geht nicht");
       }
-      else { console.log("geht nicht") }
     });
     res.status(200).send("Schiffe erfolgreich erstellt und gespeichert");
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).send("Fehler beim Erstellen der Schiffe");
   }
 
   //return res.status(200).json(ships);
-
-}
+};
 //"/user/:userId/ship/:shipType/buildShip"
 // GET: http://localhost:3000/shipyard/user/6707f5b128946e558e271814/ship/lightHunter/buildShip
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
@@ -93,7 +89,7 @@ export const buildShip = async (req, res) => {
     // Finde den Benutzer anhand der ID und lade seine Planeten
     const user = await User.findById(userId).populate({
       path: "planets",
-      populate: { path: "ships" }, 
+      populate: { path: "ships" },
     });
     if (!user) {
       return res.status(404).send("Benutzer nicht gefunden");
@@ -101,7 +97,9 @@ export const buildShip = async (req, res) => {
 
     // Angenommen, du möchtest ein schiff bauen
     //const planet = user.planets[0]; // Gehe davon aus, dass der Heimatplanet der erste Planet ist
-    const planet = user.planets.find((planet) => planet._id.toString() === planetId);
+    const planet = user.planets.find(
+      (planet) => planet._id.toString() === planetId
+    );
     if (!planet) {
       return res.status(404).send("Planetlanet nicht gefunden");
     }
@@ -120,32 +118,29 @@ export const buildShip = async (req, res) => {
     }
 
     // Erhöhe das Level um 1
-    
-    
+
     let canBuild = true;
-    for (const key in planet.resources.toObject()){
-      if( planet.resources[key]-ship.ressourceCosts[key]<0){
-        console.log(`nicht genug ${key} für den bau vorhanden`)
+    for (const key in planet.resources.toObject()) {
+      if (planet.resources[key] - ship.ressourceCosts[key] < 0) {
+        console.log(`nicht genug ${key} für den bau vorhanden`);
         canBuild = false;
       }
     }
-    if(canBuild){
-      for(const key in planet.resources){
-        if (planet.resources[key] !== undefined && ship.ressourceCosts[key] !== undefined){
+    if (canBuild) {
+      for (const key in planet.resources.toObject()) {
+        if (typeof planet.resources[key] === "number") {
           planet.resources[key] -= ship.ressourceCosts[key];
+          console.log(planet.resources[key]);
+        } else {
+          canBuild = false;
         }
-        
-        //console.log(planet.resources[key])
-        //console.log(ship.ressourceCosts[key])
+        //console.log(planet.resources[key]);
+        //console.log(ship.ressourceCosts[key]);
       }
       ship.amount += 1;
+      console.log(`${ship.amount} schiffe vorhanden`);
     }
     //console.log(planet.resources);
-
-
-
-
-
 
     // Speichere den Planeten mit dem aktualisierten Gebäude
     await planet.save();
@@ -171,9 +166,7 @@ export const sellShip = async (req, res) => {
     }
 
     // Suche das Gebäude anhand des buildingType im Home-Planeten des Benutzers
-    const ship = user.planet.ships.find(
-      (s) => s.shipType === shipType
-    );
+    const ship = user.planet.ships.find((s) => s.shipType === shipType);
 
     if (!ship) {
       return res
@@ -184,9 +177,10 @@ export const sellShip = async (req, res) => {
     if (ship.amount <= 1) {
       return res
         .status(400)
-        .send("Konnte nicht verkauft werden , es sind keine Schiffe dieses typs vorhanden");
+        .send(
+          "Konnte nicht verkauft werden , es sind keine Schiffe dieses typs vorhanden"
+        );
     }
-
 
     // verringere das Level um 1
     ship.amount -= 1;
