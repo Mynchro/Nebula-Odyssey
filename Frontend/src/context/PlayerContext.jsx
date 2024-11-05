@@ -3,11 +3,12 @@ import { createContext, useState} from "react";
 
 
 export const PlayerContext = createContext();
+export const defaultUser_DEV = { userName: "Test", settings: { color: "#000000" } };
 
 const PlayerProvider = ({ children }) => {
   const [playerData, setPlayerData] = useState({});
   const [currentPlayer, setCurrentPlayer] = useState({
-    user: { userName: "Test", settings: { color: "#000000" } },
+    user: defaultUser_DEV,
   });
 
   const fetchPlayerData = async (userId) => {
@@ -39,6 +40,7 @@ const PlayerProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
+        credentials: "include", 
       });
   
       if (response.ok) {
