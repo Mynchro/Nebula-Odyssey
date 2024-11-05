@@ -5,6 +5,7 @@ import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
+import buildingsRoutes from "./routes/building.js";
 import { startResourceCalculation } from "./middleware/scheduler.js";
 
 const port = 3000;
@@ -18,6 +19,7 @@ await connectToDB();
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/api", interfaceRoute);
+app.use("/api/buildings", buildingsRoutes);
 
 // seedResources();
 createGameworld();

@@ -1,11 +1,19 @@
 import "./Buildings.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const Buildings = () => {
   const { selectedPlanet } = useOutletContext();
   const [activeType, setActiveType] = useState("produktion");
   const [selectedBuilding, setSelectedBuilding] = useState(null);
+  const [isBuildingOn, setIsBuildingOn] = useState(false);
+
+  useEffect(() => {
+    // Initialisiere den Status beim Auswahl des Gebäudes
+    if (selectedBuilding) {
+      setIsBuildingOn(selectedBuilding.status);
+    }
+  }, [selectedBuilding]);
 
   const buildingDataMap = {
     "smallShipyard" : "Kleine Raumwerft",
@@ -29,9 +37,41 @@ const Buildings = () => {
     "Silicondepot" : "Siliconlager",
     "Mikrochipdepot" : "Mikrochiplager",
   };
+  const updateStatus = async (buildingId, status) => {
+    try {
+      const response = await fetch(`/api/buildings/${buildingId}/status`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+  
+      if (!response.ok) throw new Error("Fehler beim Aktualisieren des Status");
+    } catch (error) {
+      console.log(buildingId, status)
+      console.error("Statusaktualisierung fehlgeschlagen:", error);
+    }
+  };
+
+  const toggleBuildingStatus = async () => {
+    const newStatus = !isBuildingOn;
+    setIsBuildingOn(newStatus);
+  
+    if (selectedBuilding && selectedBuilding._id) {
+      try {
+        await updateStatus(selectedBuilding._id, newStatus);
+      } catch (error) {
+        console.error("Statusaktualisierung fehlgeschlagen:", error);
+      }
+    } else {
+      console.error("Building ID is missing.");
+    }
+  };
 
   const handleBuildingSelect = (building) => {
     setSelectedBuilding(building);
+    setIsBuildingOn(building.status);
   };
 
   const handleCategorySelect = (type) => {
@@ -49,31 +89,58 @@ const Buildings = () => {
       <div className="buildings-content">
         <div
           id={ selectedBuilding ? selectedBuilding.buildingType : ''}
-          className="buildings-title"
+          className="building-box"
         >
           <div className="buildings-data">
-            <h3>Planet: {selectedPlanet.name}</h3>
-            
+            <div className="buildings-headline">
+              <h3 className="buildings-title">Gebäude: {selectedBuilding ? buildingDataMap[selectedBuilding.buildingType] : " "}</h3>
+              {selectedBuilding && (
+              <>
+              <input
+                type="checkbox"
+                hidden="hidden"
+                id="status"
+                checked={isBuildingOn}
+                onChange={toggleBuildingStatus}
+              />
+              <label
+                className={`btn-switch ${isBuildingOn ? 'on' : ''}`}
+                htmlFor="status"
+                onClick={toggleBuildingStatus}
+              >
+                {isBuildingOn ? "On" : "Off"}
+              </label>
+              </>
+            )}
+            </div>
+       
             {/* Wenn ein spezifisches Gebäude ausgewählt ist, zeige dessen Produktionsrate */}
             {selectedBuilding ? (
               <div className="building-details">
                 
                 <ul>
+                  <h4>Planet: {selectedPlanet.name}</h4>
                   <li>
-                    <h4>Gebäude: {buildingDataMap[selectedBuilding.buildingType]}</h4>
-                    <h4 className="building-data">Level: {selectedBuilding.level}</h4>
+                    <h4 className="building-data-left">Aktuelles</h4>
+                    <h4 className="building-data-current">Level: {selectedBuilding.level}</h4>
+                    <h4 className="building-data-arrow">→</h4>
+                    <h4 className="building-data-update">Level: {selectedBuilding.level + 1}</h4>
                   </li>
                   <li>
-                    <p className="building-data">Produktionsrate:</p>
+                    <p className="building-data">Produktionsrate</p>
                   </li>
                   {/* Produktionsrate anzeigen */}
                   {selectedBuilding.productionRate && (
                     <div>
                       <div className="building-data-box">
-                        {Object.entries(selectedBuilding.productionRate).filter(([resource]) => resource !== "_id").map(([resource, rate]) => (
+                      {Object.entries(selectedBuilding.productionRate)
+                        .filter(([resource, rate]) => resource !== "_id" && rate !== 0) // filtert "_id" und "0" heraus
+                        .map(([resource, rate]) => (
                           <li key={resource}>
-                            <p className="data-left">{resource}:</p>
-                            <p className="data-right">{rate}</p>
+                            <p className="resource-left">{resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:</p>
+                            <p className="resource-mid">{rate}</p>
+                            <p className="resource-arrow">→</p>
+                            <p className="resource-right">{(rate * 1.1).toFixed()}</p>
                           </li>
                         ))}
                       </div>
@@ -135,7 +202,7 @@ const Buildings = () => {
         </div>
 
         </div>
-        <div className="buildings-box">
+        <div className="building-bar-box">
             <div className="buildings-bar">
               <button
                 id="change-produktion"
