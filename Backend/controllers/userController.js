@@ -1,9 +1,8 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import Planet from "../models/Planet.js";
-import Building from "../models/Buildings.js";
 import { createHomeplanet } from "../seeder/createHomeplanet.js";
+import TokenBlacklist from "../models/TokenBlacklist.js";
 
 // user-registration
 
@@ -71,11 +70,11 @@ export const register = async (req, res) => {
 
 // user-login with token-creation
 
-const createAccessToken = (userId) => {
+export const createAccessToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "2h" });
 };
 
-const createRefreshToken = (userId) => {
+export const createRefreshToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "14d" });
 };
 
@@ -135,7 +134,7 @@ export const login = async (req, res) => {
 
 // token-endpoint
 
-export const refreshAccesToken = async (req, res) => {
+export const refreshAccessToken = async (req, res) => {
   const { refreshToken } = req.cookies;
 
   if (!refreshToken) {
@@ -145,11 +144,19 @@ export const refreshAccesToken = async (req, res) => {
   }
 
   try {
-    // Überprüfe den Refresh-Token
+    // check refreshtoken
     const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
     const newAccessToken = createAccessToken(decoded.userId);
+    const newRefreshToken = createRefreshToken(decoded.userId);
 
-    // Setze neuen Access-Token in HttpOnly-Cookie
+    // set new refresh-token
+    res.cookie("refreshToken", newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 14 * 24 * 60 * 60 * 1000, // 14 Tage
+    });
+
+    // set new access-token
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -166,18 +173,36 @@ export const refreshAccesToken = async (req, res) => {
 
 // logout
 
-export const logout = (req, res) => {
-  res.clearCookie("accessToken", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  });
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  });
-  res.status(200).json({ message: "Logout erfolgreich!" });
+export const logout = async (req, res) => {
+  const { refreshToken } = req.cookies;
+
+  if (!refreshToken) {
+    return res.status(400).json({ message: "Kein Refresh-Token vorhanden." });
+  }
+  try {
+    // check and decode refresh-token
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+
+    // blacklist refresh-token
+    await TokenBlacklist.create({
+      token: refreshToken,
+      expiresAt: new Date(decoded.exp * 1000), // *1000 to convert expirationDate into a JavaScript-date from seconds to milliseconds
+    });
+
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+    res.status(200).json({ message: "Logout erfolgreich!" });
+  } catch (error) {
+    return res.status(400).json({ message: "Ungültiger Token." });
+  }
 };
 
 // update User
