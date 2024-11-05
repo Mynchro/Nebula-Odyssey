@@ -22,6 +22,7 @@
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
     "node-cron": "^3.0.3",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "resend": "^4.0.1-alpha.0"
   }
 }
