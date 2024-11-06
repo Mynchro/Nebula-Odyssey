@@ -1,3 +1,4 @@
 node_modules
 archiv
 .env
+.DS_Store

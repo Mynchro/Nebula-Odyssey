@@ -1,12 +1,33 @@
 import mongoose from "mongoose";
 import { buildingSchema } from "./Buildings.js";
 import { resourceSchema } from "./Resources.js";
+import { shipSchema } from "./Ships.js";
 const { Schema } = mongoose;
 
 const planetSchema = new Schema({
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  name: {
+    type: String,
+    required: true,
+    default: "",
+  },
+  image: {
+    type: String,
+    default: "",
+  },
+  buildings: [buildingSchema], // Gebäude als Unterdokumente
+  resources: {
+    type: resourceSchema, // Ressourcen bleiben gleich
+    default: {},
+  },
+  lastResourceUpdate: { type: Date, default: Date.now },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
+        default: null,
     },
     name: {
         type: String,
@@ -18,11 +39,11 @@ const planetSchema = new Schema({
         default: "",
     },
     buildings: [buildingSchema], // Gebäude als Unterdokumente
-    resources: {
+    ships: [shipSchema],
+  resources: {
         type: resourceSchema, // Ressourcen bleiben gleich
         default: {},
     },
-    lastResourceUpdate: { type: Date, default: Date.now },
 });
 
 const Planet = mongoose.model("Planet", planetSchema);
