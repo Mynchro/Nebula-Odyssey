@@ -22,7 +22,7 @@ export const getUserResources = async (req, res) => {
 
 export const upgradeBuilding = async (req, res) => {
     try {
-        const { userId, buildingType } = req.params;
+        const { userId, buildingType, planetId } = req.params;
 
         // Finde den Benutzer anhand der ID und lade seine Planeten
         const user = await User.findById(userId).populate({
@@ -33,16 +33,15 @@ export const upgradeBuilding = async (req, res) => {
             return res.status(404).send("Benutzer nicht gefunden");
         }
 
-        // Angenommen, du möchtest das Gebäude auf dem Heimatplaneten upgraden
-        const homePlanet = user.planets[0]; // Gehe davon aus, dass der Heimatplanet der erste Planet ist
-        if (!homePlanet) {
-            return res.status(404).send("Heimatplanet nicht gefunden");
+        const planet = user.planets.find((p) => p._id.toString() === planetId);
+        if (!planet) {
+            return res.status(404).send("Planet nicht gefunden");
         }
 
         // console.log("Verfügbare Gebäude:", homePlanet.buildings); // Debugging
 
         // Suche das Gebäude anhand des buildingType im Heimatplaneten
-        const building = homePlanet.buildings.find(
+        const building = planet.buildings.find(
             (b) => b.buildingType.toLowerCase() === buildingType.toLowerCase()
         );
 
@@ -98,7 +97,7 @@ export const upgradeBuilding = async (req, res) => {
         building.level += 1;
 
         // Speichere den Planeten mit dem aktualisierten Gebäude
-        await homePlanet.save();
+        await planet.save();
 
         return res.status(200).send({
             message: "Gebäude wurde erfolgreich aufgewertet",

@@ -19,7 +19,7 @@ await connectToDB();
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/api", interfaceRoute);
-app.use("/api/buildings", buildingsRoutes);
+app.use("/api", buildingsRoutes);
 
 // seedResources();
 createGameworld();
