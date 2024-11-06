@@ -2,7 +2,6 @@
 import "./Ressourcebar.css";
 
 const Ressourcebar = ({ resources }) => {
-
   return (
     <div className="ressourcebar">
       <div className="ressources">
