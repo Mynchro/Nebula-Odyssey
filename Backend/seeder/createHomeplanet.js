@@ -32,6 +32,7 @@ export const createHomeplanet = async (userId) => {
         values:ship.values,
         rapidFire:ship.rapidFire,
         dmgVs:ship.dmgVs,
+        shipYardType:ship.shipYardType
       })),
 
 

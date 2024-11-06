@@ -95,8 +95,6 @@ export const buildShip = async (req, res) => {
       return res.status(404).send("Benutzer nicht gefunden");
     }
 
-    // Angenommen, du möchtest ein schiff bauen
-    //const planet = user.planets[0]; // Gehe davon aus, dass der Heimatplanet der erste Planet ist
     const planet = user.planets.find(
       (planet) => planet._id.toString() === planetId
     );
@@ -104,9 +102,6 @@ export const buildShip = async (req, res) => {
       return res.status(404).send("Planetlanet nicht gefunden");
     }
 
-    // console.log("Verfügbare Gebäude:", homePlanet.buildings); // Debugging
-
-    // Suche das Gebäude anhand des buildingType im planeten
     const ship = planet.ships.find(
       (s) => s.shipType.toLowerCase() === shipType.toLowerCase()
     );
@@ -117,7 +112,7 @@ export const buildShip = async (req, res) => {
         .send(`Schiff mit dem Typ ${shipType} nicht gefunden`);
     }
 
-    // Erhöhe das Level um 1
+    // Erhöhe die anzahl um 1
 
     let canBuild = true;
     for (const key in planet.resources.toObject()) {
