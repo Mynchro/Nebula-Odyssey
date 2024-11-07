@@ -29,9 +29,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (currentPlayer?.user) {
+    if (currentPlayer) {
       // Setze die Farbe beim Laden der Benutzereinstellungen
-      const initialColor = currentPlayer.user.settings?.color /*|| "#ffffff"*/; // Fallback auf Weiß
+      const initialColor = currentPlayer?.settings?.color /*|| "#ffffff"*/; // Fallback auf Weiß
       setSelectedColor(initialColor);
       document.documentElement.style.setProperty(
         "--secondary-color",
