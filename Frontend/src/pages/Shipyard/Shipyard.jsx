@@ -15,13 +15,20 @@ const Shipyard = () => {
   const [activeShip, setActiveShip] = useState("");
   const [activeType, setActiveType] = useState(""); // State for active type button
 
+  
   const handleShipType = (type) => {
     setShips(werftTypen[type]);
     setActiveType(type); // Set the active type button
   };
 
+  const loadShips = () =>{
+    
+  }
   const changeDescriptionAndImage = (descriptionKey) => {
     let item = null;
+
+    console.log(ships);
+    console.log(descriptionKey);
     ["klein", "mittel", "gross"].forEach((size) => {
       if (!item) {
         item = werftTypen[size].find(

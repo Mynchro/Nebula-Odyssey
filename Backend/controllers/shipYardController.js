@@ -192,7 +192,15 @@ export const sellShip = async (req, res) => {
     return res.status(500).send("Serverfehler");
   }
 };
-
+export const getShipData = async (req,res) =>{
+  try {
+    const ships = await ship.find();
+    return res.status(200).json(ships);
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Schiffe:', error);
+    return res.status(500).send('Serverfehler');
+  }
+}
 export const getAllShips = async (req, res) => {
   try {
     const { userId } = req.params;
