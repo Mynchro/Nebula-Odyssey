@@ -1,10 +1,10 @@
     [
         {
             "buildingType": "Mine",
-            "level": 1,
+            "level": 0,
             "status": false,
             "category": "Produktion",
-            "constructionTime": 30,
+            "constructionTime": 0,
             "constructionCosts": {
                 "silicon": 0,
                 "ores": 0,
@@ -15,7 +15,20 @@
                 "electronics": 20,
                 "ammo": 0
             },
-            "productionRate": {
+            "baseValue": {
+                "constructionTime": 30,
+                "storageCapacity": 0,
+                "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 10,
+                "steel": 50,
+                "electronics": 20,
+                "ammo": 0
+                },
+            "productionRate":{
                 "silicon": 50,
                 "ores": 50,
                 "chemicals": 50,
@@ -24,16 +37,40 @@
                 "steel": 0,
                 "electronics": 0,
                 "ammo": 0
+            }
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
             },
             "storageCapacity": 0
         },
         {
             "buildingType": "Refinery",
-            "level": 1,
+            "level": 0,
             "status": false,
             "category": "Veredelung",
-            "constructionTime": 30,
+            "constructionTime": 0,
             "constructionCosts": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
+            },
+            "baseValue": {
+                "constructionTime": 30,
+                "storageCapacity": 0,
+                "constructionCosts": {
                 "silicon": 0,
                 "ores": 0,
                 "chemicals": 100,
@@ -42,8 +79,8 @@
                 "steel": 80,
                 "electronics": 0,
                 "ammo": 0
-            },
-            "productionRate": {
+                },
+            "productionRate":{
                 "silicon": -40,
                 "ores": -40,
                 "chemicals": 0,
@@ -52,31 +89,66 @@
                 "steel": 40,
                 "electronics": 40,
                 "ammo": 0
+            }
+            },
+            "productionRate": {
+                "silicon": 0,
+                "ores": 0,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
+                "ammo": 0
             },
             "storageCapacity": 0
         },
         {
             "buildingType": "Fuelfactory",
-            "level": 1,
+            "level": 0,
             "status": false,
             "category": "Produktion",
-            "constructionTime": 30,
+            "constructionTime": 0,
             "constructionCosts": {
                 "silicon": 0,
                 "ores": 0,
                 "chemicals": 0,
                 "fuel": 0,
-                "energy": 100,
-                "steel": 200,
-                "electronics": 100,
+                "energy": 0,
+                "steel": 0,
+                "electronics": 0,
                 "ammo": 0
+            },
+            "baseValue": {
+                "constructionTime": 30,
+                "storageCapacity": 0,
+                "constructionCosts": {
+                    "silicon": 0,
+                    "ores": 0,
+                    "chemicals": 0,
+                    "fuel": 0,
+                    "energy": 100,
+                    "steel": 200,
+                    "electronics": 100,
+                    "ammo": 0
+                },
+                "productionRate":{
+                    "silicon": 0,
+                    "ores": 0,
+                    "chemicals": -50,
+                    "fuel": 100,
+                    "energy": -50,
+                    "steel": 0,
+                    "electronics": 0,
+                    "ammo": 0
+                }
             },
             "productionRate": {
                 "silicon": 0,
                 "ores": 0,
-                "chemicals": -50,
-                "fuel": 100,
-                "energy": -50,
+                "chemicals": 0,
+                "fuel": 0,
+                "energy": 0,
                 "steel": 0,
                 "electronics": 0,
                 "ammo": 0
@@ -85,26 +157,50 @@
         },
         {
             "buildingType": "Solarplant",
-            "level": 1,
+            "level": 0,
             "status": false,
             "category": "Produktion",
-            "constructionTime": 30,
+            "constructionTime": 0,
             "constructionCosts": {
                 "silicon": 0,
                 "ores": 0,
                 "chemicals": 0,
                 "fuel": 0,
                 "energy": 0,
-                "steel": 100,
-                "electronics": 80,
+                "steel": 0,
+                "electronics": 0,
                 "ammo": 0
+            },
+            "baseValue": {
+                "constructionTime": 30,
+                "storageCapacity": 0,
+                "constructionCosts": {
+                    "silicon": 0,
+                    "ores": 0,
+                    "chemicals": 0,
+                    "fuel": 0,
+                    "energy": 0,
+                    "steel": 100,
+                    "electronics": 80,
+                    "ammo": 0
+                },
+                "productionRate":{
+                    "silicon": 0,
+                    "ores": 0,
+                    "chemicals": 0,
+                    "fuel": 0,
+                    "energy": 30,
+                    "steel": 0,
+                    "electronics": 0,
+                    "ammo": 0
+                }
             },
             "productionRate": {
                 "silicon": 0,
                 "ores": 0,
                 "chemicals": 0,
                 "fuel": 0,
-                "energy": 30,
+                "energy": 0,
                 "steel": 0,
                 "electronics": 0,
                 "ammo": 0

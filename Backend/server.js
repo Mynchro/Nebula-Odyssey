@@ -3,7 +3,7 @@ import { connectToDB } from "./libs/db.js";
 import userRoute from "./routes/userRoute.js";
 import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
-import shipYardRoute from "./routes/shipYardRoute.js"
+import shipYardRoute from "./routes/shipYardRoute.js";
 import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
 import buildingsRoutes from "./routes/building.js";
@@ -22,15 +22,15 @@ await connectToDB();
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
 app.use("/api", interfaceRoute);
-app.use("/api/buildings", buildingsRoutes);
-app.use("/shipyard",shipYardRoute)
+app.use("/api", buildingsRoutes);
+app.use("/shipyard", shipYardRoute);
 
 // seedResources();
 createGameworld();
 //startResourceCalculation();
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
 
 // const startServer = async () => {

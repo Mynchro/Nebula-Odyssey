@@ -83,7 +83,11 @@ export const login = async (req, res) => {
 
   try {
     // check if user exists in the db
-    const user = await User.findOne({ userName }).populate("planets");
+    const user = await User.findOne({ userName }).populate({
+      path: "planets",
+      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+    });
+
     if (!user) {
       return res.status(400).json({ message: "User existiert nicht!" });
       // user exists? proceed
@@ -168,6 +172,31 @@ export const refreshAccessToken = async (req, res) => {
       .json({ message: "Access-Token erfolgreich erneuert." });
   } catch (error) {
     return res.status(403).json({ message: "Ungültiger Refresh-Token." });
+  }
+};
+
+export const checkLoginStatus = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate({
+      path: "planets",
+      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+    });
+    if (!user) return res.sendStatus(404);
+
+    return res.json({
+      _id: user._id,
+      userName: user.userName,
+      settings: user.settings,
+      planets: user.planets,
+      user: {
+        userName: user.userName,
+        planets: user.planets,
+        _id: user._id,
+      },
+    });
+  } catch (error) {
+    console.error("Fehler bei /check:", error);
+    res.sendStatus(500);
   }
 };
 

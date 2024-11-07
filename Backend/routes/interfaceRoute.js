@@ -13,7 +13,6 @@ import {
 
 const router = express.Router();
 
-router.post("/user/:userId/building/:buildingType/upgrade", upgradeBuilding);
 router.post(
     "/user/:userId/building/:buildingType/downgrade",
     downgradeBuilding

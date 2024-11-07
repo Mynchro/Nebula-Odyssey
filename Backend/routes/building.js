@@ -1,7 +1,18 @@
 import express from "express";
-import { updateBuildingStatus } from "../controllers/building.js";
+import {
+    upgradeBuilding,
+    updateBuildingStatus,
+} from "../controllers/building.js";
+
 const router = express.Router();
 // Definiere die Route für das Aktualisieren des Gebäude-Status
-router.patch("/:buildingId/status", updateBuildingStatus);
+router.patch(
+    "/user/:userId/planet/:planetId/building/:buildingType/upgrade",
+    upgradeBuilding
+);
+router.patch(
+    "/user/:userId/planet/:planetId/building/:buildingType/status",
+    updateBuildingStatus
+);
 
 export default router;

@@ -92,7 +92,6 @@
   display: flex;
   flex-direction: column;
   width: 180px;
-  height: 230px;
   background-color: rgba(0, 0, 0, 0.581);
   color: #ffffff;
   text-align: start;
@@ -173,7 +172,7 @@ input:checked + .btn-switch {
   background: #248219;
 }
 input:checked + .btn-switch::before {
-  left: 27px;
+  left: 11px;
   background: #000000eb;
 }
 input:checked + .btn-switch:active::before {
