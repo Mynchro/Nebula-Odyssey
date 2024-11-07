@@ -3,7 +3,7 @@ import { createContext, useState} from "react";
 
 
 export const PlayerContext = createContext();
-export const defaultUser_DEV = { userName: "Test", settings: { color: "#000000" } };
+export const defaultUser_DEV = { userName: "Test" /*, settings: { color: "#000000" } */};
 
 const PlayerProvider = ({ children }) => {
   const [playerData, setPlayerData] = useState({});

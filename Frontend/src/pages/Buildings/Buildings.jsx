@@ -42,10 +42,6 @@ const Buildings = () => {
   };
   const updateStatus = async (userId, planetId, buildingType, status) => {
     try {
-      console.log(`${userId}`)
-      console.log(`${planetId}`)
-      console.log(`${buildingType}`)
-      console.log(`${status}`)
       const response = await fetch(`http://localhost:3000/api/user/${userId}/planet/${planetId}/building/${buildingType}/status`, {
         method: "PATCH",
         headers: {
@@ -56,16 +52,12 @@ const Buildings = () => {
   
       if (!response.ok) throw new Error("Fehler beim Aktualisieren des Status");
     } catch (error) {
-      console.log(buildingType, status)
       console.error("Statusaktualisierung fehlgeschlagen:", error);
     }
   };
 
   const upgradeBuilding = async (userId, planetId, buildingType) => {
     try {
-      console.log(`${userId}`)
-      console.log(`${planetId}`)
-      console.log(`${buildingType}`)
         const response = await fetch(`http://localhost:3000/api/user/${userId}/planet/${planetId}/building/${buildingType}/upgrade`, {
             method: "PATCH",
             headers: {

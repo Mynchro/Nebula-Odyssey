@@ -52,7 +52,8 @@ export const upgradeBuilding = async (req, res) => {
             return res.status(400).send("Maximales Level erreicht");
         }
 
-        const productionIncreaseFactor = 1.1;
+        const productionIncreaseFactor =
+            building.level * building.level * (1 + (building.level - 1) / 5);
 
         // Sicherstellen, dass die _id der productionRate nicht überschrieben wird
         const updatedProductionRate = increaseProductionRate(
