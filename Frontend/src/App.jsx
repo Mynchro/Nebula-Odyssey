@@ -17,8 +17,8 @@ import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 function App() {
   return (
-    <PlayerProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <PlayerProvider>
         <StarField />
         {/* <Playermanager /> */}
         <Routes>
@@ -35,8 +35,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </PlayerProvider>
+      </PlayerProvider>
+    </BrowserRouter>
   );
 }
 

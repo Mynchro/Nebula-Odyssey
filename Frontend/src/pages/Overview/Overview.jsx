@@ -14,7 +14,7 @@ const Overview = () => {
 
   console.log("Aktueller Spieler:", currentPlayer);
   console.log("Benutzername:", userName);
-  console.log("Aktueller Planet:", selectedPlanet);
+  console.log("Aktueller Planetenname:", selectedPlanet);
 
   return (
     <div className="content-box">
