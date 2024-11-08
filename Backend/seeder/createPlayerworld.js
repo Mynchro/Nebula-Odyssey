@@ -28,7 +28,7 @@ export const createPlayerworld = async (userId) => {
     const homePlanet = new Planet({
       owner: userId,
       name: "Nebula",
-      image: `/planets/p-23.png`,
+      image: `/planets/p-13.png`,
       buildings: defaultBuildings.map((building) => ({
         originalBuildingId: building._id,
         buildingType: building.buildingType,
