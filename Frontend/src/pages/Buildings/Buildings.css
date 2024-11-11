@@ -112,26 +112,26 @@
   font-size: 14px;
 }
 
-#Mine { background-image: url(/buildings-img/bergwerk.png); }
-#Ammofactory { background-image: url(/buildings-img/munitionsfabrik.png); }
-#Fuelfactory { background-image: url(/buildings-img/treibstofffabrik.png); }
-#Solarplant { background-image: url(/buildings-img/solaranlage.png); }
-#Powerplant { background-image: url(/buildings-img/kraftwerk.png); }
-#Refinery { background-image: url(/buildings-img/raffinerie.png); }
-#Junkyard { background-image: url(/buildings-img/schrottplatz.png); }
-#Recycler { background-image: url(/buildings-img/recycler.png); }
-#Spycenter { background-image: url(/buildings-img/spionagezentrum.png); }
-#Fueldepot { background-image: url(/buildings-img/treibstoffdepot.png); }
-#Chemicaldepot { background-image: url(/buildings-img/chemikaliendepot.png); }
-#Oredepot { background-image: url(/buildings-img/erzdepot.png); }
-#Ammodepot { background-image: url(/buildings-img/munitionsdepot.png); }
-#Energystorage { background-image: url(/buildings-img/energiespeicher.png); }
-#Steeldepot { background-image: url(/buildings-img/stahldepot.png); }
-#smallShipyard { background-image: url(/buildings-img/kleine-raumwerft.png); }
-#mediumShipyard { background-image: url(/buildings-img/mittlere-raumwerft.png); }
-#largeShipyard { background-image: url(/buildings-img/grosse-raumwerft.png); }
-#Silicondepot { background-image: url(/buildings-img/grosse-raumwerft.png); }
-#Mikrochipdepot { background-image: url(/buildings-img/grosse-raumwerft.png); }
+#Mine { background-image: url(/buildings-img/mine.jpg); }
+#Ammofactory { background-image: url(/buildings-img/ammoFactory.jpg); }
+#Fuelfactory { background-image: url(/buildings-img/fuelFactory.jpg); }
+#Solarplant { background-image: url(/buildings-img/solarPlant.jpg); }
+#Powerplant { background-image: url(/buildings-img/powerPlant.jpg); }
+#Refinery { background-image: url(/buildings-img/refinery.jpg); }
+#Junkyard { background-image: url(/buildings-img/junkyard.jpg); }
+#Recycler { background-image: url(/buildings-img/recycler.jpg); }
+#Spycenter { background-image: url(/buildings-img/spyCenter.jpg); }
+#Fueldepot { background-image: url(/buildings-img/fuelDepot.jpg); }
+#Chemicaldepot { background-image: url(/buildings-img/chemicalDepot.jpg); }
+#Oredepot { background-image: url(/buildings-img/oreDepot.jpg); }
+#Ammodepot { background-image: url(/buildings-img/ammoDepot.jpg); }
+#Energystorage { background-image: url(/buildings-img/energyStorage.jpg); }
+#Steeldepot { background-image: url(/buildings-img/steelDepot.jpg); }
+#smallShipyard { background-image: url(/buildings-img/lightShipyard.jpg); }
+#mediumShipyard { background-image: url(/buildings-img/mediumShipyard.jpg); }
+#largeShipyard { background-image: url(/buildings-img/heavyShipyard.jpg); }
+#Silicondepot { background-image: url(/buildings-img/siliconDepot.jpg); }
+#Mikrochipdepot { background-image: url(/buildings-img/microchipDepot.jpg); }
 
 .buildings-headline{
   display: flex;
