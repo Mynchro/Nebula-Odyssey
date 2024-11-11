@@ -117,7 +117,7 @@ export const createPlayerworld = async (userId) => {
     await Planet.insertMany(planets);
 
     console.log("Spielwelt erfolgreich erstellt!");
-    return planets;
+    return homePlanet;
   } catch (error) {
     console.error("Fehler beim Erstellen des Planeten:", error);
   }
