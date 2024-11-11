@@ -4,12 +4,28 @@ import { useOutletContext } from "react-router-dom";
 import { PlayerContext } from "../../context/PlayerContext";
 
 const Buildings = () => {
-  const { selectedPlanet } = useOutletContext();
+  const { selectedPlanet, setSelectedPlanet } = useOutletContext();
   const [activeType, setActiveType] = useState("produktion");
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [isBuildingOn, setIsBuildingOn] = useState(false);
   const { currentPlayer } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
+
+  const fetchPlanetData = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/${userId}/planet/${selectedPlanet._id}`);
+      if (!response.ok) throw new Error("Fehler beim Abrufen der Planetendaten");
+      
+      const updatedPlanet = await response.json();
+      setSelectedPlanet(updatedPlanet); // Setze die aktualisierten Daten in den Kontext
+    } catch (error) {
+      console.error("Fehler beim Laden der Planetendaten:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlanetData(); // Lade die Daten beim ersten Rendern der Seite
+  }, []);
 
   useEffect(() => {
     // Initialisiere den Status beim Auswahl des Gebäudes
@@ -69,10 +85,7 @@ const Buildings = () => {
             throw new Error(`Fehler: ${response.statusText}`);
         }
 
-        const updatedBuilding = await response.json();
-        console.log("Upgrade erfolgreich:", updatedBuilding);
-
-        setSelectedBuilding(updatedBuilding.building);
+        await fetchPlanetData();
 
     } catch (error) {
         console.error("Fehler beim Upgraden des Gebäudes:", error);
@@ -156,7 +169,7 @@ const toggleBuildingStatus = async () => {
                 <div>
                   <div className="building-data-box">
                   {Object.entries(selectedBuilding?.baseValue?.baseProductionRate || {}) // Überprüfen, ob baseProductionRate existiert
-                        .filter(([resource]) => resource !== "_id") // Filtert "_id" heraus
+                        .filter(([resource]) => resource !== "_id" && resource !== "0") // Filtert "_id" heraus
                         .map(([resource, baseRate]) => {
                           // Berechnung der Produktionsrate pro Ressource
                           const upRate = baseRate * (selectedBuilding.level + 1) * (selectedBuilding.level + 1) * (1 + ((selectedBuilding.level + 1) - 1) / 5);
@@ -190,7 +203,7 @@ const toggleBuildingStatus = async () => {
           {/* Nur Baukosten anzeigen, wenn ein Gebäude ausgewählt ist */}
           {selectedBuilding ? (
             Object.entries(selectedBuilding?.baseValue?.constructionCosts || {})
-              .filter(([resource]) => resource !== "_id") // filtert "_id" und "0" heraus
+              .filter(([resource]) => resource !== "_id" && resource !== "0") // filtert "_id" und "0" heraus
               .map(([resource, baseRate]) => {
                 const rate = baseRate * selectedBuilding.level * selectedBuilding.level * (1 + (selectedBuilding.level - 1) / 5);
                

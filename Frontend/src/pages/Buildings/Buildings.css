@@ -18,7 +18,7 @@
   flex-direction: row-reverse;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(/buildings-img/main.png);
+  background-image: url(/buildings-img/blank.jpg);
   border-bottom: 2px solid var(--secondary-color);
 }
 .buildings-data{

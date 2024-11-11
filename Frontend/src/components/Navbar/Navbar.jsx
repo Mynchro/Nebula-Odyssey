@@ -5,6 +5,19 @@ import { defaultUser_DEV, PlayerContext } from "../../context/PlayerContext";
 import Audio from "../Audio/Audio";
 import axios from "axios";
 
+const Clock = () => {
+  let time = new Date().toLocaleTimeString();
+  const [currentTime, setCurrentTime] = useState(time);
+
+  const updateTime = () => {
+    let time = new Date().toLocaleTimeString();
+    setCurrentTime(time);
+  };
+  setInterval(updateTime, 1000);
+
+  return <>{currentTime}</>;
+};
+
 const Navbar = () => {
   const { currentPlayer, setCurrentPlayer } = useContext(PlayerContext);
   const userName = currentPlayer?.userName;
@@ -125,6 +138,11 @@ const Navbar = () => {
       </div>
       <div className="audio">
         <Audio />
+      </div>
+      <div className="clock" id="clock">
+        <p>
+          <Clock />
+        </p>
       </div>
 
       {/* Color Picker anzeigen, wenn auf Einstellungen geklickt wurde */}
