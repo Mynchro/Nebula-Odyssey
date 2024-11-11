@@ -212,7 +212,7 @@ const toggleBuildingStatus = async () => {
                   <p className="resource-left">
                     {resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:
                   </p>
-                  <p className="resource-mid">{selectedBuilding.level === 1 ? (baseRate * 1.01).toFixed() : (rate === 0 ? baseRate : rate)}</p>  {/* Hier wird der Wert angezeigt */}
+                  <p className="resource-mid">{rate}</p>  {/* Hier wird der Wert angezeigt */}
                 </li>
                 );
               })
