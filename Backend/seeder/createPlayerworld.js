@@ -11,6 +11,19 @@ const planetImages = [
   "/planets/p-5.png",
   "/planets/p-6.png",
   "/planets/p-7.png",
+  "/planets/p-8.png",
+  "/planets/p-9.png",
+  "/planets/p-10.png",
+  "/planets/p-11.png",
+  "/planets/p-12.png",
+  "/planets/p-14.png",
+  "/planets/p-15.png",
+  "/planets/p-16.png",
+  "/planets/p-17.png",
+  "/planets/p-18.png",
+  "/planets/p-19.png",
+  "/planets/p-20.png",
+  "/planets/p-21.png",
 ];
 
 export const createPlayerworld = async (userId) => {
@@ -23,6 +36,7 @@ export const createPlayerworld = async (userId) => {
         "Keine Ressourcen oder Gebäude in der Datenbank gefunden!"
       );
     }
+    let availableImages = [...planetImages];
     const planets = [];
 
     const homePlanet = new Planet({
@@ -52,7 +66,6 @@ export const createPlayerworld = async (userId) => {
         dmgVs: ship.dmgVs,
       })),
       resources: defaultResources._id,
-      lastResourceUpdate: lastResourceUpdate,
     });
 
     planets.push(homePlanet);
@@ -65,8 +78,10 @@ export const createPlayerworld = async (userId) => {
         });
         planets.push(newSun);
       } else {
-        const randomImage =
-          planetImages[Math.floor(Math.random() * planetImages.length)];
+        const randomIndex = Math.floor(Math.random() * availableImages.length);
+        const randomImage = availableImages[randomIndex];
+        availableImages.splice(randomImage, 1);
+
         const newPlanet = new Planet({
           owner: null,
           name: `Planet ${i}`,
@@ -94,7 +109,6 @@ export const createPlayerworld = async (userId) => {
             dmgVs: ship.dmgVs,
           })),
           resources: defaultResources._id,
-          lastResourceUpdate: lastResourceUpdate,
         });
         planets.push(newPlanet);
       }

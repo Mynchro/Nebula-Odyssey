@@ -4,7 +4,6 @@ import userRoute from "./routes/userRoute.js";
 import interfaceRoute from "./routes/interfaceRoute.js";
 import adminRoute from "./routes/adminRoute.js";
 import shipYardRoute from "./routes/shipYardRoute.js";
-import { createGameworld } from "./seeder/createGameworld.js";
 import cors from "cors";
 import buildingsRoutes from "./routes/building.js";
 import { startResourceCalculation } from "./middleware/scheduler.js";
@@ -26,11 +25,11 @@ app.use("/api", buildingsRoutes);
 app.use("/shipyard", shipYardRoute);
 
 // seedResources();
-createGameworld();
+// createGameworld();
 //startResourceCalculation();
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
 
 // const startServer = async () => {
