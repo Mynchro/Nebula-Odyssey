@@ -25,12 +25,7 @@ const planetSchema = new Schema({
     default: {},
   },
   lastResourceUpdate: { type: Date, default: Date.now },
-  buildings: [buildingSchema], // Gebäude als Unterdokumente
   ships: [shipSchema],
-  resources: {
-    type: resourceSchema, // Ressourcen bleiben gleich
-    default: {},
-  },
 });
 
 const Planet = mongoose.model("Planet", planetSchema);

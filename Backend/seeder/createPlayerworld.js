@@ -30,25 +30,29 @@ export const createPlayerworld = async (userId) => {
       name: "Nebula",
       image: `/planets/p-13.png`,
       buildings: defaultBuildings.map((building) => ({
-        originalBuildingId: building._id,
         buildingType: building.buildingType,
         level: building.level,
         status: building.status,
         category: building.category,
+        originalBuildingId: building._id,
+        constructionTime: building.constructionTime,
+        constructionCosts: building.constructionCosts,
+        baseValue: building.baseValue,
         productionRate: building.productionRate,
+        storageCapacity: building.storageCapacity,
       })),
       ships: defaultShips.map((ship) => ({
-        originalShipId: ship._id,
         shipType: ship.shipType,
+        shipYardType: ship.shipYardType,
         amount: ship.amount,
+        originalShipId: ship._id,
         ressourceCosts: ship.ressourceCosts,
         values: ship.values,
         rapidFire: ship.rapidFire,
         dmgVs: ship.dmgVs,
-        shipYardType: ship.shipYardType,
       })),
-
       resources: defaultResources._id,
+      lastResourceUpdate: lastResourceUpdate,
     });
 
     planets.push(homePlanet);
@@ -68,25 +72,29 @@ export const createPlayerworld = async (userId) => {
           name: `Planet ${i}`,
           image: randomImage,
           buildings: defaultBuildings.map((building) => ({
-            originalBuildingId: building._id,
             buildingType: building.buildingType,
             level: building.level,
             status: building.status,
             category: building.category,
+            originalBuildingId: building._id,
+            constructionTime: building.constructionTime,
+            constructionCosts: building.constructionCosts,
+            baseValue: building.baseValue,
             productionRate: building.productionRate,
+            storageCapacity: building.storageCapacity,
           })),
           ships: defaultShips.map((ship) => ({
-            originalShipId: ship._id,
             shipType: ship.shipType,
+            shipYardType: ship.shipYardType,
             amount: ship.amount,
+            originalShipId: ship._id,
             ressourceCosts: ship.ressourceCosts,
             values: ship.values,
             rapidFire: ship.rapidFire,
             dmgVs: ship.dmgVs,
-            shipYardType: ship.shipYardType,
           })),
-
           resources: defaultResources._id,
+          lastResourceUpdate: lastResourceUpdate,
         });
         planets.push(newPlanet);
       }
