@@ -1,10 +1,8 @@
-
 import mongoose from "mongoose";
 import { resourceSchema } from "./Resources.js";
 import unitData from "./Data/unitData.js";
 import Unit from "./Data/unit.js";
 const { Schema } = mongoose;
-
 
 export const shipSchema = new Schema({
   shipType: {
@@ -30,25 +28,21 @@ export const shipSchema = new Schema({
       "laserCannon",
       "railGun",
       "particleCannon",
-      "planetaryShield"
+      "planetaryShield",
     ],
 
-    required: true // Es ist wichtig, den Gebäudetyp als erforderlich zu setzen
+    required: true, // Es ist wichtig, den Gebäudetyp als erforderlich zu setzen
   },
   shipYardType: {
     type: String,
-    enum: [
-      "lightShipyard",
-      "mediumShipyard",
-      "heavyShipyard"
-    ],
-    required: true
+    enum: ["lightShipyard", "mediumShipyard", "heavyShipyard"],
+    required: true,
   },
   amount: {
     type: Number,
     default: 0,
   },
-  originalBuildingId: {
+  originalShipId: {
     // Füge die originalBuildingId hinzu
     type: Schema.Types.ObjectId,
   },
@@ -64,7 +58,7 @@ export const shipSchema = new Schema({
     fuelConsume: { type: Number, default: 0 },
     ammoConsume: { type: Number, default: 0 },
     cargo: { type: Number, default: 0 },
-    hangarSlots: { type: Number, default: 0 }
+    hangarSlots: { type: Number, default: 0 },
   },
   rapidFire: {
     vsLightHunter: { type: Number, default: 1 },
@@ -87,7 +81,7 @@ export const shipSchema = new Schema({
     vsLaserCannon: { type: Number, default: 1 },
     vsRailgun: { type: Number, default: 1 },
     vsParticleCannon: { type: Number, default: 1 },
-    vsPlanetaryShield: { type: Number, default: 1 }
+    vsPlanetaryShield: { type: Number, default: 1 },
   },
   dmgVs: {
     vsLightHunter: { type: Number, default: 0 },
@@ -110,9 +104,8 @@ export const shipSchema = new Schema({
     vsLaserCannon: { type: Number, default: 0 },
     vsRailgun: { type: Number, default: 0 },
     vsParticleCannon: { type: Number, default: 0 },
-    vsPlanetaryShield: { type: Number, default: 0 }
-  }
-
+    vsPlanetaryShield: { type: Number, default: 0 },
+  },
 });
 shipSchema.methods.setValues = function (shipType, unit) {
   this.shipType = shipType;
@@ -155,18 +148,41 @@ shipSchema.methods.setValues = function (shipType, unit) {
     this.shipYardType = "heavyShipyard"
   }
  */
-  const lightShips = ["lightHunter", "heavyHunter", "bomber", "frigate", "miningDrone", "smallTransporter", "flak"];
-  const mediumShips = ["largeTransporter", "destroyer", "cruiser", "smallCarrier", "colonyShip", "miningShip", "ionCannon", "laserCannon"];
-  const heavyShips = ["battleShip", "battleCruiser", "carrier", "particleCannon", "planetaryShield"];
-  
+  const lightShips = [
+    "lightHunter",
+    "heavyHunter",
+    "bomber",
+    "frigate",
+    "miningDrone",
+    "smallTransporter",
+    "flak",
+  ];
+  const mediumShips = [
+    "largeTransporter",
+    "destroyer",
+    "cruiser",
+    "smallCarrier",
+    "colonyShip",
+    "miningShip",
+    "ionCannon",
+    "laserCannon",
+  ];
+  const heavyShips = [
+    "battleShip",
+    "battleCruiser",
+    "carrier",
+    "particleCannon",
+    "planetaryShield",
+  ];
+
   if (lightShips.includes(shipType)) {
-      this.shipYardType = "lightShipyard";
+    this.shipYardType = "lightShipyard";
   } else if (mediumShips.includes(shipType)) {
-      this.shipYardType = "mediumShipyard";
+    this.shipYardType = "mediumShipyard";
   } else if (heavyShips.includes(shipType)) {
-      this.shipYardType = "heavyShipyard";
+    this.shipYardType = "heavyShipyard";
   }
-  
+
   if (unit instanceof Unit) {
     this.ressourceCosts.steel = unit.steelcosts;
     this.ressourceCosts.electronics = unit.mikroshipkosten;
@@ -202,7 +218,8 @@ shipSchema.methods.setValues = function (shipType, unit) {
     this.rapidFire.vsLaserCannon = unit.rapidfirevslasergeschütz;
     this.rapidFire.vsRailgun = unit.rapidfirevsrailgun;
     this.rapidFire.vsParticleCannon = unit.rapidfirevspartikelkanone;
-    this.rapidFire.vsPlanetaryShield = unit.rapidfirevsplanetarerschildgenerator;
+    this.rapidFire.vsPlanetaryShield =
+      unit.rapidfirevsplanetarerschildgenerator;
 
     this.dmgVs.vsLightHunter = unit.dmgversusleichterjaeger;
     this.dmgVs.vsHeavyHunter = unit.dmgversusschwererjaeger;
@@ -231,9 +248,8 @@ shipSchema.methods.setValues = function (shipType, unit) {
     console.log(this.values);
     console.log(this.rapidFire);
     console.log(this.dmgVs);
-  }
-  else {
-    console.log("fehler parameter ist nicht vom typ Unit")
+  } else {
+    console.log("fehler parameter ist nicht vom typ Unit");
   }
 };
 const ship = mongoose.model("ship", shipSchema);
@@ -277,9 +293,6 @@ export const resourceSchema = new Schema({
   // _id: false,
 });
 */
-
-
-
 
 /*
 Werte: sample lighthunter
