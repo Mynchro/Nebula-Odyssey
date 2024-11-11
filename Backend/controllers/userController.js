@@ -278,7 +278,7 @@ export const updateUser = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User existiert nicht!" });
     }
-
+    console.log("Updating user", req.userId, req.body);
     return res.status(200).json({
       message: "Benutzer erfolgreich aktualisiert!",
       user: { userName: updatedUser.userName, email: updatedUser.email },
