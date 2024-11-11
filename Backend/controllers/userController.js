@@ -189,11 +189,11 @@ export const checkLoginStatus = async (req, res) => {
       userName: user.userName,
       settings: user.settings,
       planets: user.planets,
-      user: {
-        userName: user.userName,
-        planets: user.planets,
-        _id: user._id,
-      },
+      // user: {
+      //   userName: user.userName,
+      //   planets: user.planets,
+      //   _id: user._id,
+      // },
     });
   } catch (error) {
     console.error("Fehler bei /check:", error);

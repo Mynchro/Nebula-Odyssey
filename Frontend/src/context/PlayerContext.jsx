@@ -15,39 +15,6 @@ const PlayerProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
-  // const fetchPlayerData = async (userId) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
-  //       credentials: "include",
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("data:", data);
-  //       setPlayerData(data);
-  //       setCurrentPlayer({
-  //         userName: data.userName,
-  //         settings: data.settings,
-  //         planets: data.planets,
-  //         _id: data._id,
-  //       });
-  //     }
-  //     // const data = await response.json();
-
-  //     // setPlayerData(data);
-
-  //     // setCurrentPlayer((prev) => ({
-  //     //   ...prev,
-  //     //   user: {
-  //     //     ...prev.user,
-  //     //     settings: data.settings, // Nehme die Einstellungen aus der Datenbank
-  //     //     planets: data.planets, // Füge die Planeten des Benutzers hinzu
-  //     //   },
-  //     // }));
-  //   } catch (error) {
-  //     console.error("Fehler beim Abrufen der Spieldaten:", error);
-  //   }
-  // };
-
   const handleLogin = async (credentials) => {
     try {
       const response = await fetch("http://localhost:3000/user/login", {

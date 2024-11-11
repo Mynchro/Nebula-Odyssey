@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./Defense.css";
 import werftTypen from "../../assets/data/werften";
+import { useOutletContext } from "react-router-dom";
 
 const DefaultDescription = () => (
   <div>
@@ -24,6 +26,7 @@ const Defense = () => {
   const [description, setDescription] = useState(null);
   const [image, setImage] = useState(defaultImage);
   const [active, setActive] = useState("");
+  const { selectedPlanet } = useOutletContext();
 
   const changeDescriptionAndImage = (descriptionKey) => {
     let item = null;
@@ -52,19 +55,52 @@ const Defense = () => {
           <h3>Deine Verteidigungsanlagen</h3>
           <ul>
             <li>
-              <p>Lasergeschuetz: 0</p>
+              <p>Lasergeschuetz: </p>
+              <p>
+                {console.log("selectedPlanet:", selectedPlanet)}
+                {selectedPlanet.ships.find(
+                  (ship) => ship.shipType === "laserCannon"
+                )?.amount || 0}
+              </p>
             </li>
             <li>
-              <p>Flaggeschuetz: 0</p>
+              <p>Flaggeschuetz: </p>
+              <p>
+                {selectedPlanet.ships.find((ship) => ship.shipType === "flak")
+                  ?.amount || 0}
+              </p>
             </li>
             <li>
-              <p>Ionenkanone: 0</p>
+              <p>Ionenkanone: </p>
+              <p>
+                {selectedPlanet.ships.find(
+                  (ship) => ship.shipType === "ionCannon"
+                )?.amount || 0}
+              </p>
             </li>
             <li>
-              <p>Railgun: 0</p>
+              <p>Railgun: </p>
+              <p>
+                {selectedPlanet.ships.find(
+                  (ship) => ship.shipType === "railgun"
+                )?.amount || 0}
+              </p>
             </li>
             <li>
-              <p>Partikelgeschuetz: 0</p>
+              <p>Partikelgeschuetz: </p>
+              <p>
+                {selectedPlanet.ships.find(
+                  (ship) => ship.shipType === "particleCannon"
+                )?.amount || 0}
+              </p>
+            </li>
+            <li>
+              <p>Planetarer Schild: </p>
+              <p>
+                {selectedPlanet.ships.find(
+                  (ship) => ship.shipType === "planetaryShield"
+                )?.amount || 0}
+              </p>
             </li>
           </ul>
         </div>
