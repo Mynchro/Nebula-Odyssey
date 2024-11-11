@@ -52,7 +52,8 @@ export const buildingSchema = new Schema({
         default: {},
     },
     baseValue: {
-        type: resourceSchema,
+        type: Object,
+        default: {},
     },
     productionRate: {
         type: resourceSchema,

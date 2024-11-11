@@ -49,12 +49,10 @@ const importOrUpdateBuildings = async () => {
         }
 
         for (const buildingData of buildings) {
-            const { buildingType, level } = buildingData;
+            const { buildingType } = buildingData;
 
             // Suche nach einem existierenden Gebäude basierend auf buildingType
-            const existingBuilding = await Building.findOne({
-                buildingType,
-            });
+            const existingBuilding = await Building.findOne({ buildingType });
 
             if (existingBuilding) {
                 // Wenn das Gebäude existiert, wird es aktualisiert
