@@ -168,10 +168,6 @@ const Shipyard = () => {
           <ul>
             <h4>Werte</h4>
             <li>
-              <p className="data-left">Angriffsenergie:</p>{" "}
-              <p className="data-right">{shipData.attackEnergy}</p>
-            </li>
-            <li>
               <p className="data-left">Feuerpower:</p>{" "}
               <p className="data-right">{shipData.firepower}</p>
             </li>

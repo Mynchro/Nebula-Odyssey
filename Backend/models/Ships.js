@@ -37,21 +37,18 @@ export const shipSchema = new Schema({
     //type: String,
    // required: true
  // },
-  class: {
-    type: String,
-    required: true
-  },
+  //class: "btn btn1",
   label: {
     type: String,
-    required: true
+    //required: true
   },
   img: {
     type: String,
-    required: true
+    //required: true
   },
   description: {
     type: String,
-    required: true
+    //required: true
   },
   shipYardType: {
     type: String,
@@ -76,10 +73,10 @@ export const shipSchema = new Schema({
     hull: { type: Number, default: 0 },
     shield: { type: Number, default: 0 },
     speed: { type: Number, default: 0 },
-    fuelConsume: { type: Number, default: 0 },
-    ammoConsume: { type: Number, default: 0 },
+    fuelconsume: { type: Number, default: 0 },
+    ammoconsume: { type: Number, default: 0 },
     cargo: { type: Number, default: 0 },
-    hangarSlots: { type: Number, default: 0 },
+    hangaring: { type: Number, default: 0 },
   },
   rapidFire: {
     vsLightHunter: { type: Number, default: 1 },
@@ -149,7 +146,9 @@ shipSchema.methods.setValues = function (shipType, unit) {
 
 
   if (unit instanceof Unit) {
-    //this.id = unit.name;
+    this.label = unit.name;
+    this.img = unit.img;
+    this.description = unit.description;
     this.ressourceCosts.steel = unit.steelcosts;
     this.ressourceCosts.electronics = unit.mikroshipkosten;
     this.ressourceCosts.energy = unit.energycosts;
@@ -159,10 +158,10 @@ shipSchema.methods.setValues = function (shipType, unit) {
     this.values.hull = unit.hull;
     this.values.shield = unit.shield;
     this.values.speed = unit.speed;
-    this.values.fuelConsume = unit.fuelconsume;
-    this.values.ammoConsume = unit.ammoconsume;
+    this.values.fuelconsume = unit.fuelconsume;
+    this.values.ammoconsume = unit.ammoconsume;
     this.values.cargo = unit.cargo;
-    this.values.hangarSlots = unit.hangaring;
+    this.values.hangaring = unit.hangaring;
 
     this.rapidFire.vsLightHunter = unit.rapidfirevsleichterjaeger;
     this.rapidFire.vsHeavyHunter = unit.rapidfirevsschwererjaeger;
