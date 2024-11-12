@@ -43,7 +43,6 @@ export const createPlayerworld = async (userId) => {
       owner: userId,
       name: "Nebula",
       image: `/planets/p-13.png`,
-      position: 0,
       buildings: defaultBuildings.map((building) => ({
         buildingType: building.buildingType,
         level: building.level,
@@ -76,7 +75,6 @@ export const createPlayerworld = async (userId) => {
         const newSun = new Planet({
           name: `Sun`,
           image: `/planets/s-2.png`,
-          position: 4,
         });
         planets.push(newSun);
       } else {
@@ -88,7 +86,6 @@ export const createPlayerworld = async (userId) => {
           owner: null,
           name: `Planet ${i}`,
           image: randomImage,
-          position: i < 4 ? i : i + 1,
           buildings: defaultBuildings.map((building) => ({
             buildingType: building.buildingType,
             level: building.level,
