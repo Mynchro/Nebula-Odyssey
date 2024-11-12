@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import { createHomeplanet } from "../seeder/createHomeplanet.js";
+import { createPlayerworld } from "../seeder/createPlayerworld.js";
 import TokenBlacklist from "../models/TokenBlacklist.js";
 
 // user-registration
@@ -50,7 +50,7 @@ export const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    const homePlanet = await createHomeplanet(newUser._id);
+    const homePlanet = await createPlayerworld(newUser._id);
 
     newUser.planets.push(homePlanet._id);
 
@@ -126,6 +126,7 @@ export const login = async (req, res) => {
         userName: user.userName,
         planets: user.planets,
         _id: user._id,
+        settings: user.settings,
       },
     });
   } catch (error) {
@@ -142,9 +143,9 @@ export const refreshAccessToken = async (req, res) => {
   const { refreshToken } = req.cookies;
 
   if (!refreshToken) {
-    return res
-      .status(401)
-      .json({ message: "Kein Refresh-Token vorhanden, bitte einloggen." });
+    return res.status(401).json({
+      message: "Kein Refresh-Token vorhanden, bitte einloggen.",
+    });
   }
 
   try {

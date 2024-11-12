@@ -4,12 +4,28 @@ import { useOutletContext } from "react-router-dom";
 import { PlayerContext } from "../../context/PlayerContext";
 
 const Buildings = () => {
-  const { selectedPlanet } = useOutletContext();
+  const { selectedPlanet, setSelectedPlanet } = useOutletContext();
   const [activeType, setActiveType] = useState("produktion");
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [isBuildingOn, setIsBuildingOn] = useState(false);
   const { currentPlayer } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
+
+  const fetchPlanetData = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/${userId}/planet/${selectedPlanet._id}`);
+      if (!response.ok) throw new Error("Fehler beim Abrufen der Planetendaten");
+      
+      const updatedPlanet = await response.json();
+      setSelectedPlanet(updatedPlanet); // Setze die aktualisierten Daten in den Kontext
+    } catch (error) {
+      console.error("Fehler beim Laden der Planetendaten:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlanetData(); // Lade die Daten beim ersten Rendern der Seite
+  }, []);
 
   useEffect(() => {
     // Initialisiere den Status beim Auswahl des Gebäudes
@@ -69,13 +85,10 @@ const Buildings = () => {
             throw new Error(`Fehler: ${response.statusText}`);
         }
 
-        const data = await response.json();
-        console.log("Upgrade erfolgreich:", data);
-        alert("Gebäude wurde erfolgreich aufgewertet!");
+        await fetchPlanetData();
 
     } catch (error) {
         console.error("Fehler beim Upgraden des Gebäudes:", error);
-        alert("Es gab ein Problem beim Upgraden des Gebäudes.");
     }
 };
 
@@ -155,16 +168,22 @@ const toggleBuildingStatus = async () => {
               {selectedBuilding.productionRate && (
                 <div>
                   <div className="building-data-box">
-                    {Object.entries(selectedBuilding.productionRate)
-                      .filter(([resource, rate]) => resource !== "_id" && rate !== 0) // filtert "_id" und "0" heraus
-                      .map(([resource, rate]) => (
-                        <li key={resource}>
-                          <p className="resource-left">{resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:</p>
-                          <p className="resource-mid">{rate}</p>
-                          <p className="resource-arrow">→</p>
-                          <p className="resource-right">{(rate * 1.1).toFixed()}</p>
-                        </li>
-                      ))}
+                  {Object.entries(selectedBuilding?.baseValue?.baseProductionRate || {}) // Überprüfen, ob baseProductionRate existiert
+                        .filter(([resource]) => resource !== "_id" && resource !== "0") // Filtert "_id" heraus
+                        .map(([resource, baseRate]) => {
+                          // Berechnung der Produktionsrate pro Ressource
+                          const upRate = baseRate * (selectedBuilding.level + 1) * (selectedBuilding.level + 1) * (1 + ((selectedBuilding.level + 1) - 1) / 5);
+                          const rate = baseRate * selectedBuilding.level * selectedBuilding.level * (1 + (selectedBuilding.level - 1) / 5);
+
+                          return (
+                            <li key={resource}>
+                              <p className="resource-left">{resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:</p>
+                              <p className="resource-mid">{rate.toFixed()}</p>
+                              <p className="resource-arrow">→</p>
+                              <p className="resource-right">{upRate.toFixed(0)}</p>
+                            </li>
+                          );
+                        })}
                   </div>
                 </div>
               )}
@@ -183,25 +202,37 @@ const toggleBuildingStatus = async () => {
         <ul>
           {/* Nur Baukosten anzeigen, wenn ein Gebäude ausgewählt ist */}
           {selectedBuilding ? (
-            Object.entries(selectedBuilding.constructionCosts)
-              .filter(([resource, rate]) => resource !== "_id" && rate !== 0) // filtert "_id" und "0" heraus
-              .map(([resource, rate]) => (
+            Object.entries(selectedBuilding?.baseValue?.constructionCosts || {})
+              .filter(([resource]) => resource !== "_id" && resource !== "0") // filtert "_id" und "0" heraus
+              .map(([resource, baseRate]) => {
+                const rate = baseRate * selectedBuilding.level * selectedBuilding.level * (1 + (selectedBuilding.level - 1) / 5);
+               
+                return (
                 <li key={resource}>
-                  <p className="resource-left">{resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:</p>
-                  <p className="resource-mid">{rate}</p>
+                  <p className="resource-left">
+                    {resource.charAt(0).toUpperCase() + resource.slice(1).toLowerCase()}:
+                  </p>
+                  <p className="resource-mid">{rate}</p>  {/* Hier wird der Wert angezeigt */}
                 </li>
-              ))
+                );
+              })
               
           ) : (
-            <li>Keine Baukosten verfügbar</li> // Zeige eine Nachricht, wenn kein Gebäude ausgewählt ist
+            <li>Loading...</li> // Zeige eine Nachricht, wenn kein Gebäude ausgewählt ist
           )}
           {selectedBuilding ? (
           <li>
             <p className="resource-left">Bauzeit:</p>
-            <p className="resource-mid">{selectedBuilding.constructionTime}</p>
+            <p className="resource-mid">{
+                  selectedBuilding.level === 0
+                      ? (selectedBuilding.baseValue.constructionTime / 60).toFixed(2) // Basiswert für Level 0
+                      : selectedBuilding.level === 1
+                      ? ((selectedBuilding.baseValue.constructionTime * 1.01) / 60).toFixed(2) // Kleine Skalierung für Level 1
+                      : ((selectedBuilding.baseValue.constructionTime * selectedBuilding.level * selectedBuilding.level * (1 + (selectedBuilding.level - 1) / 5)) / 60).toFixed() // Vollständige Berechnung für Level 2+
+              } min</p>
           </li>
           ) : (
-            <li>Keine Bauzeit verfügbar</li> // Zeige eine Nachricht, wenn kein Gebäude ausgewählt ist
+            <li>Loading...</li> // Zeige eine Nachricht, wenn kein Gebäude ausgewählt ist
           )}
         </ul>
         <button
