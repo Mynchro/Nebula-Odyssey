@@ -15,6 +15,10 @@ export default class Unit {
   static unittype;
   static attackEnergy;
 
+  img = "kein bild vorhanden";
+  label = "nicht gefundener name";
+  description = "keine beschreibung";
+
   dmgversusleichterjaeger = 0;
   dmgversusschwererjaeger = 0;
   dmgversusbomber = 0;
@@ -187,8 +191,7 @@ export default class Unit {
     let isDead;
     gegner.shield -= this.firepower + this.damageVersus(gegner)[0];
     console.log(
-      `${this.name} greift ${gegner.name} an und fügt ${
-        this.firepower + this.damageVersus(gegner)[0]
+      `${this.name} greift ${gegner.name} an und fügt ${this.firepower + this.damageVersus(gegner)[0]
       } Schaden zu.`
     );
     if (gegner.shield < 0) {
@@ -212,16 +215,16 @@ export default class Unit {
     return isDead;
   }
 
-    checkAmmo(fleet) {
-        if (this.ammoconsume <= fleet.ammo) {
-            fleet.ammo -= this.ammoconsume;
-            return true;
-        }
-        else {
-            return false;
-
-        }
+  checkAmmo(fleet) {
+    if (this.ammoconsume <= fleet.ammo) {
+      fleet.ammo -= this.ammoconsume;
+      return true;
     }
+    else {
+      return false;
+
+    }
+  }
 }
 /*
   static chemicalcost;

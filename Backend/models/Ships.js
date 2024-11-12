@@ -35,6 +35,26 @@ export const shipSchema = new Schema({
 
     required: true // Es ist wichtig, den Gebäudetyp als erforderlich zu setzen
   },
+  //id: {
+    //type: String,
+   // required: true
+ // },
+  class: {
+    type: String,
+    required: true
+  },
+  label: {
+    type: String,
+    required: true
+  },
+  img: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
   shipYardType: {
     type: String,
     enum: [
@@ -56,6 +76,7 @@ export const shipSchema = new Schema({
     type: resourceSchema,
     default: {}, // Standardmäßig leeres Objekt
   },
+
   values: {
     firepower: { type: Number, default: 0 },
     hull: { type: Number, default: 0 },
@@ -114,60 +135,24 @@ export const shipSchema = new Schema({
   }
 
 });
+
 shipSchema.methods.setValues = function (shipType, unit) {
   this.shipType = shipType;
-  /*
-  "lightHunter",
-      "heavyHunter",
-      "bomber",
-      "frigate",
-      "miningDrone",
-      "smallTransporter",
-      "largeTransporter",
-      "destroyer",
-      "cruiser",
-      "smallCarrier",
-      "colonyShip",
-      "miningShip",
-      "battleShip",
-      "battleCruiser",
-      "carrier",
-      "flak",
-      "ionCannon",
-      "laserCannon",
-      "railGun",
-      "particleCannon",
-      "planetaryShield"
 
-
-       "lightShipyard",
-      "mediumShipyard",
-      "heavyShipyard"
-
-     
-  if (shipType === "lightHunter" || "heavyHunter" || "bomber" || "frigate" || "miningDrone" || "smallTransporter" || "flak") {
-    this.shipYardType = "lightShipyard"
-  }
-  if (shipType === "largeTransporter" || "destroyer" || "cruiser" || "smallCarrier" || "colonyShip" || "miningShip" || "ionCannon" || "laserCannon") {
-    this.shipYardType = "mediumShipyard"
-  }
-  if (shipType === "battleShip" || "battleCruiser" || "carrier" || "particleCannon" || "planetaryShield") {
-    this.shipYardType = "heavyShipyard"
-  }
- */
-  const lightShips = ["lightHunter", "heavyHunter", "bomber", "frigate", "miningDrone", "smallTransporter", "flak"];
-  const mediumShips = ["largeTransporter", "destroyer", "cruiser", "smallCarrier", "colonyShip", "miningShip", "ionCannon", "laserCannon"];
+  const lightShips = ["lightHunter", "heavyHunter", "bomber", "frigate", "miningDrone", "smallTransporter", "flak", "laserCannon"];
+  const mediumShips = ["largeTransporter", "destroyer", "cruiser", "smallCarrier", "colonyShip", "miningShip", "ionCannon", "railgun"];
   const heavyShips = ["battleShip", "battleCruiser", "carrier", "particleCannon", "planetaryShield"];
-  
+
   if (lightShips.includes(shipType)) {
-      this.shipYardType = "lightShipyard";
+    this.shipYardType = "lightShipyard";
   } else if (mediumShips.includes(shipType)) {
-      this.shipYardType = "mediumShipyard";
+    this.shipYardType = "mediumShipyard";
   } else if (heavyShips.includes(shipType)) {
-      this.shipYardType = "heavyShipyard";
+    this.shipYardType = "heavyShipyard";
   }
-  
+
   if (unit instanceof Unit) {
+    //this.id = unit.name;
     this.ressourceCosts.steel = unit.steelcosts;
     this.ressourceCosts.electronics = unit.mikroshipkosten;
     this.ressourceCosts.energy = unit.energycosts;

@@ -22,6 +22,9 @@ class LeichterJaeger extends Unit {
     this.rapidfirevszerstörer = 50;
     this.rapidfirevsbomber = 10;
     this.rapidfirevskleinertransporter = 10;
+    this.img = "kein bild vorhanden";
+    this.label = "nicht gefundener name";
+    this.description = "keine beschreibung";
   }
 }
 class SchwererJaeger extends Unit {
