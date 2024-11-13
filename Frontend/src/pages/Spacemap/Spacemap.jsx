@@ -1,12 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./Spacemap.css";
 import { PlanetBox } from "../../components/Spacemap/Planetbox";
+import { PlayerContext } from "../../context/PlayerContext";
 
 const Spacemap = () => {
   const [choicePlanet, setChoicePlanet] = useState(null);
   const [planets, setPlanets] = useState([]);
+  const { currentPlayer } = useContext(PlayerContext);
   const [currentPage, setCurrentPage] = useState(1);
   const planetsPerPage = 9;
+
+  console.log(
+    "currentPlayer Page:",
+    currentPlayer.page,
+    currentPlayer.userName,
+    currentPlayer
+  );
+
+  useEffect(() => {
+    if (currentPlayer?.page) {
+      setCurrentPage(currentPlayer.page);
+    }
+  }, [currentPlayer]);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/planets")

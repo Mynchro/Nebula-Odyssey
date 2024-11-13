@@ -90,7 +90,7 @@ export const login = async (req, res) => {
     // check if user exists in the db
     const user = await User.findOne({ userName }).populate({
       path: "planets",
-      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+      populate: [{ path: "buildings" }, { path: "position", select: "page" }],
     });
 
     if (!user) {
@@ -132,6 +132,7 @@ export const login = async (req, res) => {
         planets: user.planets,
         _id: user._id,
         settings: user.settings,
+        page: user.page,
       },
     });
   } catch (error) {
@@ -185,7 +186,7 @@ export const checkLoginStatus = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate({
       path: "planets",
-      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+      populate: [{ path: "buildings" }, { path: "position", select: "page" }], // Populiere die Gebäude des Planeten
     });
     if (!user) return res.sendStatus(404);
 
@@ -194,11 +195,7 @@ export const checkLoginStatus = async (req, res) => {
       userName: user.userName,
       settings: user.settings,
       planets: user.planets,
-      // user: {
-      //   userName: user.userName,
-      //   planets: user.planets,
-      //   _id: user._id,
-      // },
+      page: user.page,
     });
   } catch (error) {
     console.error("Fehler bei /check:", error);
