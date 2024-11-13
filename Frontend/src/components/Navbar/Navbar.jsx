@@ -24,7 +24,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(/*"#ffffff"*/); // Setze einen Standardwert
+  const [selectedColor, setSelectedColor] = useState("#d30d0d"); // Setze einen Standardwert
 
   // Funktion für Logout
   const handleLogout = async () => {
@@ -44,7 +44,7 @@ const Navbar = () => {
   useEffect(() => {
     if (currentPlayer) {
       // Setze die Farbe beim Laden der Benutzereinstellungen
-      const initialColor = currentPlayer?.settings?.color /*|| "#ffffff"*/; // Fallback auf Weiß
+      const initialColor = currentPlayer?.settings?.color || "#d30d0d"; // Fallback auf Weiß
       setSelectedColor(initialColor);
       document.documentElement.style.setProperty(
         "--secondary-color",
