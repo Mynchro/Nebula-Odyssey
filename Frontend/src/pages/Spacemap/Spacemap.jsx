@@ -103,7 +103,7 @@ const Spacemap = () => {
             <p>Klicke auf einen Planeten, um Details zu sehen</p>
           )}
         </div>
-        {currentPlanets.map((planet, index) => (
+        {currentPlanets.map((planet) => (
           <PlanetBox
             key={planet._id}
             number={planet.position.positionOnPage + 1}
