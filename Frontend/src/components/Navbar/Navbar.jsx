@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { defaultUser_DEV, PlayerContext } from "../../context/PlayerContext";
 import Audio from "../Audio/Audio";
@@ -93,17 +93,6 @@ const Navbar = () => {
           <Clock />
         </p>
       </div>
-
-      {/* Color Picker anzeigen, wenn auf Einstellungen geklickt wurde */}
-      {showColorPicker && (
-        <div className="colorpickerbox">
-          <input
-            type="color"
-            value={selectedColor}
-            onChange={handleColorChange} // Hier die Funktion verwenden, um die Farbe zu aktualisieren
-          />
-        </div>
-      )}
     </header>
   );
 };
