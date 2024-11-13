@@ -39,6 +39,10 @@ export const register = async (req, res) => {
       });
     }
 
+    // Bestimme die nächste verfügbare Seite
+    const userCount = await User.countDocuments();
+    const pageNumber = userCount + 1; // Setze die Seite auf userCount + 1
+
     // hash password with bcrypt
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -48,14 +52,15 @@ export const register = async (req, res) => {
       userName,
       email,
       password: hashedPassword,
+      page: pageNumber,
     });
-
-    const homePlanet = await createPlayerworld(newUser._id);
-
-    newUser.planets.push(homePlanet._id);
 
     // Save the user
     await newUser.save();
+
+    const homePlanet = await createPlayerworld(newUser._id);
+
+    // newUser.planets.push(homePlanet._id);
 
     return res.status(201).json({
       message: "Benutzer erfolgreich registriert! Heimatplanet zugewiesen!",
@@ -189,11 +194,11 @@ export const checkLoginStatus = async (req, res) => {
       userName: user.userName,
       settings: user.settings,
       planets: user.planets,
-      user: {
-        userName: user.userName,
-        planets: user.planets,
-        _id: user._id,
-      },
+      // user: {
+      //   userName: user.userName,
+      //   planets: user.planets,
+      //   _id: user._id,
+      // },
     });
   } catch (error) {
     console.error("Fehler bei /check:", error);
@@ -278,7 +283,7 @@ export const updateUser = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User existiert nicht!" });
     }
-
+    console.log("Updating user", req.userId, req.body);
     return res.status(200).json({
       message: "Benutzer erfolgreich aktualisiert!",
       user: { userName: updatedUser.userName, email: updatedUser.email },

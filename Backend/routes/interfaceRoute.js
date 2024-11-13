@@ -1,10 +1,10 @@
 import express from "express";
 import {
-    updatePlayerColor,
-    getPlayer,
-    getAllBuildings,
-    getUserResources,
-    getAllPlanets,
+  updatePlayerColor,
+  getPlayer,
+  getAllBuildings,
+  getUserResources,
+  getAllPlanets,
 } from "../controllers/interface.js";
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get("/user/:userId/buildings", getAllBuildings);
 router.get("/user/:userId/resources", getUserResources);
 
 router.get("/planets", getAllPlanets);
-router.put("/user/:userId", updatePlayerColor);
+router.patch("/user/:userId", updatePlayerColor);
 router.get("/user/:userId", getPlayer);
 
 export default router;

@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const PlayerContext = createContext();
 export const defaultUser_DEV = {
   userName: "Test",
-  settings: { color: "#000000" },
+  settings: { color: "#cccccc" }, // Subtile, weniger auffällige Fallback-Farbe (z. B. Grau)
 };
 
 const PlayerProvider = ({ children }) => {
@@ -15,38 +14,12 @@ const PlayerProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
-  // const fetchPlayerData = async (userId) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
-  //       credentials: "include",
-  //     });
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log("data:", data);
-  //       setPlayerData(data);
-  //       setCurrentPlayer({
-  //         userName: data.userName,
-  //         settings: data.settings,
-  //         planets: data.planets,
-  //         _id: data._id,
-  //       });
-  //     }
-  //     // const data = await response.json();
-
-  //     // setPlayerData(data);
-
-  //     // setCurrentPlayer((prev) => ({
-  //     //   ...prev,
-  //     //   user: {
-  //     //     ...prev.user,
-  //     //     settings: data.settings, // Nehme die Einstellungen aus der Datenbank
-  //     //     planets: data.planets, // Füge die Planeten des Benutzers hinzu
-  //     //   },
-  //     // }));
-  //   } catch (error) {
-  //     console.error("Fehler beim Abrufen der Spieldaten:", error);
-  //   }
-  // };
+  const setSecondaryColor = (color) => {
+    document.documentElement.style.setProperty(
+      "--secondary-color",
+      color || "#cccccc"
+    );
+  };
 
   const handleLogin = async (credentials) => {
     try {
@@ -61,17 +34,13 @@ const PlayerProvider = ({ children }) => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("result:", result); // Überprüfe das Ergebnis hier
         setCurrentPlayer(result.user);
 
-        // if (result.user && result.user._id) {
-        //   // await fetchPlayerData(result.user._id);
-        //   setCurrentPlayer(result.user); // Hier die userId angeben
-        console.log("currentPlayer:", currentPlayer);
-        console.log("Aktueller Spieler nach dem Login:", result.user); // Nutzerinformationen überprüfen
-        // } else {
-        //   console.error("Benutzerinformationen fehlen im Ergebnis.");
-        // }
+        // Setze die Farbe basierend auf den Nutzereinstellungen nach Login
+        const color = result.user?.settings?.color || "#cccccc"; // Verwendet Grau als Fallback
+        setSecondaryColor(color);
+
+        console.log("Aktueller Spieler nach dem Login:", result.user);
       } else {
         console.error("Login fehlgeschlagen:", response.statusText);
       }
@@ -85,12 +54,16 @@ const PlayerProvider = ({ children }) => {
       const response = await fetch(
         "http://localhost:3000/user/checkLoginStatus",
         {
-          credentials: "include", // Ermöglicht das Senden von Cookies
+          credentials: "include",
         }
       );
       if (response.ok) {
         const data = await response.json();
         setCurrentPlayer(data);
+
+        // Setze die Farbe basierend auf den gespeicherten Einstellungen des Benutzers
+        const color = data?.settings?.color || "#cccccc"; // Verwendet Grau als Fallback
+        setSecondaryColor(color);
       } else {
         navigate("/");
         console.log("Keine Benutzerdaten gefunden:", response.statusText);
