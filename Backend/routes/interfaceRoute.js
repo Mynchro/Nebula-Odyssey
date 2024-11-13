@@ -5,6 +5,7 @@ import {
   getAllBuildings,
   getUserResources,
   getAllPlanets,
+  colonizePlanet,
 } from "../controllers/interface.js";
 
 const router = express.Router();
@@ -20,6 +21,8 @@ router.get("/user/:userId/resources", getUserResources);
 router.get("/planets", getAllPlanets);
 router.patch("/user/:userId", updatePlayerColor);
 router.get("/user/:userId", getPlayer);
+
+router.patch("/spacemap/colonizePlanet/:userId/:planetId", colonizePlanet);
 
 export default router;
 

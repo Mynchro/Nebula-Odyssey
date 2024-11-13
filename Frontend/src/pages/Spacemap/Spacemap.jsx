@@ -10,12 +10,14 @@ const Spacemap = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const planetsPerPage = 9;
 
-  console.log(
-    "currentPlayer Page:",
-    currentPlayer.page,
-    currentPlayer.userName,
-    currentPlayer
-  );
+  // console.log(
+  //   "currentPlayer Page:",
+  //   currentPlayer.page,
+  //   currentPlayer.userName,
+  //   currentPlayer
+  // );
+
+  console.log("ausgewählter Planet:", choicePlanet);
 
   useEffect(() => {
     if (currentPlayer?.page) {
@@ -71,8 +73,52 @@ const Spacemap = () => {
     );
   };
 
+  const colonizePlanetHandler = async () => {
+    if (!choicePlanet || !currentPlayer) return;
+
+    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
+    setChoicePlanet(optimisticPlanet);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/spacemap/colonizePlanet/${currentPlayer._id}/${choicePlanet._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Fehler beim Besiedeln des Planeten");
+      }
+
+      const updatedPlanet = await response.json();
+      console.log("Aktualisierter Planet:", updatedPlanet);
+
+      setPlanets((prevPlanets) =>
+        prevPlanets.map((planet) =>
+          planet._id === updatedPlanet._id ? updatedPlanet : planet
+        )
+      );
+
+      setChoicePlanet(updatedPlanet);
+
+      console.log("Neues ChoicePlanet:", choicePlanet);
+    } catch (error) {
+      console.error("Fehler beim Besiedeln des Planeten:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (choicePlanet) {
+      console.log("Planet wurde erfolgreich besiedelt:", choicePlanet);
+    }
+  }, [choicePlanet]);
+
   return (
-    <div className="content-box" onClick={() => setChoicePlanet(null)}>
+    <div className="content-box">
       <div className="solarsystem">
         <i
           className="fa-solid fa-spaghetti-monster-flying"
@@ -104,14 +150,20 @@ const Spacemap = () => {
                 src={choicePlanet.image}
                 alt={choicePlanet.name}
               />
-              <div>
+              <div className="planet-menu">
                 <p>{`Planetname: ${choicePlanet.name}`}</p>
                 <p>{`Besitzer: ${
                   choicePlanet.owner
                     ? choicePlanet.owner.userName
                     : "Unknown Owner"
                 }`}</p>
-                <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
+                {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
+                <button
+                  onClick={colonizePlanetHandler}
+                  className="btn colonize-btn"
+                >
+                  Planet besiedeln
+                </button>
               </div>
             </>
           ) : (
