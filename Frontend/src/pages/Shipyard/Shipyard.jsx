@@ -11,7 +11,9 @@ const Shipyard = () => {
   const [shipImage, setShipImage] = useState(
     `url(/werften/uebersicht-title.png)`
   );
-  
+
+  const { setCurrentPlayer } = useContext(PlayerContext);
+
   const [shipData, setShipData] = useState({});
   const [shipTitle, setShipTitle] = useState("");
   const [shipDescription, setShipDescription] = useState("");
@@ -23,20 +25,24 @@ const Shipyard = () => {
 
   const handleShipType = async (type) => {
     const loadedShips = await loadShips(); // Schiffe laden
-    console.log("Geladene Schiffe:", loadedShips);  // Debugging: Zeige alle geladenen Schiffe an
-  
-    const validShipYardTypes = ["lightShipyard", "mediumShipyard", "heavyShipyard"];
-  
+    console.log("Geladene Schiffe:", loadedShips); // Debugging: Zeige alle geladenen Schiffe an
+
+    const validShipYardTypes = [
+      "lightShipyard",
+      "mediumShipyard",
+      "heavyShipyard",
+    ];
+
     // Verwende reduce, um Schiffe mit dem gültigen shipYardType zu sammeln
     const filteredShips = loadedShips.reduce((result, ship) => {
-      console.log(type + " der typ")
-      console.log(ship.shipYardType + " shipyardtype")
+      console.log(type + " der typ");
+      console.log(ship.shipYardType + " shipyardtype");
       if (type === ship.shipYardType) {
         result.push(ship); // Füge das Schiff der Ergebnisliste hinzu
       }
       return result; // Gib das Ergebnis zurück
     }, []);
-  
+
     console.log("Gefilterte Schiffe:", filteredShips); // Debugging: Zeige gefilterte Schiffe an
     setShips(filteredShips); // Setze den Zustand mit den gefilterten Schiffen
     setActiveType(type); // Setze den aktiven Werfttyp
@@ -63,22 +69,23 @@ const Shipyard = () => {
     let item = null;
     //console.log(selectedPlanet._id + " das hier ist DER AUSGEWÄHLÖTE PLANET")
     //console.log("Schiffe im State:", ships); // Ausgabe der Schiffe im State
-  
+
     // Suche nach dem Schiff anhand des shipType
     for (const ship of ships) {
-      if (ship.shipType === descriptionKey) {  // Vergleiche anhand von 'id' statt 'shipType'
+      if (ship.shipType === descriptionKey) {
+        // Vergleiche anhand von 'id' statt 'shipType'
         item = ship;
         break; // Wenn das Schiff gefunden wurde, beende die Schleife
       }
     }
-  
+
     console.log("Gefundenes Schiff:", item); // Gib das gefundene Schiff aus
-  
+
     if (item) {
       setShipData({
-        ...item.ressourceCosts,  // Alle Eigenschaften von 'ressourceCosts'
-        ...item.values           // Alle Eigenschaften von 'values'
-      });;
+        ...item.ressourceCosts, // Alle Eigenschaften von 'ressourceCosts'
+        ...item.values, // Alle Eigenschaften von 'values'
+      });
       setShipImage(`url(${item.img})`);
       setShipTitle(item.label);
       setShipDescription(item.description);
@@ -111,35 +118,41 @@ const Shipyard = () => {
 
   //Buy
 
-  const { currentPlayer, setCurrentPlayer } = useContext(PlayerContext);
+  const { currentPlayer } = useContext(PlayerContext);
   const [buyMessage, setBuyMessage] = useState("");
 
   const buildShip = async () => {
     try {
       //console.log(activeShip + " mein aktives activeShip");
       //const planetId =currentPlayer.
-      const response = await fetch(`http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/buildShip/${selectedPlanet._id}`, {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-          // Wenn nötig, Authentifizierungs-Header hinzufügen
-          'Authorization': 'Bearer deinTokenHier' 
-        },
-      });
-  
+      const response = await fetch(
+        `http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/buildShip/${selectedPlanet._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Wenn nötig, Authentifizierungs-Header hinzufügen
+            Authorization: "Bearer deinTokenHier",
+          },
+        }
+      );
+
       if (response.ok) {
         const data = await response.json(); // Antwort des Servers (falls im JSON-Format)
-        console.log('Schiff erfolgreich gebaut:', data);
+
+        setCurrentPlayer(data.user);
+
+        console.log("Schiff erfolgreich gebaut:", data);
         //console.log("Antwort vom Backend:", data);
       } else {
-        console.error('Fehler beim Bauen des Schiffs:', response.statusText);
+        console.error("Fehler beim Bauen des Schiffs:", response.statusText);
       }
     } catch (error) {
-      console.error('Es gab einen Fehler:', error);
+      console.error("Es gab einen Fehler:", error);
     }
     //location.reload();
   };
-/*
+  /*
   const buyShip = (descriptionKey) => {
     let item = null;
     ["klein", "mittel", "gross"].forEach((size) => {
@@ -286,21 +299,27 @@ const Shipyard = () => {
         <div className="werft">
           <div className="werft-bar">
             <button
-              className={`btn ${activeType === "lightShipyard" ? "active" : ""}`}
+              className={`btn ${
+                activeType === "lightShipyard" ? "active" : ""
+              }`}
               id="change-klein"
               onClick={() => handleShipType("lightShipyard")}
             >
               Kleine Werft
             </button>
             <button
-              className={`btn ${activeType === "mediumShipyard" ? "active" : ""}`}
+              className={`btn ${
+                activeType === "mediumShipyard" ? "active" : ""
+              }`}
               id="change-mittel"
               onClick={() => handleShipType("mediumShipyard")}
             >
               Mittlere Werft
             </button>
             <button
-              className={`btn ${activeType === "heavyShipyard" ? "active" : ""}`}
+              className={`btn ${
+                activeType === "heavyShipyard" ? "active" : ""
+              }`}
               id="change-gross"
               onClick={() => handleShipType("heavyShipyard")}
             >
@@ -312,8 +331,9 @@ const Shipyard = () => {
               <button
                 key={ship.shipType}
                 id={ship.shipType}
-                className={`${ship.class} ${activeShip === ship.shipType ? "active" : ""
-                  }`}
+                className={`${ship.class} ${
+                  activeShip === ship.shipType ? "active" : ""
+                }`}
                 onClick={() => changeDescriptionAndImage(ship.shipType)}
               >
                 {ship.label}
