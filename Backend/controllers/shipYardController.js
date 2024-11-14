@@ -125,7 +125,7 @@ export const buildShip = async (req, res) => {
       for (const key in planet.resources.toObject()) {
         if (typeof planet.resources[key] === "number") {
           planet.resources[key] -= ship.ressourceCosts[key];
-          console.log(planet.resources[key]);
+          //console.log(planet.resources[key]);
         } else {
           canBuild = false;
         }
@@ -135,11 +135,8 @@ export const buildShip = async (req, res) => {
       ship.amount += 1;
       console.log(`${ship.amount} schiffe vorhanden`);
     }
-    //console.log(planet.resources);
-
-    // Speichere den Planeten mit dem aktualisierten Gebäude
+    
     await planet.save();
-    await planet.ships.save();
     return res.status(200).send({
       message: "Schiff wurde erfolgreich gebaut",
       ship,

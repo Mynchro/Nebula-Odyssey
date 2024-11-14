@@ -19,6 +19,8 @@ const Shipyard = () => {
   const [activeType, setActiveType] = useState(null); // State for active type button
   const { selectedPlanet } = useOutletContext();
 
+  const [dummy, setDummy] = useState(false);
+
   const handleShipType = async (type) => {
     const loadedShips = await loadShips(); // Schiffe laden
     console.log("Geladene Schiffe:", loadedShips);  // Debugging: Zeige alle geladenen Schiffe an
@@ -114,32 +116,28 @@ const Shipyard = () => {
 
   const buildShip = async () => {
     try {
-      console.log(activeShip + " mein aktives activeShip");
+      //console.log(activeShip + " mein aktives activeShip");
       //const planetId =currentPlayer.
       const response = await fetch(`http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/buildShip/${selectedPlanet._id}`, {
-        method: 'POST', // Falls der Endpunkt ein POST-Request erwartet
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
           // Wenn nötig, Authentifizierungs-Header hinzufügen
           'Authorization': 'Bearer deinTokenHier' 
         },
-        body: JSON.stringify({
-          // Hier könntest du zusätzliche Daten im Body senden, falls nötig
-          // Beispiel:
-          // someKey: 'someValue'
-        })
       });
   
       if (response.ok) {
         const data = await response.json(); // Antwort des Servers (falls im JSON-Format)
         console.log('Schiff erfolgreich gebaut:', data);
-        // Hier kannst du mit der Antwort vom Backend arbeiten
+        //console.log("Antwort vom Backend:", data);
       } else {
         console.error('Fehler beim Bauen des Schiffs:', response.statusText);
       }
     } catch (error) {
       console.error('Es gab einen Fehler:', error);
     }
+    //location.reload();
   };
 /*
   const buyShip = (descriptionKey) => {
