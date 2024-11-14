@@ -1,4 +1,5 @@
 import Building from "../models/Buildings.js";
+import Planet from "../models/Planet.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 
@@ -69,6 +70,17 @@ export const upgradeBuilding = async (req, res) => {
 
         if (!user) return res.status(404).send("Benutzer nicht gefunden");
 
+        if (
+            user.buildingInProgress &&
+            user.buildingInProgress !== buildingType
+        ) {
+            return res
+                .status(400)
+                .send(
+                    `Das Gebäude ${user.buildingInProgress} ist noch im Bau. Bitte warte, bis dieser Bau abgeschlossen ist.`
+                );
+        }
+
         const planet = user.planets.find((p) => p._id.toString() === planetId);
         if (!planet) return res.status(404).send("Planet nicht gefunden");
 
@@ -82,6 +94,18 @@ export const upgradeBuilding = async (req, res) => {
         if (building.level >= 15)
             return res.status(400).send("Maximales Level erreicht");
 
+        const now = new Date();
+        if (
+            building.constructionEndTime &&
+            now < building.constructionEndTime
+        ) {
+            return res
+                .status(400)
+                .send(
+                    "Das Gebäude ist noch im Bau. Bitte warte bis zum Abschluss der Bauzeit."
+                );
+        }
+
         // Berechnung der neuen Produktionsrate
         const {
             updatedProductionRate,
@@ -94,12 +118,19 @@ export const upgradeBuilding = async (req, res) => {
             building.level + 1 // Berechnung für das nächste Level
         );
 
+        const constructionEndTime = new Date(
+            now.getTime() + updatedConstructionTime * 1000
+        );
+
         // Setze die aktualisierte Produktionsrate und erhöhe das Level
         building.productionRate = updatedProductionRate;
         building.constructionCosts = updatedConstructionCosts;
         building.constructionTime = updatedConstructionTime;
+        building.constructionEndTime = constructionEndTime;
         building.level += 1;
 
+        user.buildingInProgress = buildingType;
+        await user.save();
         await planet.save();
 
         return res.status(200).send({
@@ -154,5 +185,30 @@ export const updateBuildingStatus = async (req, res) => {
     } catch (error) {
         console.error("Fehler beim Upgraden des Gebäudes:", error);
         return res.status(500).send("Serverfehler beim Upgraden des Gebäudes");
+    }
+};
+
+export const getBuilding = async (req, res) => {
+    try {
+        const { userId, planetId, buildingType } = req.params;
+
+        const user = await User.findById(userId);
+        if (!user)
+            return res.status(404).json({ message: "Benutzer nicht gefunden" });
+
+        const planet = await Planet.findOne({ _id: planetId, owner: userId });
+        if (!planet)
+            return res.status(404).json({ message: "Planet nicht gefunden" });
+
+        const building = planet.buildings.find(
+            (b) => b.buildingType === buildingType
+        );
+        if (!building)
+            return res.status(404).json({ message: "Gebäude nicht gefunden" });
+
+        res.status(200).json({ building });
+    } catch (error) {
+        console.error("Fehler beim Abrufen des Gebäudes:", error);
+        res.status(500).json({ message: "Serverfehler" });
     }
 };

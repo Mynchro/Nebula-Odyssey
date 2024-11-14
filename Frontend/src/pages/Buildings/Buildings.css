@@ -184,3 +184,8 @@ input:checked + .btn-switch:active::before {
 .btn-switch.on{
   justify-content: start;
 }
+.buy-btn-building {
+  align-self: center;
+  min-height: 25px;
+  width: 150px;
+}

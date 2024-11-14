@@ -8,15 +8,8 @@ const Buildings = () => {
   const [activeType, setActiveType] = useState("produktion");
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [isBuildingOn, setIsBuildingOn] = useState(false);
-  const { currentPlayer } = useContext(PlayerContext);
+  const { currentPlayer, countdown, constructionEndTime, setConstructionEndTime, startCountdown } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
-
-  useEffect(() => {
-    // Initialisiere den Status beim Auswahl des Gebäudes
-    if (selectedBuilding) {
-      setIsBuildingOn(selectedBuilding.status);
-    }
-  }, [selectedBuilding]);
 
   const buildingDataMap = {
     smallShipyard: "Kleine Raumwerft",
@@ -40,6 +33,48 @@ const Buildings = () => {
     Silicondepot: "Siliconlager",
     Mikrochipdepot: "Mikrochiplager",
   };
+
+  useEffect(() => {
+    // Initialisiere den Status beim Auswahl des Gebäudes
+    if (selectedBuilding) {
+      setIsBuildingOn(selectedBuilding.status);
+    }
+  }, [selectedBuilding]);
+
+  useEffect(() => {
+    const loadConstructionEndTime = async () => {
+      if (selectedBuilding && selectedBuilding.buildingType) {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/user/${userId}/planet/${selectedPlanet._id}/building/${selectedBuilding.buildingType}`
+          );
+          const data = await response.json();
+          if (data.building.constructionEndTime) {
+            setConstructionEndTime(new Date(data.building.constructionEndTime));
+          }
+        } catch (error) {
+          console.error("Fehler beim Laden der Bauendzeit:", error);
+        }
+      }
+    };
+    loadConstructionEndTime();
+  }, [selectedBuilding, userId, selectedPlanet]);
+
+  // Starte den Countdown, wenn die Bauendzeit geladen ist
+  useEffect(() => {
+    if (constructionEndTime) {
+      startCountdown(constructionEndTime);
+    }
+  }, [constructionEndTime, startCountdown]);
+
+  const formatCountdown = () => {
+    if (!countdown) return "";
+    const hours = Math.floor(countdown / 3600);
+    const minutes = Math.floor((countdown % 3600) / 60);
+    const seconds = countdown % 60;
+    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  };
+
   const updateStatus = async (userId, planetId, buildingType, status) => {
     try {
       const response = await fetch(
@@ -79,6 +114,7 @@ const Buildings = () => {
       console.log("Upgrade erfolgreich:", updatedBuilding);
 
       setSelectedBuilding(updatedBuilding.building);
+      setConstructionEndTime(updatedBuilding.building.constructionEndTime);
     } catch (error) {
       console.error("Fehler beim Upgraden des Gebäudes:", error);
     }
@@ -118,6 +154,7 @@ const Buildings = () => {
   const filteredBuildings = selectedPlanet.buildings.filter(
     (building) => building.category.toLowerCase() === activeType
   );
+
   return (
     <div className="content-box">
       <div className="buildings-content">
@@ -198,10 +235,10 @@ const Buildings = () => {
                                     resource.slice(1).toLowerCase()}
                                   :
                                 </p>
-                                <p className="resource-mid">{rate.toFixed()}</p>
+                                <p className="resource-mid">{Math.round(rate)}</p>
                                 <p className="resource-arrow">→</p>
                                 <p className="resource-right">
-                                  {upRate.toFixed(0)}
+                                  {Math.round(upRate)}
                                 </p>
                               </li>
                             );
@@ -244,10 +281,10 @@ const Buildings = () => {
                         </p>
                         <p className="resource-mid">
                           {selectedBuilding.level === 1
-                            ? (baseRate * 1.01).toFixed()
+                            ? Math.round((baseRate * 1.01))
                             : rate === 0
                             ? baseRate
-                            : rate}
+                            : Math.round(rate)}
                         </p>{" "}
                         {/* Hier wird der Wert angezeigt */}
                       </li>
@@ -287,17 +324,18 @@ const Buildings = () => {
               )}
             </ul>
             <button
-              className="btn buy-btn"
-              onClick={() =>
-                upgradeBuilding(
-                  userId,
-                  selectedPlanet._id,
-                  selectedBuilding.buildingType
-                )
-              }
-            >
-              Bauen
-            </button>
+                        className={`btn buy-btn-building ${countdown ? "disabled" : ""}`}
+                        onClick={() =>
+                            upgradeBuilding(
+                                userId,
+                                selectedPlanet._id,
+                                selectedBuilding.buildingType
+                            )
+                        }
+                        disabled={!!constructionEndTime} // Button deaktiviert, wenn Bauzeit läuft
+                    >
+                        {countdown ? `Bauen läuft... ${formatCountdown()}` : "Bauen"}
+                    </button>
             <p className="buy-message"></p>
           </div>
         </div>
