@@ -139,7 +139,7 @@ export const buildShip = async (req, res) => {
 
     // Speichere den Planeten mit dem aktualisierten Gebäude
     await planet.save();
-
+    await planet.ships.save();
     return res.status(200).send({
       message: "Schiff wurde erfolgreich gebaut",
       ship,

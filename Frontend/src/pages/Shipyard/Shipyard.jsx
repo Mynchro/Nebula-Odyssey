@@ -3,6 +3,7 @@ import { useEffect, useContext, useState } from "react";
 import werftTypen from "../../assets/data/werften";
 import { PlayerContext } from "../../context/PlayerContext";
 import ship from "../../../../Backend/models/Ships";
+import { useOutletContext } from "react-router-dom";
 
 const Shipyard = () => {
   // Ships
@@ -16,7 +17,7 @@ const Shipyard = () => {
   const [shipDescription, setShipDescription] = useState("");
   const [activeShip, setActiveShip] = useState("");
   const [activeType, setActiveType] = useState(null); // State for active type button
-
+  const { selectedPlanet } = useOutletContext();
 
   const handleShipType = async (type) => {
     const loadedShips = await loadShips(); // Schiffe laden
@@ -58,7 +59,8 @@ const Shipyard = () => {
   };
   const changeDescriptionAndImage = async (descriptionKey) => {
     let item = null;
-    console.log("Schiffe im State:", ships); // Ausgabe der Schiffe im State
+    //console.log(selectedPlanet._id + " das hier ist DER AUSGEWÄHLÖTE PLANET")
+    //console.log("Schiffe im State:", ships); // Ausgabe der Schiffe im State
   
     // Suche nach dem Schiff anhand des shipType
     for (const ship of ships) {
@@ -110,6 +112,36 @@ const Shipyard = () => {
   const { currentPlayer, setCurrentPlayer } = useContext(PlayerContext);
   const [buyMessage, setBuyMessage] = useState("");
 
+  const buildShip = async () => {
+    try {
+      console.log(activeShip + " mein aktives activeShip");
+      //const planetId =currentPlayer.
+      const response = await fetch(`http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/buildShip/${selectedPlanet._id}`, {
+        method: 'POST', // Falls der Endpunkt ein POST-Request erwartet
+        headers: {
+          'Content-Type': 'application/json',
+          // Wenn nötig, Authentifizierungs-Header hinzufügen
+          'Authorization': 'Bearer deinTokenHier' 
+        },
+        body: JSON.stringify({
+          // Hier könntest du zusätzliche Daten im Body senden, falls nötig
+          // Beispiel:
+          // someKey: 'someValue'
+        })
+      });
+  
+      if (response.ok) {
+        const data = await response.json(); // Antwort des Servers (falls im JSON-Format)
+        console.log('Schiff erfolgreich gebaut:', data);
+        // Hier kannst du mit der Antwort vom Backend arbeiten
+      } else {
+        console.error('Fehler beim Bauen des Schiffs:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Es gab einen Fehler:', error);
+    }
+  };
+/*
   const buyShip = (descriptionKey) => {
     let item = null;
     ["klein", "mittel", "gross"].forEach((size) => {
@@ -144,7 +176,7 @@ const Shipyard = () => {
         setBuyMessage(`${count}x ${activeShip} gekauft!`);
       } else setBuyMessage(`Nicht genügend Ressourcen!`);
     }
-  };
+  };*/
 
   useEffect(() => {
     if (buyMessage) {
@@ -246,7 +278,7 @@ const Shipyard = () => {
               +
             </button>
           </div>
-          <button className="btn buy-btn" onClick={() => buyShip(activeShip)}>
+          <button className="btn buy-btn" onClick={() => buildShip()}>
             Kaufen
           </button>
           <p className="buy-message">{buyMessage}</p>
