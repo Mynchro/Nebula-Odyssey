@@ -207,7 +207,6 @@ export const checkLoginStatus = async (req, res) => {
 };
 
 // logout
-
 export const logout = async (req, res) => {
   const { refreshToken } = req.cookies;
 
