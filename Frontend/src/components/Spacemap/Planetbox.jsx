@@ -44,7 +44,7 @@ export const PlanetBox = ({
         {/* Dieser Bereich wird für die Sonne nicht angezeigt, behält aber den Platz */}
         <div className="planet-data" style={{ visibility: "hidden" }}>
           <p>{planetName}</p>
-          <p>{playerName || "Unknown Owner"}</p>
+          <p>{playerName || "Unbekannter Spieler"}</p>
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ export const PlanetBox = ({
 
       <div className="planet-data">
         <p>{planetName}</p>
-        <p>{playerName || "Unknown Owner"}</p>
+        <p>{playerName || "Unbekannter Spieler"}</p>
       </div>
     </div>
   );

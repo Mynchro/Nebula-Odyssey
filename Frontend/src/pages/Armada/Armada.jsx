@@ -1,126 +1,118 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
+import { useOutletContext } from "react-router-dom";
 import werftTypen from "../../assets/data/werften";
-/* eslint-disable react/prop-types */
-import './Armada.css';
-import activities from '../../assets/data/activities';
-//import units from '../../assets/data/units';
+import "./Armada.css";
+import activities from "../../assets/data/activities";
+
+const DefaultDescriptionArmada = () => (
+  <div>
+    <p>Willkommen bei deiner Armada!</p>
+    <p>
+      Hier kannst du deine Flotte zusammenstellen, um diese loszuschicken.
+      Besiedele ferne Planeten, triff auf andere Spieler und mach dich für den
+      Kampf bereit!
+    </p>
+  </div>
+);
 
 const Activity = ({ activity }) => {
+  const { currentPlayer } = useContext(PlayerContext);
   const [countdown, setCountdown] = useState(activity.timestamp);
   const [showForwardAnimation, setShowForwardAnimation] = useState(true);
   const [showBackwardAnimation, setShowBackwardAnimation] = useState(false);
 
-  const animationDuration = `${activity.timestamp}s`; // Dauer der Animation aus Timestamp berechnen
-
-  useEffect(() => {
-      const forwardAnimationTime = activity.timestamp * 1000; // In Millisekunden
-
-      // Countdown-Timer
-      const interval = setInterval(() => {
-          setCountdown(prevCountdown => prevCountdown > 0 ? prevCountdown - 1 : 0);
-      }, 1000);
-
-      // Vorwärtsanimation starten
-      const forwardAnimation = setTimeout(() => {
-          setShowForwardAnimation(true);
-          setShowBackwardAnimation(false);
-      }, 0); // Sofort starten
-
-      // Vorwärtsanimation beenden
-      const hideForwardAnimationTimeout = setTimeout(() => {
-          setShowForwardAnimation(false);
-      }, forwardAnimationTime);
-
-      // Countdown auf 5 Sekunden setzen
-      const resetCountdown = setTimeout(() => {
-          setCountdown(5);
-      }, forwardAnimationTime); // Nach Abschluss der Vorwärtsanimation
-
-      // Rückwärtsanimation nach 5 Sekunden starten
-      const backwardAnimationTimeout = setTimeout(() => {
-          setShowBackwardAnimation(true);
-          setCountdown(activity.timestamp); // Countdown neu starten
-      }, forwardAnimationTime + 5000); // 5 Sekunden nach Vorwärtsanimation
-
-      // Rückwärtsanimation beenden
-      const hideBackwardAnimationTimeout = setTimeout(() => {
-          setShowBackwardAnimation(false);
-      }, forwardAnimationTime + 5000 + activity.timestamp * 1000); // Rückwärtsanimation-Dauer hinzufügen
-
-      return () => {
-          clearInterval(interval);
-          clearTimeout(forwardAnimation);
-          clearTimeout(hideForwardAnimationTimeout);
-          clearTimeout(resetCountdown);
-          clearTimeout(backwardAnimationTimeout);
-          clearTimeout(hideBackwardAnimationTimeout);
-      };
-  }, [activity.timestamp]);
+  const animationDuration = `${activity.timestamp}s`;
 
   return (
-      <div className='activity'>
-          <div className='activity-info'>
-              <p>Truppenstärke: {activity.info.Truppenstärke}</p>
-              <ul>
-                  {Object.values(activity.info.Einheiten).map((einheit, index) => (
-                      <li key={index}>{einheit}</li>
-                  ))}
-              </ul>
-          </div>
-          <div className='activity-visual'>
-              <div>
-                  <img id="armada-in-activity" src={activity.planets[0].img} alt={activity.planets[0].name} />
-                  <p className='activity-planet'>{activity.planets[0].name}</p>
-              </div>
-              <div className='timer'>
-                  {countdown}s
-                  {showForwardAnimation && (
-                      <img
-                          src='/icons/spaceship-right.png'
-                          className={`fa-solid fa-shuttle-space ship-forward`}
-                          style={{ animationDuration: animationDuration }}
-                      ></img>
-                  )}
-                  {showBackwardAnimation && (
-                      <img
-                          src='/icons/spaceship-left.png'
-                          className={`ship-backward`}
-                          style={{ animationDuration: animationDuration }}
-                      ></img>
-                  )}
-              </div>
-              <div>
-                  <img id="armada-in-activity" src={activity.planets[1].img} alt={activity.planets[1].name} />
-                  <p className='activity-planet'>{activity.planets[1].name}</p>
-              </div>
-          </div>
+    <div className="activity">
+      <div className="activity-info">
+        <p>Truppenstärke: {activity.info.Truppenstärke}</p>
+        <ul>
+          {Object.values(activity.info.Einheiten).map((einheit, index) => (
+            <li key={index}>{einheit}</li>
+          ))}
+        </ul>
       </div>
+      <div className="activity-visual">
+        <div>
+          <img
+            id="armada-in-activity"
+            src={activity.planets[0].img}
+            alt={activity.planets[0].name}
+          />
+          <p className="activity-planet">{activity.planets[0].name}</p>
+        </div>
+        <div className="timer">
+          {countdown}s
+          {showForwardAnimation && (
+            <img
+              src="/icons/spaceship-right.png"
+              className={`fa-solid fa-shuttle-space ship-forward`}
+              style={{ animationDuration: animationDuration }}
+            ></img>
+          )}
+          {showBackwardAnimation && (
+            <img
+              src="/icons/spaceship-left.png"
+              className={`ship-backward`}
+              style={{ animationDuration: animationDuration }}
+            ></img>
+          )}
+        </div>
+        <div>
+          <img
+            id="armada-in-activity"
+            src={activity.planets[1].img}
+            alt={activity.planets[1].name}
+          />
+          <p className="activity-planet">{activity.planets[1].name}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 
-const defaultImage = `/werften/uebersicht-defense.png`;
-
 const Armada = () => {
+  const { choicePlanet, currentPlayer } = useContext(PlayerContext);
+  const { selectedPlanet } = useOutletContext();
   const [description, setDescription] = useState(null);
-  const [image, setImage] = useState(defaultImage);
-  const [active, setActive] = useState("");
+  const [image, setImage] = useState(`/werften/uebersicht-defense.png`);
+  const [activeType, setActiveType] = useState("Übersicht"); // State for active type buttonDefault value is "Übersicht"
 
-  const changeDescriptionAndImage = (descriptionKey) => {
-    let item = null;
-    ["klein", "mittel", "gross"].forEach((size) => {
-      if (!item) {
-        item = werftTypen[size].find(
-          (element) => element.id === descriptionKey
-        );
-      }
-    });
-
-    if (item) {
-      setDescription(item.description);
-      setImage(item.img);
-      setActive(descriptionKey); // Set the active button
-    }
+  const handleShipType = (type) => {
+    setActiveType(type); // Markiere den aktiven Werft-Typ
   };
+
+  const getFilteredShips = () => {
+    if (!selectedPlanet || !selectedPlanet.ships) {
+      return [];
+    }
+
+    if (activeType === "klein") {
+      return selectedPlanet.ships.filter(
+        (ship) => ship.shipYardType === "lightShipyard"
+      );
+    } else if (activeType === "mittel") {
+      return selectedPlanet.ships.filter(
+        (ship) => ship.shipYardType === "mediumShipyard"
+      );
+    } else if (activeType === "gross") {
+      return selectedPlanet.ships.filter(
+        (ship) => ship.shipYardType === "heavyShipyard"
+      );
+    }
+    // Default case: Show all ships if "Übersicht" is active
+    return selectedPlanet.ships;
+  };
+
+  useEffect(() => {
+    if (selectedPlanet) {
+      // Wenn selectedPlanet vorhanden ist, initialisiere oder aktualisiere die Werte
+      setDescription(null); // Optional: Beschreibung zurücksetzen
+      setImage(`/werften/uebersicht-defense.png`);
+    }
+  }, [selectedPlanet]); // Abhängig von selectedPlanet
 
   return (
     <div className="content-box">
@@ -151,46 +143,80 @@ const Armada = () => {
         </div>
         <div className="armada-rightbox">
           <div className="armada-img">
-            <img src={image} alt="Verteidigungsanlage"></img>
+            <div className="armada-screen-left">
+              <div className="armada-screen-description">
+                {description ? (
+                  <p>{description}</p>
+                ) : (
+                  <DefaultDescriptionArmada />
+                )}
+              </div>
+              <div className="armada-screen-selection">
+                <ul className="armada-shiplist">
+                  {getFilteredShips().map((ship, index) => (
+                    <li key={index}>
+                      <p>{`Typ: ${ship.shipType}`}</p>
+                      <p>{`Anzahl: ${ship.amount}`}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="armada-screen-right">
+              {choicePlanet ? (
+                <div className="planet-to-colonize">
+                  <h4>Aktuell ausgewählter Planet:</h4>
+                  <img className="choicePlanet-img" src={choicePlanet.image} />
+                  <p>{`Name: ${choicePlanet.name}`}</p>
+                  <p>{`Besitzer: ${
+                    choicePlanet.owner
+                      ? choicePlanet.owner.userName
+                      : "Unbekannter Spieler"
+                  }`}</p>
+                </div>
+              ) : (
+                <h4>Kein Planet ausgewählt</h4>
+              )}
+            </div>
           </div>
           <div className="armada-btnbox">
-          <button
-              className={`btn ${active === "" ? "active" : ""}`}
+            <button
+              className={`btn ${activeType === "Übersicht" ? "active" : ""}`}
               onClick={() => {
                 setDescription(null);
-                setImage(defaultImage);
-                setActive(""); // Setzt den aktiven Zustand auf "" (Übersicht)
+                setImage(`/werften/uebersicht-defense.png`);
+                setActiveType("Übersicht"); // Set active state to "Übersicht"
               }}
-          >
-            Übersicht
-          </button>
-          <button
-            className={`btn ${active === "kleinewerft" ? "active" : ""}`}
-            onClick={() => changeDescriptionAndImage("kleinewerft")}
-          >
-            Kleine Werft
-          </button>
-          <button
-            className={`btn ${active === "mittlerewerft" ? "active" : ""}`}
-            onClick={() => changeDescriptionAndImage("mittlerewerft")}
-          >
-            Mittlere Werft
-          </button>
-          <button
-            className={`btn ${active === "großewerft" ? "active" : ""}`}
-            onClick={() => changeDescriptionAndImage("großewerft")}
-          >
-            Große Werft
-          </button>
+            >
+              Übersicht
+            </button>
+            <button
+              className={`btn ${activeType === "klein" ? "active" : ""}`}
+              onClick={() => handleShipType("klein")}
+            >
+              Kleine Werft
+            </button>
+            <button
+              className={`btn ${activeType === "mittel" ? "active" : ""}`}
+              onClick={() => handleShipType("mittel")}
+            >
+              Mittlere Werft
+            </button>
+            <button
+              className={`btn ${activeType === "gross" ? "active" : ""}`}
+              onClick={() => handleShipType("gross")}
+            >
+              Große Werft
+            </button>
           </div>
         </div>
       </div>
-      <section>
-                <h3 className='text-title'>Armada im Einsatz</h3>
-                {activities.map((activity, index) => (
-                    <Activity key={index} activity={activity} />
-                ))}
-            </section>
+      <div className="activities">
+        {activities.length > 0 &&
+          activities.map((activity, index) => (
+            <Activity key={index} activity={activity} />
+          ))}
+      </div>
     </div>
   );
 };

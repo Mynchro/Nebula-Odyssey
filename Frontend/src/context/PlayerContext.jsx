@@ -12,6 +12,7 @@ const PlayerProvider = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState({
     user: defaultUser_DEV,
   });
+  const [choicePlanet, setChoicePlanet] = useState(null);
   const navigate = useNavigate();
 
   const setSecondaryColor = (color) => {
@@ -87,6 +88,8 @@ const PlayerProvider = ({ children }) => {
         currentPlayer,
         setCurrentPlayer,
         handleLogin,
+        choicePlanet,
+        setChoicePlanet,
       }}
     >
       {children}

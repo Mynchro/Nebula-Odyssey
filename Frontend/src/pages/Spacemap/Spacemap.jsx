@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./Spacemap.css";
 import { PlanetBox } from "../../components/Spacemap/Planetbox";
-import { PlayerContext } from "../../context/PlayerContext";
 import { useNavigate } from "react-router-dom";
 
 const Spacemap = () => {
-  const [choicePlanet, setChoicePlanet] = useState(null);
+  // const [choicePlanet, setChoicePlanet] = useState(null);
+  const { currentPlayer, choicePlanet, setChoicePlanet } =
+    useContext(PlayerContext);
   const [planets, setPlanets] = useState([]);
-  const { currentPlayer } = useContext(PlayerContext);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const planetsPerPage = 9;
@@ -37,9 +38,9 @@ const Spacemap = () => {
       })
       .then((data) => {
         data.forEach((planet, index) => {
-          console.log(
-            `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
-          );
+          // console.log(
+          //   `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
+          // );
         });
 
         const sortedData = data.sort((a, b) => {
@@ -55,7 +56,7 @@ const Spacemap = () => {
         });
 
         setPlanets(sortedData);
-        console.log("spaceMapdata (sortiert):", sortedData);
+        // console.log("spaceMapdata (sortiert):", sortedData);
       })
       .catch((error) => {
         console.error("Fehler beim Laden der Planeten:", error);
@@ -74,6 +75,22 @@ const Spacemap = () => {
       )
     );
   };
+
+  const reloadAndNavigate = () => {
+    sessionStorage.setItem("navigateTo", "/armada");
+
+    location.reload();
+  };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("navigateTo")) {
+      const targetPage = sessionStorage.getItem("navigateTo");
+
+      navigate(targetPage);
+
+      sessionStorage.removeItem("navigateTo");
+    }
+  }, [navigate]);
 
   const colonizePlanetHandler = async () => {
     if (!choicePlanet || !currentPlayer) return;
@@ -104,19 +121,20 @@ const Spacemap = () => {
           planet._id === updatedPlanet._id ? updatedPlanet : planet
         )
       );
-      navigate("/armada");
+
       setChoicePlanet(updatedPlanet);
+      reloadAndNavigate();
 
       console.log("Neues ChoicePlanet:", choicePlanet);
     } catch (error) {
       console.error("Fehler beim Besiedeln des Planeten:", error);
     }
   };
-  useEffect(() => {
-    if (choicePlanet) {
-      console.log("Planet wurde erfolgreich besiedelt:", choicePlanet);
-    }
-  }, [choicePlanet]);
+  // useEffect(() => {
+  //   if (choicePlanet) {
+  //     console.log("Planet wurde erfolgreich besiedelt:", choicePlanet);
+  //   }
+  // }, [choicePlanet]);
   return (
     <div className="content-box">
       <div className="solarsystem">
@@ -155,7 +173,7 @@ const Spacemap = () => {
                 <p>{`Besitzer: ${
                   choicePlanet.owner
                     ? choicePlanet.owner.userName
-                    : "Unknown Owner"
+                    : "Unbekannter Spieler"
                 }`}</p>
                 {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
                 <button
@@ -181,7 +199,9 @@ const Spacemap = () => {
             triangleColor={"#00ff00"}
             skullColor={"#0000ff"}
             planetName={planet.name}
-            playerName={planet.owner ? planet.owner.userName : "Unknown Owner"}
+            playerName={
+              planet.owner ? planet.owner.userName : "Unbekannter Spieler"
+            }
             className={`planet-box ${
               choicePlanet && choicePlanet._id === planet._id ? "choice" : ""
             }`}
