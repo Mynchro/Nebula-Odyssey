@@ -1,31 +1,31 @@
-@import './fonts.css';
+@import "./fonts.css";
 * {
   margin: 0px;
   padding: 0px;
   font-family: Inconsolata-regular, sans-serif;
 }
 
-:root{
+:root {
   font-size: 62.5%;
-  
+
   background-image: url(/background-img/background-a.jpg);
-    /* Allgemeine Farben */
-    --primary-color: #0e1b24;
-    --secondary-color: #15cdd7;
-    --tertiary-color: #8d867b6b;
-    --highlight-color: #9cf741;
-    --accent-color: #08151d;
-  
-    /* Farben für die Legende */
-    --inactive-color: #adadad;
-    --legend1-color: #62d117;
-    --legend2-color: #ffdb39;
-    --legend3-color: #fd0d0d;
-    --legend4-color: #081282;
-    --legend5-color: #0bccd2;
-    --legend6-color: #0bd22c;
-  }
-#root{
+  /* Allgemeine Farben */
+  --primary-color: #0e1b24;
+  --secondary-color: #cccccc;
+  --tertiary-color: #8d867b6b;
+  --highlight-color: #9cf741;
+  --accent-color: #08151d;
+
+  /* Farben für die Legende */
+  --inactive-color: #adadad;
+  --legend1-color: #62d117;
+  --legend2-color: #ffdb39;
+  --legend3-color: #fd0d0d;
+  --legend4-color: #081282;
+  --legend5-color: #0bccd2;
+  --legend6-color: #0bd22c;
+}
+#root {
   height: 100vh;
 }
 
@@ -33,7 +33,7 @@ body {
   font-size: 1.6rem;
 }
 
-.main-container{
+.main-container {
   display: flex;
   justify-content: center;
   position: absolute;

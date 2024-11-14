@@ -12,6 +12,7 @@ import Armada from "./pages/Armada/Armada";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import StarField from "./components/Starfield/StarField";
+import SettingsForm from "./pages/Settings/Settings";
 // import Playermanager from "./components/Playermanager/Playermanager";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="shipyard" element={<Shipyard />} />
             <Route path="defense" element={<Defense />} />
             <Route path="armada" element={<Armada />} />
+            <Route path="settings" element={<SettingsForm />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

@@ -19,6 +19,7 @@ const planetSchema = new Schema({
     type: String,
     default: "",
   },
+
   buildings: [buildingSchema], // Gebäude als Unterdokumente
   resources: {
     type: resourceSchema, // Ressourcen bleiben gleich
@@ -26,6 +27,17 @@ const planetSchema = new Schema({
   },
   lastResourceUpdate: { type: Date, default: Date.now },
   ships: [shipSchema],
+  position: {
+    // Position des Planeten auf der Seite
+    page: {
+      type: Number,
+      required: true,
+    },
+    positionOnPage: {
+      type: Number,
+      required: true,
+    },
+  },
 });
 
 const Planet = mongoose.model("Planet", planetSchema);

@@ -1,22 +1,14 @@
 import express from "express";
 import {
-    upgradeBuilding,
-    downgradeBuilding,
-    getAllBuildings,
-    getUserResources,
-    getAllPlanets,
-} from "../controllers/interfaceController.js";
-import {
-    updatePlayerColor,
-    getPlayer,
-} from "../controllers/interfaceController.js";
+  updatePlayerColor,
+  getPlayer,
+  getAllBuildings,
+  getUserResources,
+  getAllPlanets,
+} from "../controllers/interface.js";
 
 const router = express.Router();
 
-router.post(
-    "/user/:userId/building/:buildingType/downgrade",
-    downgradeBuilding
-);
 router.get("/user/:userId/buildings", getAllBuildings);
 
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
@@ -26,7 +18,7 @@ router.get("/user/:userId/buildings", getAllBuildings);
 router.get("/user/:userId/resources", getUserResources);
 
 router.get("/planets", getAllPlanets);
-router.put("/user/:userId", updatePlayerColor);
+router.patch("/user/:userId", updatePlayerColor);
 router.get("/user/:userId", getPlayer);
 
 export default router;
