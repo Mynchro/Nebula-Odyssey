@@ -74,14 +74,20 @@ const Activity = ({ activity }) => {
 };
 
 const Armada = () => {
-  const { choicePlanet, currentPlayer } = useContext(PlayerContext);
+  const { choicePlanet, currentPlayer, setChoicePlanet } =
+    useContext(PlayerContext);
   const { selectedPlanet } = useOutletContext();
   const [description, setDescription] = useState(null);
   const [image, setImage] = useState(`/werften/uebersicht-defense.png`);
-  const [activeType, setActiveType] = useState("klein"); // State for active type buttonDefault value is "Übersicht"
+  const [activeType, setActiveType] = useState("klein");
+  const [counterSmall, setCounterSmall] = useState(0);
+  const [counterMedium, setCounterMedium] = useState(0);
+  const [counterBig, setCounterBig] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const [shipCounters, setShipCounters] = useState({});
 
   const handleShipType = (type) => {
-    setActiveType(type); // Markiere den aktiven Werft-Typ
+    setActiveType(type);
   };
 
   const getFilteredShips = () => {
@@ -102,17 +108,90 @@ const Armada = () => {
         (ship) => ship.shipYardType === "heavyShipyard"
       );
     }
-    // Default case: Show all ships if "Übersicht" is active
+
     return selectedPlanet.ships;
   };
 
+  const updateShipCounter = (shipType, amount) => {
+    setShipCounters((prevState) => {
+      const newCount = prevState[shipType] + amount;
+      return {
+        ...prevState,
+        [shipType]: Math.max(newCount, 0),
+      };
+    });
+  };
+
+  const counterIncrement = () => {
+    if (activeType === "klein") {
+      setCounterSmall(counterSmall + 1);
+      setTotalCount(totalCount + 1);
+    } else if (activeType === "mittel") {
+      setCounterMedium(counterMedium + 1);
+      setTotalCount(totalCount + 1);
+    } else if (activeType === "gross") {
+      setCounterBig(counterBig + 1);
+      setTotalCount(totalCount + 1);
+    }
+  };
+
+  const counterDecrement = () => {
+    if (activeType === "klein" && counterSmall > 0) {
+      setCounterSmall(counterSmall - 1);
+      setTotalCount(totalCount - 1);
+    } else if (activeType === "mittel" && counterMedium > 0) {
+      setCounterMedium(counterMedium - 1);
+      setTotalCount(totalCount - 1);
+    } else if (activeType === "gross" && counterBig > 0) {
+      setCounterBig(counterBig - 1);
+      setTotalCount(totalCount - 1);
+    }
+  };
+
+  const counterIncrementTen = () => {
+    if (activeType === "klein") {
+      setCounterSmall(counterSmall + 10);
+      setTotalCount(totalCount + 10);
+    } else if (activeType === "mittel") {
+      setCounterMedium(counterMedium + 10);
+      setTotalCount(totalCount + 10);
+    } else if (activeType === "gross") {
+      setCounterBig(counterBig + 10);
+      setTotalCount(totalCount + 10);
+    }
+  };
+
+  const counterDecrementTen = () => {
+    if (activeType === "klein" && counterSmall > 0) {
+      setCounterSmall(counterSmall - 10);
+      setTotalCount(totalCount - 10);
+    } else if (activeType === "mittel" && counterMedium > 0) {
+      setCounterMedium(counterMedium - 10);
+      setTotalCount(totalCount - 10);
+    } else if (activeType === "gross" && counterBig > 0) {
+      setCounterBig(counterBig - 10);
+      setTotalCount(totalCount - 10);
+    }
+  };
+
   useEffect(() => {
-    if (selectedPlanet) {
-      // Wenn selectedPlanet vorhanden ist, initialisiere oder aktualisiere die Werte
-      setDescription(null); // Optional: Beschreibung zurücksetzen
+    if (selectedPlanet && selectedPlanet.ships) {
+      const initialCounters = selectedPlanet.ships.reduce((acc, ship) => {
+        acc[ship.shipType] = 0;
+        return acc;
+      }, {});
+      setShipCounters(initialCounters);
+      setDescription(null);
       setImage(`/werften/uebersicht-defense.png`);
     }
-  }, [selectedPlanet]); // Abhängig von selectedPlanet
+  }, [selectedPlanet]);
+
+  useEffect(() => {
+    const storedChoicePlanet = sessionStorage.getItem("choicePlanet");
+    if (storedChoicePlanet) {
+      setChoicePlanet(JSON.parse(storedChoicePlanet));
+    }
+  }, [setChoicePlanet]);
 
   return (
     <div className="content-box">
@@ -131,19 +210,19 @@ const Armada = () => {
               <ul>
                 <li>
                   <p>Kleine Werft</p>
-                  <p>0</p>
+                  <p>{counterSmall}</p>
                 </li>
                 <li>
                   <p>Mittlere Werft:</p>
-                  <p>0</p>
+                  <p>{counterMedium}</p>
                 </li>
                 <li>
                   <p>Große Werft:</p>
-                  <p>0</p>
+                  <p>{counterBig}</p>
                 </li>
                 <li>
                   <p>Einheiten Gesamt:</p>
-                  <p>0</p>
+                  <p>{totalCount}</p>
                 </li>
               </ul>
             </div>
@@ -170,12 +249,46 @@ const Armada = () => {
                   <ul className="armada-shiplist">
                     {getFilteredShips().map((ship, index) => (
                       <li key={index} className="ship-item">
-                        <p>
-                          <strong>Typ:</strong> {ship.shipType}
-                        </p>
-                        <p>
-                          <strong>Anzahl:</strong> {ship.amount}
-                        </p>
+                        <p> {ship.shipType}</p>
+                        <div className="increment-decrement">
+                          <button
+                            className="btn minus-ten"
+                            onClick={() => {
+                              counterDecrementTen();
+                              updateShipCounter(ship.shipType, -10);
+                            }}
+                          >
+                            -10
+                          </button>
+                          <button
+                            className="btn plus-ten"
+                            onClick={() => {
+                              counterIncrementTen();
+                              updateShipCounter(ship.shipType, 10);
+                            }}
+                          >
+                            +10
+                          </button>
+                          <button
+                            className="btn"
+                            onClick={() => {
+                              counterDecrement();
+                              updateShipCounter(ship.shipType, -1);
+                            }}
+                          >
+                            -
+                          </button>
+                          <button
+                            className="btn"
+                            onClick={() => {
+                              counterIncrement();
+                              updateShipCounter(ship.shipType, 1);
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <p>{shipCounters[ship.shipType]}</p>
                       </li>
                     ))}
                   </ul>
@@ -196,8 +309,9 @@ const Armada = () => {
                      ${
                        choicePlanet.owner
                          ? choicePlanet.owner.userName
-                         : "Unbekannter Spieler"
+                         : "Kein Besitzer"
                      }`}</p>
+                    <button className="btn">Planet besiedeln</button>
                   </div>
                 ) : (
                   <h4>Kein Planet ausgewählt</h4>

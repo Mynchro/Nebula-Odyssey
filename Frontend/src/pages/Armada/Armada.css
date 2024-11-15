@@ -179,7 +179,6 @@ section {
 .armada-screen-left {
   width: 70%;
   height: 100%;
-  border: 2px solid rgb(27, 179, 77);
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -188,7 +187,7 @@ section {
 .armada-screen-right {
   width: 30%;
   height: 100%;
-  border: 2px solid white;
+  border-left: 2px solid var(--secondary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,7 +220,7 @@ section {
 }
 
 .armada-screen-description {
-  border: 1px solid green;
+  border-bottom: 2px solid var(--secondary-color);
   background: rgba(0, 0, 0, 0.579);
   height: 20%;
   font-family: "Amiga4ever", sans-serif;
@@ -231,7 +230,6 @@ section {
 }
 
 .armada-screen-selection {
-  border: 1px solid yellow;
   background: rgba(0, 0, 0, 0.579);
   height: 80%;
   display: flex;
@@ -242,11 +240,26 @@ section {
 }
 
 .armada-shiplist {
-  width: 80%;
+  width: 90%;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+}
+
+.ship-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--secondary-color);
+  font-family: "Amiga4ever", sans-serif;
+
+  font-size: small;
+}
+.ship-item p {
+  margin: 0;
+  font-weight: bold;
+  flex-basis: 30%; /* Adjust the width for each column */
 }
 
 .current-position {
@@ -271,4 +284,34 @@ section {
   max-height: 75px;
   max-width: 75px;
   cursor: default;
+}
+
+.increment-decrement {
+  display: flex;
+  align-items: center;
+  flex-basis: 40%;
+}
+
+.increment-decrement input.addShips {
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  font-size: small;
+  margin-right: 5px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.increment-decrement button {
+  font-size: small;
+  margin-left: 2px;
+  margin-right: 2px;
+  background: var(--secondary-color); /* Button background color */
+}
+
+.plus-ten,
+.minus-ten {
+  min-width: fit-content;
 }

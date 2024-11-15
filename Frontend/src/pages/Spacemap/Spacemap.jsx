@@ -76,21 +76,19 @@ const Spacemap = () => {
     );
   };
 
-  const reloadAndNavigate = () => {
-    sessionStorage.setItem("navigateTo", "/armada");
+  // const reloadAndNavigate = () => {
+  //  navigate("/armada")
+  // };
 
-    location.reload();
-  };
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("navigateTo")) {
+  //     const targetPage = sessionStorage.getItem("navigateTo");
 
-  useEffect(() => {
-    if (sessionStorage.getItem("navigateTo")) {
-      const targetPage = sessionStorage.getItem("navigateTo");
+  //     navigate(targetPage);
 
-      navigate(targetPage);
-
-      sessionStorage.removeItem("navigateTo");
-    }
-  }, [navigate]);
+  //     sessionStorage.removeItem("navigateTo");
+  //   }
+  // }, [navigate]);
 
   const colonizePlanetHandler = async () => {
     if (!choicePlanet || !currentPlayer) return;
@@ -123,7 +121,9 @@ const Spacemap = () => {
       );
 
       setChoicePlanet(updatedPlanet);
-      reloadAndNavigate();
+      sessionStorage.setItem("choicePlanet", JSON.stringify(choicePlanet));
+      // reloadAndNavigate();
+      navigate("/armada");
 
       console.log("Neues ChoicePlanet:", choicePlanet);
     } catch (error) {
@@ -178,9 +178,9 @@ const Spacemap = () => {
                 {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
                 <button
                   onClick={colonizePlanetHandler}
-                  className="btn colonize-btn"
+                  className="btn set-armada"
                 >
-                  Planet besiedeln
+                  Armada zusammenstellen
                 </button>
               </div>
             </>
