@@ -78,7 +78,7 @@ const Armada = () => {
   const { selectedPlanet } = useOutletContext();
   const [description, setDescription] = useState(null);
   const [image, setImage] = useState(`/werften/uebersicht-defense.png`);
-  const [activeType, setActiveType] = useState("Übersicht"); // State for active type buttonDefault value is "Übersicht"
+  const [activeType, setActiveType] = useState("klein"); // State for active type buttonDefault value is "Übersicht"
 
   const handleShipType = (type) => {
     setActiveType(type); // Markiere den aktiven Werft-Typ
@@ -119,98 +119,114 @@ const Armada = () => {
       <div className="overview-title">
         <h1>Armada</h1>
       </div>
-      <div className="armada-top">
-        <div className="armada-info">
-          <h3>Deine Einheiten</h3>
-          <ul>
-            <li>
-              <p>Kleine Werft</p>
-              <p>0</p>
-            </li>
-            <li>
-              <p>Mittlere Werft:</p>
-              <p>0</p>
-            </li>
-            <li>
-              <p>Große Werft:</p>
-              <p>0</p>
-            </li>
-            <li>
-              <p>Einheiten Gesamt:</p>
-              <p>0</p>
-            </li>
-          </ul>
+      {!selectedPlanet ? (
+        <div className="armada-fallback">
+          <p>Lade Planetendaten</p>
         </div>
-        <div className="armada-rightbox">
-          <div className="armada-img">
-            <div className="armada-screen-left">
-              <div className="armada-screen-description">
-                {description ? (
-                  <p>{description}</p>
+      ) : (
+        <div className="armada-top">
+          <div className="armada-info">
+            <div>
+              <h3>Deine Einheiten</h3>
+              <ul>
+                <li>
+                  <p>Kleine Werft</p>
+                  <p>0</p>
+                </li>
+                <li>
+                  <p>Mittlere Werft:</p>
+                  <p>0</p>
+                </li>
+                <li>
+                  <p>Große Werft:</p>
+                  <p>0</p>
+                </li>
+                <li>
+                  <p>Einheiten Gesamt:</p>
+                  <p>0</p>
+                </li>
+              </ul>
+            </div>
+            <div className="current-position">
+              <h4>Du befindest dich auf:</h4>
+              <img
+                className="current-position-img"
+                src={selectedPlanet.image}
+              />
+              <p>{selectedPlanet.name}</p>
+            </div>
+          </div>
+          <div className="armada-rightbox">
+            <div className="armada-img">
+              <div className="armada-screen-left">
+                <div className="armada-screen-description">
+                  {description ? (
+                    <p>{description}</p>
+                  ) : (
+                    <DefaultDescriptionArmada />
+                  )}
+                </div>
+                <div className="armada-screen-selection">
+                  <ul className="armada-shiplist">
+                    {getFilteredShips().map((ship, index) => (
+                      <li key={index} className="ship-item">
+                        <p>
+                          <strong>Typ:</strong> {ship.shipType}
+                        </p>
+                        <p>
+                          <strong>Anzahl:</strong> {ship.amount}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="armada-screen-right">
+                {choicePlanet ? (
+                  <div className="planet-to-colonize">
+                    <h4>Aktuell ausgewählter Planet:</h4>
+                    <img
+                      className="choicePlanet-img"
+                      src={choicePlanet.image}
+                    />
+                    <h4>Name:</h4>
+                    <p>{`${choicePlanet.name}`}</p>
+                    <h4>Besitzer:</h4>
+                    <p>{`
+                     ${
+                       choicePlanet.owner
+                         ? choicePlanet.owner.userName
+                         : "Unbekannter Spieler"
+                     }`}</p>
+                  </div>
                 ) : (
-                  <DefaultDescriptionArmada />
+                  <h4>Kein Planet ausgewählt</h4>
                 )}
               </div>
-              <div className="armada-screen-selection">
-                <ul className="armada-shiplist">
-                  {getFilteredShips().map((ship, index) => (
-                    <li key={index}>
-                      <p>{`Typ: ${ship.shipType}`}</p>
-                      <p>{`Anzahl: ${ship.amount}`}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
-            <div className="armada-screen-right">
-              {choicePlanet ? (
-                <div className="planet-to-colonize">
-                  <h4>Aktuell ausgewählter Planet:</h4>
-                  <img className="choicePlanet-img" src={choicePlanet.image} />
-                  <p>{`Name: ${choicePlanet.name}`}</p>
-                  <p>{`Besitzer: ${
-                    choicePlanet.owner
-                      ? choicePlanet.owner.userName
-                      : "Unbekannter Spieler"
-                  }`}</p>
-                </div>
-              ) : (
-                <h4>Kein Planet ausgewählt</h4>
-              )}
+            <div className="armada-btnbox">
+              <button
+                className={`btn ${activeType === "klein" ? "active" : ""}`}
+                onClick={() => handleShipType("klein")}
+              >
+                Kleine Werft
+              </button>
+              <button
+                className={`btn ${activeType === "mittel" ? "active" : ""}`}
+                onClick={() => handleShipType("mittel")}
+              >
+                Mittlere Werft
+              </button>
+              <button
+                className={`btn ${activeType === "gross" ? "active" : ""}`}
+                onClick={() => handleShipType("gross")}
+              >
+                Große Werft
+              </button>
             </div>
-          </div>
-          <div className="armada-btnbox">
-            <button
-              className={`btn ${activeType === "Übersicht" ? "active" : ""}`}
-              onClick={() => {
-                setDescription(null);
-                setImage(`/werften/uebersicht-defense.png`);
-                setActiveType("Übersicht"); // Set active state to "Übersicht"
-              }}
-            >
-              Übersicht
-            </button>
-            <button
-              className={`btn ${activeType === "klein" ? "active" : ""}`}
-              onClick={() => handleShipType("klein")}
-            >
-              Kleine Werft
-            </button>
-            <button
-              className={`btn ${activeType === "mittel" ? "active" : ""}`}
-              onClick={() => handleShipType("mittel")}
-            >
-              Mittlere Werft
-            </button>
-            <button
-              className={`btn ${activeType === "gross" ? "active" : ""}`}
-              onClick={() => handleShipType("gross")}
-            >
-              Große Werft
-            </button>
           </div>
         </div>
-      </div>
+      )}
       <div className="activities">
         {activities.length > 0 &&
           activities.map((activity, index) => (

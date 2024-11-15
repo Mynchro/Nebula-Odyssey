@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Amiga4ever";
+  src: url("/amiga_forever/amiga4ever.ttf") format("truetype");
+}
+
 .armada-top {
   border: 2px solid var(--primary-color);
   width: 100%;
@@ -187,6 +192,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.579);
 }
 
 .planet-to-colonize {
@@ -194,6 +200,14 @@ section {
   flex-direction: column;
   align-items: center;
   text-align: left;
+  gap: 10px;
+}
+
+.planet-to-colonize h4 {
+  text-decoration: underline;
+}
+.planet-to-colonize p {
+  text-align: center;
 }
 
 .planet-to-colonize > h4 {
@@ -208,19 +222,53 @@ section {
 
 .armada-screen-description {
   border: 1px solid green;
+  background: rgba(0, 0, 0, 0.579);
   height: 20%;
+  font-family: "Amiga4ever", sans-serif;
+  color: rgb(29, 242, 29);
+
+  padding-top: 10px;
 }
 
 .armada-screen-selection {
   border: 1px solid yellow;
+  background: rgba(0, 0, 0, 0.579);
   height: 80%;
+  display: flex;
+  justify-content: center;
+  font-family: "Amiga4ever", sans-serif;
+  color: rgb(29, 242, 29);
+  font-size: smaller;
 }
 
 .armada-shiplist {
-  width: 100%;
-  height: 100%;
+  width: 80%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
+}
+
+.current-position {
+  height: 50%;
+  border-top: 2px solid var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-position h4 {
+  margin-bottom: 15px;
+  text-decoration: underline;
+}
+
+.current-position p {
+  margin-top: 15px;
+}
+
+.current-position-img {
+  max-height: 75px;
+  max-width: 75px;
+  cursor: default;
 }
