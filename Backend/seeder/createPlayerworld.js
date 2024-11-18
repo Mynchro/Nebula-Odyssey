@@ -87,6 +87,10 @@ export const createPlayerworld = async (userId) => {
         values: ship.values,
         rapidFire: ship.rapidFire,
         dmgVs: ship.dmgVs,
+        label: ship.label,
+        description: ship.description,
+        img: ship.img
+
       })),
       resources: defaultResources._id,
       position: {
@@ -139,6 +143,9 @@ export const createPlayerworld = async (userId) => {
           values: ship.values,
           rapidFire: ship.rapidFire,
           dmgVs: ship.dmgVs,
+          label: ship.label,
+          description: ship.description,
+          img: ship.img,
         })),
         resources: defaultResources._id,
         position: {

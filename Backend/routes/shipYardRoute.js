@@ -2,7 +2,7 @@ import express from "express";
 import {
   buildShip,
   sellShip,
-  getAllShips,
+  getPlayerShips,
   getUserResources,
   instantiateShips,
   getShipData,
@@ -11,14 +11,14 @@ import {
 
 const router = express.Router();
 
-router.post("/user/:userId/ship/:shipType/buildShip/:planetId", buildShip);
+router.post("/user/:userId/ship/:shipType/buildShip/:planetId/:amount", buildShip);
 router.get("/user/:userId/ship/:shipType/getShip/:planetId", getShip);
 router.post(
   "/user/:userId/building/:buildingType/downgrade",
   sellShip
 );
 router.post("/instantiateShips",instantiateShips)
-router.get("/user/:userId/buildings", getAllShips);
+router.get("/user/:userId/:planetId/getPlayerShips", getPlayerShips);
 router.get("/shipdata", getShipData);
 //http://localhost:3000/shipyard/instantiateShips
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
