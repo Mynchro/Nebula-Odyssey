@@ -24,7 +24,7 @@
 .buildings-data{
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 35%;
   height: 98%;
   background-color: rgba(0, 0, 0, 0.6);
   color: #ffffff;
@@ -36,6 +36,11 @@
   text-align: left;
   margin-top: 0px;
 }
+.building-data{
+  margin: 5px 0px;
+  text-decoration: underline;
+}
+
 .building-data-arrow, .resource-arrow{
   font-size: 20px;
   font-weight: 100;
@@ -55,6 +60,12 @@
 
   border-radius: 0px 0px 25px 25px;
 }
+.building-li-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
 .buildings-bar, .btn-building{
   display: flex;
   flex-wrap: wrap-reverse;
@@ -188,4 +199,10 @@ input:checked + .btn-switch:active::before {
   align-self: center;
   min-height: 25px;
   width: 150px;
+}
+.building-storage-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
 }

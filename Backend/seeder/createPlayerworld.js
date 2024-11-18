@@ -79,6 +79,7 @@ export const createPlayerworld = async (userId) => {
                 baseValue: building.baseValue,
                 productionRate: building.productionRate,
                 storageCapacity: building.storageCapacity,
+                shipTyps: building.shipTyps,
             })),
             buildingInProgress: user.buildingInProgress,
             ships: defaultShips.map((ship) => ({

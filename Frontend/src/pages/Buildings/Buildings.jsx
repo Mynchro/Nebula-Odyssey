@@ -75,6 +75,12 @@ const Buildings = () => {
     return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  useEffect(() => {
+    if (countdown === 0) {
+      setConstructionEndTime(null);
+    }
+  }, [countdown]);
+
   const updateStatus = async (userId, planetId, buildingType, status) => {
     try {
       const response = await fetch(
@@ -96,6 +102,8 @@ const Buildings = () => {
 
   const upgradeBuilding = async (userId, planetId, buildingType) => {
     try {
+      console.log("State vor Upgrade:", { userId, selectedPlanet, selectedBuilding });
+
       const response = await fetch(
         `http://localhost:3000/api/user/${userId}/planet/${planetId}/building/${buildingType}/upgrade`,
         {
@@ -139,6 +147,7 @@ const Buildings = () => {
       console.error("Building Type is missing.");
     }
   };
+  console.log("State:", { userId, selectedPlanet, selectedBuilding });
 
   const handleBuildingSelect = (building) => {
     setSelectedBuilding(building);
@@ -192,68 +201,112 @@ const Buildings = () => {
             {/* Wenn ein Gebäude ausgewählt ist, zeige die Details */}
             {selectedBuilding ? (
               <div className="building-details">
-                <ul>
-                  <h4>Planet: {selectedPlanet.name}</h4>
-                  <li>
-                    <h4 className="building-data-left">Aktuelles</h4>
-                    <h4 className="building-data-current">
-                      Level: {selectedBuilding.level}
-                    </h4>
-                    <h4 className="building-data-arrow">→</h4>
-                    <h4 className="building-data-update">
-                      Level: {selectedBuilding.level + 1}
-                    </h4>
-                  </li>
-                  <li>
+              <ul>
+                <h4>Planet: {selectedPlanet.name}</h4>
+                <li>
+                  <h4 className="building-data-left">Aktuelles</h4>
+                  <h4 className="building-data-current">
+                    Level: {selectedBuilding.level}
+                  </h4>
+                  <h4 className="building-data-arrow">→</h4>
+                  <h4 className="building-data-update">
+                    Level: {selectedBuilding.level + 1}
+                  </h4>
+                </li>
+          
+                {/* Anzeige je nach aktiver Kategorie */}
+                {activeType === "produktion" || activeType === "veredelung" ? (
+                  <div className="building-li-box">
                     <p className="building-data">Produktionsrate</p>
-                  </li>
-                  {/* Produktionsrate anzeigen */}
-                  {selectedBuilding.productionRate && (
-                    <div>
-                      <div className="building-data-box">
-                        {Object.entries(
-                          selectedBuilding?.baseValue?.baseProductionRate || {}
-                        ) // Überprüfen, ob baseProductionRate existiert
-                          .filter(([resource]) => resource !== "_id") // Filtert "_id" heraus
-                          .map(([resource, baseRate]) => {
-                            // Berechnung der Produktionsrate pro Ressource
-                            const upRate =
-                              baseRate *
-                              (selectedBuilding.level + 1) *
-                              (selectedBuilding.level + 1) *
-                              (1 + (selectedBuilding.level + 1 - 1) / 5);
-                            const rate =
-                              baseRate *
-                              selectedBuilding.level *
-                              selectedBuilding.level *
-                              (1 + (selectedBuilding.level - 1) / 5);
-
-                            return (
-                              <li key={resource}>
-                                <p className="resource-left">
-                                  {resource.charAt(0).toUpperCase() +
-                                    resource.slice(1).toLowerCase()}
-                                  :
-                                </p>
-                                <p className="resource-mid">{Math.round(rate)}</p>
-                                <p className="resource-arrow">→</p>
-                                <p className="resource-right">
-                                  {Math.round(upRate)}
-                                </p>
-                              </li>
-                            );
-                          })}
+                    {selectedBuilding.productionRate && (
+                      <div>
+                        <div className="building-data-box">
+                          {Object.entries(selectedBuilding?.baseValue?.baseProductionRate || {})
+                            .filter(([resource]) => resource !== "_id")
+                            .map(([resource, baseRate]) => {
+                              const upRate =
+                                baseRate *
+                                (selectedBuilding.level + 1) *
+                                (selectedBuilding.level + 1) *
+                                (1 + (selectedBuilding.level + 1 - 1) / 5);
+                              const rate =
+                                baseRate *
+                                selectedBuilding.level *
+                                selectedBuilding.level *
+                                (1 + (selectedBuilding.level - 1) / 5);
+                              return (
+                                <li key={resource}>
+                                  <p className="resource-left">
+                                    {resource.charAt(0).toUpperCase() +
+                                      resource.slice(1).toLowerCase()}
+                                    :
+                                  </p>
+                                  <p className="resource-mid">{Math.round(rate)}</p>
+                                  <p className="resource-arrow">→</p>
+                                  <p className="resource-right">{Math.round(upRate)}</p>
+                                </li>
+                              );
+                            })}
+                        </div>
                       </div>
+                    )}
+                  </div>
+                ) : null}
+          
+                {activeType === "überwachung" ? (
+                  <div className="building-li-box">
+                    <p className="building-data">Beschreibung:</p>
+                    <p>Ein geheimes Spionagezentrum, Es dient als Schlüssel zur Beobachtung und Kontrolle des Universums es kann mit jeder Stufe mehr Informationen abrufen.</p>
+                  </div>
+                ) : null}
+          
+          {activeType === "lagerung" && selectedBuilding.baseValue.storageCapacity ? (
+                  <div className="building-li-box">
+                    <p className="building-data">Lagerkapazität:</p>
+                    <div className="building-storage-box">
+                      <p className="resource-left">
+                        Kapazität:
+                        
+                      </p>
+                      <p className="resource-mid">{Math.round(
+                          selectedBuilding.baseValue.storageCapacity *
+                          (selectedBuilding.level + 1) *
+                          (selectedBuilding.level + 1) *
+                          (1 + (selectedBuilding.level - 1) / 5)
+                        )}</p>
+                      <p className="resource-arrow">→</p>
+                      <p className="resource-right">{Math.round(
+                          selectedBuilding.baseValue.storageCapacity *
+                          (selectedBuilding.level + 1) *
+                          (selectedBuilding.level + 1) *
+                          (1 + (selectedBuilding.level + 1 - 1) / 5)
+                        )}</p>
+                      </div>
+                  </div>
+                ) : null}
+          
+          {activeType === "werften" && selectedBuilding ? (
+                  selectedBuilding.shipTyps ? (
+                    <div className="building-li-box">
+                      <p className="building-data">Schiffstypen:</p>
+                      <ul>
+                        {Object.values(selectedBuilding.shipTyps).map((shipTyp, index) => (
+                          <li key={index}>{shipTyp}</li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
-                </ul>
-              </div>
-            ) : (
-              <div className="building-default">
-                <p>Wähle ein Gebäude aus,</p>
-                <p>um die Details anzuzeigen.</p>
-              </div>
-            )}
+                  ) : (
+                    <p>Keine Schiffstypen verfügbar.</p>
+                  )
+                ) : null}
+              </ul>
+            </div>
+          ) : (
+            <div className="building-default">
+              <p>Wähle ein Gebäude aus,</p>
+              <p>um die Details anzuzeigen.</p>
+            </div>
+          )}
           </div>
 
           {/* Baukosten anzeigen */}
@@ -332,7 +385,7 @@ const Buildings = () => {
                                 selectedBuilding.buildingType
                             )
                         }
-                        disabled={!!constructionEndTime} // Button deaktiviert, wenn Bauzeit läuft
+                        disabled={!!constructionEndTime || countdown > 0} // Button deaktiviert, wenn Bauzeit läuft
                     >
                         {countdown ? `Bauen läuft... ${formatCountdown()}` : "Bauen"}
                     </button>

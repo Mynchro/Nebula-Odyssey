@@ -7,10 +7,12 @@ const calculateProductionRate = (
     baseProductionRate,
     constructionCosts,
     constructionTime,
+    baseStorageCapacity,
     level
 ) => {
     const updatedProductionRate = {};
     const updatedConstructionCosts = {};
+    let updatedStorageCapacity;
     let updatedConstructionTime; // Verwende let, da der Wert aktualisiert wird
 
     // Berechnung der Produktionsrate für jede Ressource
@@ -38,6 +40,14 @@ const calculateProductionRate = (
         }
     }
 
+    if (level === 0) {
+        updatedStorageCapacity = baseStorageCapacity;
+    } else {
+        updatedStorageCapacity = parseFloat(
+            (baseStorageCapacity * level * (1 + (level - 1) / 10)).toFixed()
+        );
+    }
+
     // Berechnung der Bauzeit
     if (level === 0) {
         updatedConstructionTime = constructionTime;
@@ -55,6 +65,7 @@ const calculateProductionRate = (
         updatedProductionRate,
         updatedConstructionCosts,
         updatedConstructionTime,
+        updatedStorageCapacity,
     };
 };
 
@@ -69,17 +80,6 @@ export const upgradeBuilding = async (req, res) => {
         });
 
         if (!user) return res.status(404).send("Benutzer nicht gefunden");
-
-        if (
-            user.buildingInProgress &&
-            user.buildingInProgress !== buildingType
-        ) {
-            return res
-                .status(400)
-                .send(
-                    `Das Gebäude ${user.buildingInProgress} ist noch im Bau. Bitte warte, bis dieser Bau abgeschlossen ist.`
-                );
-        }
 
         const planet = user.planets.find((p) => p._id.toString() === planetId);
         if (!planet) return res.status(404).send("Planet nicht gefunden");
@@ -111,10 +111,12 @@ export const upgradeBuilding = async (req, res) => {
             updatedProductionRate,
             updatedConstructionCosts,
             updatedConstructionTime,
+            updatedStorageCapacity,
         } = calculateProductionRate(
             building.baseValue.baseProductionRate,
             building.baseValue.constructionCosts,
             building.baseValue.constructionTime,
+            building.baseValue.storageCapacity,
             building.level + 1 // Berechnung für das nächste Level
         );
 
@@ -127,6 +129,7 @@ export const upgradeBuilding = async (req, res) => {
         building.constructionCosts = updatedConstructionCosts;
         building.constructionTime = updatedConstructionTime;
         building.constructionEndTime = constructionEndTime;
+        building.storageCapacity = updatedStorageCapacity;
         building.level += 1;
 
         user.buildingInProgress = buildingType;

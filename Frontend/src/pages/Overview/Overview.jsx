@@ -100,7 +100,7 @@ const Overview = () => {
             <h4>Gebäude</h4>
             <p>
             <em>
-              {countdown 
+              {countdown && buildingInProgress
                 ? `Gebäude ${buildingDataMap[buildingInProgress] || buildingInProgress} wird gebaut ${formatCountdown()}` 
                 : "Keine Gebäude in Bau"}
             </em>

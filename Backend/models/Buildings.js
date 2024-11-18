@@ -66,6 +66,9 @@ export const buildingSchema = new Schema({
         type: Number,
         default: 0,
     },
+    shipTyps: {
+        type: Object,
+    },
 });
 
 const Building = mongoose.model("Building", buildingSchema);
