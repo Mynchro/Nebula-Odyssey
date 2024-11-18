@@ -22,6 +22,9 @@ class LeichterJaeger extends Unit {
     this.rapidfirevszerstörer = 50;
     this.rapidfirevsbomber = 10;
     this.rapidfirevskleinertransporter = 10;
+    this.img = "/werften/kleine_werft/leichter_jaeger/leichter_jaeger1.png";
+    this.label = "Leichter Jaeger";
+    this.description = "Ein leichter Jäger, der sich durch hohe Geschwindigkeit und Wendigkeit auszeichnet. Ausgestattet mit leichten Waffen eignet er sich hervorragend für schnelle Angriffe und Verteidigungsmissionen. Besonders effektiv in Schwärmen. Perfekt für kurze, präzise Einsätze.g";
   }
 }
 class SchwererJaeger extends Unit {
@@ -46,6 +49,9 @@ class SchwererJaeger extends Unit {
     this.rapidfirevszerstörer = 50;
     this.rapidfirevsbomber = 10;
     this.rapidfirevsgroßertransporter = 10;
+    this.img = "/werften/kleine_werft/schwerer_jaeger/schwerer_jaeger1.png";
+    this.label = "Schwerer Jaeger";
+    this.description = "Ein schwerer Jäger, der mit stärkeren Waffen und besserer Panzerung ausgestattet ist. Entwickelt für intensivere Kämpfe und zur Unterstützung größerer Flotten. Er kann mehr Schaden austeilen und einstecken als leichtere Jäger. Ideal für längere Kampfeinsätze.";
   }
 }
 class Bomber extends Unit {
@@ -80,6 +86,9 @@ class Bomber extends Unit {
     this.rapidfirevsrailgun = 10;
     this.rapidfirevspartikelkanone = 10;
     this.rapidfirevsplanetarerschildgenerator = 10;
+    this.img = "/werften/kleine_werft/bomber/bomber_1.png";
+    this.label = "Bomber";
+    this.description = "Ein Bomber, spezialisiert auf das Abwerfen von schweren Bomben und Torpedos auf feindliche Ziele. Er ist weniger wendig, aber dafür stark gepanzert und in der Lage, massiven Schaden zu verursachen. Perfekt für Angriffe auf große Schiffe und stationäre Ziele. Langsame, aber mächtige Feuerkraft.";
   }
 }
 class KleinerTransporter extends Unit {
@@ -100,6 +109,9 @@ class KleinerTransporter extends Unit {
     this.hangaring = -2;
     this.cargo = 5000;
     this.unittype = Unit.unittype.smallTransporter;
+    this.img = "/werften/kleine_werft/kleiner_transporter/kleiner_transporter2.png";
+    this.label = "Kleiner Transporter";
+    this.description = "Ein kleiner Transporter, der für schnelle und effiziente Transporte von Gütern zwischen verschiedenen Stationen und Planeten verwendet wird. Er hat eine moderate Ladefähigkeit und ist gut geschützt gegen kleinere Angriffe. Ideal für schnelle Handelsmissionen. Kompakt und leicht manövrierbar.";
   }
 }
 class MiningDrohne extends Unit {
@@ -120,6 +132,9 @@ class MiningDrohne extends Unit {
     this.hangaring = -1;
     this.cargo = 2000;
     this.unittype = Unit.unittype.miningDrone;
+    this.img = "/werften/kleine_werft/mining_drone/mining_drone1.png";
+    this.label = "Mining Drone";
+    this.description = "Eine Mining-Drohne, die für den Abbau von Ressourcen in Asteroidenfeldern und auf Planetenoberflächen konzipiert ist. Ausgestattet mit speziellen Bergbauwerkzeugen und -technologien. Effizient und autonom arbeitend, ideal für die Unterstützung bei Bergbauoperationen. Robust und zuverlässig.";
   }
 }
 class Fregatte extends Unit {
@@ -141,6 +156,9 @@ class Fregatte extends Unit {
     this.cargo = 5000;
     this.unittype = Unit.unittype.frigate;
     this.rapidfirevsflakgeschütz = 5;
+    this.img = "/werften/kleine_werft/fregatte/fregatte_3.png";
+    this.label = "Fregatte";
+    this.description = "Eine Fregatte, die als vielseitiges Kriegsschiff in verschiedenen Rollen dienen kann. Sie ist gut bewaffnet und gepanzert, aber dennoch schnell und wendig. Ideal für Patrouillen, Eskortmissionen und den Schutz von Konvois. Ausgeglichen in Angriff und Verteidigung.";
   }
 }
 class GrosserTransporter extends Unit {
@@ -161,6 +179,9 @@ class GrosserTransporter extends Unit {
     this.hangaring = 0;
     this.cargo = 50000;
     this.unittype = Unit.unittype.largeTransporter;
+    this.img = "/werften/mittlere_werft/großer_transporter/großer_transporter1.png";
+    this.label = "Großer Transporter";
+    this.description = "Ein großer Transporter mit erhöhter Ladefähigkeit für den Transport großer Mengen an Gütern. Gut geschützt und mit defensiven Waffensystemen ausgestattet. Ideal für längere Handelsrouten und Versorgungsmissionen. Bietet hohe Sicherheit für wertvolle Ladungen.";
   }
 }
 class Zerstörer extends Unit {
@@ -187,6 +208,9 @@ class Zerstörer extends Unit {
     this.dmgversusbomber = (this.firepower / 100) * -90;
     this.rapidfirevsfregatte = 5;
     this.rapidfirevsflugdeckkreuzer = 5;
+    this.img = "/werften/mittlere_werft/zerstoerer/zerstoerer_1.png";
+    this.label = "Zerstörer";
+    this.description = "Ein Zerstörer, entwickelt zur Jagd auf feindliche Schiffe. Ausgestattet mit einer Vielzahl von Waffen und hoher Geschwindigkeit. Perfekt für offensive Missionen und Flottenbegleitung. Robuste Panzerung und starke Feuerkraft.";
   }
 }
 class Kreuzer extends Unit {
@@ -211,6 +235,9 @@ class Kreuzer extends Unit {
     this.rapidfirevsschwererjaeger = 25;
     this.rapidfirevsbomber = 25;
     this.rapidfirevsminingdrohne = 25;
+    this.img = "/werften/mittlere_werft/kreuzer/kreuzer_1.png";
+    this.label = "Kreuzer";
+    this.description = "Ein Kreuzer, der als vielseitiges Kampfschiff in Flottenoperationen dient. Gut bewaffnet und gepanzert, aber dennoch relativ schnell. Kann verschiedene Rollen wie Angriff, Verteidigung und Unterstützung übernehmen. Ein Rückgrat jeder Flotte.";
   }
 }
 class FlugDeckKreuzer extends Unit {
@@ -233,6 +260,9 @@ class FlugDeckKreuzer extends Unit {
     this.unittype = Unit.unittype.smallCarrier;
     this.dmgversusbomber = (this.firepower / 100) * -90;//TODO löschen
     this.rapidfirevsbomber = 5;//TODO löschen
+    this.img = "/werften/mittlere_werft/flugdeckkreuzer/flugdeckkreuzer_1.png";
+    this.label = "Flugdeckkreuzer";
+    this.description = "Ein Flugdeckkreuzer, der als mobile Basis für Jäger und Bomber dient. Ausgestattet mit Landedecks und Hangars für verschiedene Schiffstypen. Bietet Luftunterstützung und Aufklärung.";
   }
 }
 class KolonieSchiff extends Unit {
@@ -253,6 +283,9 @@ class KolonieSchiff extends Unit {
     this.hangaring = 30;
     this.cargo = 10000;
     this.unittype = Unit.unittype.colonyShip;
+    this.img = "/werften/mittlere_werft/kolonieschiff/kolonieschiff_1.png";
+    this.label = "Kolonieschiff";
+    this.description = "Ein Kolonieschiff, das Siedler und Ausrüstung zu neuen Planeten bringt. Gut ausgestattet für Langzeitmissionen und autarkes Leben. Ideal für die Expansion und Erkundung neuer Welten. Bietet Lebensraum und Schutz für Kolonisten.";
   }
 }
 class BergBauSchiff extends Unit {
@@ -273,6 +306,9 @@ class BergBauSchiff extends Unit {
     this.hangaring = 90;
     this.cargo = 150000;
     this.unittype = Unit.unittype.miningShip;
+    this.img = "/werften/mittlere_werft/bergbauschiff/bergbauschiff_1.png";
+    this.label = "Bergbauschiff";
+    this.description = "Ein Bergbauschiff, spezialisiert auf den großflächigen Abbau von Ressourcen im Weltraum. Ausgestattet mit fortschrittlichen Bergbauwerkzeugen und Lagerkapazitäten. Effizient und produktiv. Unterstützt wirtschaftliche Operationen durch Rohstoffgewinnung.";
   }
 }
 class SchlachtSchiff extends Unit {
@@ -304,6 +340,9 @@ class SchlachtSchiff extends Unit {
     this.rapidfirevsionenkanone = 50;
     this.rapidfirevszerstörer = 10;
     this.rapidfirevskreuzer = 10;
+    this.img = "/werften/große_werft/schlachtschiff/schlachtschiff_1.png";
+    this.label = "Schlachtschiff";
+    this.description = "Ein Schlachtschiff, das größte und am stärksten bewaffnete Kriegsschiff. Entwickelt für direkte Konfrontationen und massive Feuergefechte. Bietet extrem starke Panzerung und Feuerkraft. Ein unverzichtbares Flaggschiff für jede Großflotte.";
   }
 }
 class SchlachtKreuzer extends Unit {
@@ -325,6 +364,9 @@ class SchlachtKreuzer extends Unit {
     this.cargo = 100000;
     this.unittype = Unit.unittype.battleCruiser;
     this.rapidfirevsschlachtschiff = 10;
+    this.img = "/werften/große_werft/schlachtkreuzer/schlachtkreuzer_1.png";
+    this.label = "Schlachtkreuzer";
+    this.description = "Ein Schlachtkreuzer, kombiniert die Feuerkraft eines Schlachtschiffs mit der Geschwindigkeit eines Kreuzers. Gut bewaffnet und gepanzert, für schnelle und durchschlagende Angriffe. Ideal für Durchbruchoperationen und Flottenführung. Ein vielseitiger Kampfeinheit.";
   }
 }
 class TraegerSchiff extends Unit {
@@ -345,6 +387,9 @@ class TraegerSchiff extends Unit {
     this.hangaring = 9000;
     this.cargo = 500000;
     this.unittype = Unit.unittype.carrier;
+    this.img = "/werften/große_werft/traegerschiff/traegerschiff_1.png";
+    this.label = "Trägerschiff";
+    this.description = "Ein Trägerschiff, das als mobile Basis für eine Vielzahl von Jägern und bombern dient. Ausgestattet mit großen Landedecks und Hangars. Bietet Luftunterstützung, Aufklärung und schnelle Angriffe. Ein zentraler Bestandteil moderner Flottenoperationen.";
   }
 }
 class FlakGeschütz extends Unit {
@@ -369,6 +414,9 @@ class FlakGeschütz extends Unit {
     this.rapidfirevsschwererjaeger = 20;
     this.rapidfirevsbomber = 20;
     this.rapidfirevskleinertransporter = 20;
+    this.img = "/werften/kleine_werft/flaggeschuetz/flaggeschuetz1.png";
+    this.label = "Flakgeschütz";
+    this.description = "Ein Flakgeschütz, das zur Verteidigung gegen feindliche Jäger, Bomber und Drohnen eingesetzt wird. Mit schnellen und präzisen Geschossen ausgestattet. Es bietet eine starke Verteidigungslinie gegen Luftangriffe. Essenziell für den Schutz von Basen und Flotten.";
   }
 }
 class Artillerie extends Unit {
@@ -389,6 +437,9 @@ class Artillerie extends Unit {
     this.hangaring = 0;
     this.cargo = 0;
     this.unittype = Unit.unittype.flak;
+    this.img = "kein bild vorhanden";
+    this.label = "nicht gefundener name";
+    this.description = "keine beschreibung";
   }
 }
 class IonenKanone extends Unit {
@@ -409,6 +460,9 @@ class IonenKanone extends Unit {
     this.hangaring = 0;
     this.cargo = 0;
     this.unittype = Unit.unittype.ionCannon;
+    this.img = "/werften/mittlere_werft/ionenkanone/ionenkanone1.jpg";
+    this.label = "Ionenkanone";
+    this.description = "Eine Ionenkanone, die hochenergetische Ionenschüsse abfeuert. Effektiv gegen Schilde und elektronische Systeme von Feindschiffen. Bietet eine präzise und durchschlagende Feuerkraft. Ideal zur Unterstützung von Flottenoperationen.";
   }
 }
 class LaserGeschütz extends Unit {
@@ -429,6 +483,9 @@ class LaserGeschütz extends Unit {
     this.hangaring = -0;
     this.cargo = 0;
     this.unittype = Unit.unittype.laserCannon;
+    this.img = "/werften/kleine_werft/lasergeschuetz/lasergeschuetz1.jpg";
+    this.label = "Lasergeschütz";
+    this.description = "Ein Lasergeschütz, das hochenergetische Laserstrahlen abfeuert. Effektiv gegen gepanzerte Ziele und feindliche Schiffe. Es bietet eine hohe Präzision und Reichweite. Ideal zur Unterstützung von Boden- und Weltraumoperationen.";
   }
 }
 class Railgun extends Unit {
@@ -452,6 +509,9 @@ class Railgun extends Unit {
     this.dmgversusschlachtschiff = (this.firepower / 100) * 100;
     this.dmgversusschlachtkreuzer = (this.firepower / 100) * 100;
     this.rapidfirevszerstörer = 5;
+    this.img = "kein bild vorhanden";
+    this.label = "nicht gefundener name";
+    this.description = "keine beschreibung";
   }
 }
 class PartikelKanone extends Unit {
@@ -477,6 +537,9 @@ class PartikelKanone extends Unit {
     this.rapidfirevszerstörer = 5;
     this.rapidfirevstraegerschiff = 5;
     this.rapidfirevsschlachtkreuzer = 5;
+    this.img = "/werften/große_werft/partikelgeschuetz/partikelgeschuetz1.jpg";
+    this.label = "Partikelkanone";
+    this.description = "Ein Partikelgeschütz, das hochenergetische Partikelstrahlen abfeuert. Effektiv gegen starke Panzerungen und Schilde. Bietet präzise und zerstörerische Feuerkraft. Ideal zur Unterstützung von schweren Verteidigungssoperationen.";
   }
 }
 class PlanetarerSchildGenerator extends Unit {
@@ -497,6 +560,9 @@ class PlanetarerSchildGenerator extends Unit {
     this.hangaring = 0;
     this.cargo = 0;
     this.unittype = Unit.unittype.planetaryShield;
+    this.img = "kein bild vorhanden";
+    this.label = "nicht gefundener name";
+    this.description = "keine beschreibung";
   }
 }
 
