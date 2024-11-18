@@ -13,7 +13,7 @@ const SharedLayout = () => {
 
   // Hol das Planeten-Array vom aktuellen Spieler
   const planets = currentPlayer?.planets || [];
-  console.log("xyz:", currentPlayer.planets);
+  //console.log("xyz:", currentPlayer.planets);
 
   // Funktion zum Aktualisieren des ausgewählten Planeten
   const handlePlanetSelect = (index) => {

@@ -26,12 +26,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
   padding: 20px;
-  border-radius: 8px;
-  color: white;
   box-sizing: border-box;
-  width: 70%; /* Damit die Boxen die volle Breite nutzen */
+  width: 70%;
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--tertiary-color);
+  color: white;
 }
 
 .form-box form {

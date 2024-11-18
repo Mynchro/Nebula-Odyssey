@@ -82,9 +82,46 @@ export const instantiateShips = async (req, res) => {
 //"/user/:userId/ship/:shipType/buildShip"
 // GET: http://localhost:3000/shipyard/user/6707f5b128946e558e271814/ship/lightHunter/buildShip
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
-export const buildShip = async (req, res) => {
+export const getShip = async (req, res) => {
   try {
     const { userId, shipType, planetId } = req.params;
+    const user = await User.findById(userId).populate({
+      path: "planets",
+      populate: { path: "ships" },
+    });
+    if (!user) {
+      return res.status(404).send("Benutzer nicht gefunden");
+    }
+
+    const planet = user.planets.find(
+      (planet) => planet._id.toString() === planetId
+    );
+    if (!planet) {
+      return res.status(404).send("Planetlanet nicht gefunden");
+    }
+
+    const ship = planet.ships.find(
+      (s) => s.shipType.toLowerCase() === shipType.toLowerCase()
+    );
+
+    if (!ship) {
+      return res
+        .status(404)
+        .send(`Schiff mit dem Typ ${shipType} nicht gefunden`);
+    }
+    return res.status(200).send({
+      ship,
+      user,
+    });
+  }
+  catch (error) {
+    console.error("Fehler beim bauen des Schiffs:", error);
+    return res.status(500).send("Serverfehler");
+  }
+}
+export const buildShip = async (req, res) => {
+  try {
+    const { userId, shipType, planetId, amount } = req.params;
 
     // Finde den Benutzer anhand der ID und lade seine Planeten
     const user = await User.findById(userId).populate({
@@ -111,12 +148,17 @@ export const buildShip = async (req, res) => {
         .status(404)
         .send(`Schiff mit dem Typ ${shipType} nicht gefunden`);
     }
-
-    // Erhöhe die anzahl um 1
-
+    const number = Number(amount);
+    let shipsToBuild;
+    if (!isNaN(number) && number > 0) {
+      shipsToBuild = number; 
+    }
+    else {
+      shipsToBuild = 1;
+    }
     let canBuild = true;
     for (const key in planet.resources.toObject()) {
-      if (planet.resources[key] - ship.ressourceCosts[key] < 0) {
+      if (planet.resources[key] - (ship.ressourceCosts[key]*shipsToBuild) < 0) {
         console.log(`nicht genug ${key} für den bau vorhanden`);
         canBuild = false;
       }
@@ -124,25 +166,20 @@ export const buildShip = async (req, res) => {
     if (canBuild) {
       for (const key in planet.resources.toObject()) {
         if (typeof planet.resources[key] === "number") {
-          planet.resources[key] -= ship.ressourceCosts[key];
-          console.log(planet.resources[key]);
+          planet.resources[key] -= (ship.ressourceCosts[key]*shipsToBuild);
+          
         } else {
           canBuild = false;
         }
-        //console.log(planet.resources[key]);
-        //console.log(ship.ressourceCosts[key]);
       }
-      ship.amount += 1;
-      console.log(`${ship.amount} schiffe vorhanden`);
+      ship.amount+=shipsToBuild
     }
-    //console.log(planet.resources);
 
-    // Speichere den Planeten mit dem aktualisierten Gebäude
     await planet.save();
-
     return res.status(200).send({
       message: "Schiff wurde erfolgreich gebaut",
       ship,
+      user,
     });
   } catch (error) {
     console.error("Fehler beim bauen des Schiffs:", error);
@@ -192,19 +229,34 @@ export const sellShip = async (req, res) => {
     return res.status(500).send("Serverfehler");
   }
 };
-
-export const getAllShips = async (req, res) => {
+export const getShipData = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const ships = await ship.find();
+    return res.status(200).json(ships);
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Schiffe:", error);
+    return res.status(500).send("Serverfehler");
+  }
+};
+export const getPlayerShips = async (req, res) => {
+  try {
+    const { userId, planetId } = req.params;
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      path: "planets",
+      populate: { path: "ships" },
+    });
     if (!user) {
-      return res.status(404).send("User nichst gefunden");
+      return res.status(404).send("Benutzer nicht gefunden");
     }
 
-    const ships = user.homePlanet.ships;
-
-    return res.status(200).json(ships);
+    const planet = user.planets.find(
+      (planet) => planet._id.toString() === planetId
+    );
+    if (!planet) {
+      return res.status(404).send("Planetlanet nicht gefunden");
+    }
+    return res.status(200).json(planet.ships);
   } catch (error) {
     console.error("Fehler beim Abrufen der Gebäude:", error);
     return res.status(500).send("Serverfehler");

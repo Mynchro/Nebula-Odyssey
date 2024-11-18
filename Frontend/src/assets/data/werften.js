@@ -215,7 +215,7 @@ const werftTypen = {
       label: "Zerstoerer",
       img: "/werften/mittlere_werft/zerstoerer/zerstoerer_1.png",
       description:
-        "Ein Zerstörer, entwickelt zur Jagd auf feindliche Schiffe und U-Boote. Ausgestattet mit einer Vielzahl von Waffen und hoher Geschwindigkeit. Perfekt für offensive Missionen und Flottenbegleitung. Robuste Panzerung und starke Feuerkraft.",
+        "Ein Zerstörer, entwickelt zur Jagd auf feindliche Schiffe. Ausgestattet mit einer Vielzahl von Waffen und hoher Geschwindigkeit. Perfekt für offensive Missionen und Flottenbegleitung. Robuste Panzerung und starke Feuerkraft.",
       properties: {
         attackEnergy: 40,
         steelcosts: 10000,
@@ -261,7 +261,7 @@ const werftTypen = {
       label: "Flugdeckkreuzer",
       img: "/werften/mittlere_werft/flugdeckkreuzer/flugdeckkreuzer_1.png",
       description:
-        "Ein Flugdeckkreuzer, der als mobile Basis für Flugzeuge dient. Ausgestattet mit Landedecks und Hangars für verschiedene Flugzeuge. Bietet Luftunterstützung und Aufklärung. Essenziell für moderne Seekriegsführung.",
+        "Ein Flugdeckkreuzer, der als mobile Basis für Jäger und Bomber dient. Ausgestattet mit Landedecks und Hangars für verschiedene Schiffstypen. Bietet Luftunterstützung und Aufklärung.",
       properties: {
         attackEnergy: 60,
         steelcosts: 15000,
@@ -401,7 +401,7 @@ const werftTypen = {
       label: "Traegerschiff",
       img: "/werften/große_werft/traegerschiff/traegerschiff_1.png",
       description:
-        "Ein Trägerschiff, das als mobile Basis für eine Vielzahl von Flugzeugen dient. Ausgestattet mit großen Landedecks und Hangars. Bietet Luftunterstützung, Aufklärung und schnelle Angriffe. Ein zentraler Bestandteil moderner Flottenoperationen.",
+        "Ein Trägerschiff, das als mobile Basis für eine Vielzahl von Jägern und bombern dient. Ausgestattet mit großen Landedecks und Hangars. Bietet Luftunterstützung, Aufklärung und schnelle Angriffe. Ein zentraler Bestandteil moderner Flottenoperationen.",
       properties: {
         attackEnergy: 80,
         steelcosts: 25000,

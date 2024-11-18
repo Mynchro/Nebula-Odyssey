@@ -13,6 +13,8 @@ const PlayerProvider = ({ children }) => {
     user: defaultUser_DEV,
   });
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(null);
+  const [constructionEndTime, setConstructionEndTime] = useState(null);
 
   const setSecondaryColor = (color) => {
     document.documentElement.style.setProperty(
@@ -76,6 +78,21 @@ const PlayerProvider = ({ children }) => {
     }
   };
 
+  const startCountdown = (endTime) => {
+    const interval = setInterval(() => {
+      const timeRemaining = new Date(endTime) - new Date();
+      if (timeRemaining <= 0) {
+        clearInterval(interval);
+        setCountdown(null);
+        setConstructionEndTime(null);
+      } else {
+        setCountdown(Math.floor(timeRemaining / 1000)); // Sekunden für Countdown-Formatierung speichern
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  };
+
   useEffect(() => {
     checkLoggedInUser();
   }, []);
@@ -85,6 +102,11 @@ const PlayerProvider = ({ children }) => {
       value={{
         playerData,
         currentPlayer,
+        countdown, 
+        setCountdown, 
+        startCountdown, 
+        constructionEndTime, 
+        setConstructionEndTime,
         setCurrentPlayer,
         handleLogin,
       }}
