@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { PlayerContext } from "../../context/PlayerContext";
 import { useOutletContext } from "react-router-dom";
-import werftTypen from "../../assets/data/werften";
 import "./Armada.css";
 import activities from "../../assets/data/activities";
+import Activity from "../../components/Armada/Activity.jsx";
 
 const DefaultDescriptionArmada = () => (
   <div>
@@ -15,63 +15,6 @@ const DefaultDescriptionArmada = () => (
     </p>
   </div>
 );
-
-const Activity = ({ activity }) => {
-  const { currentPlayer } = useContext(PlayerContext);
-  const [countdown, setCountdown] = useState(activity.timestamp);
-  const [showForwardAnimation, setShowForwardAnimation] = useState(true);
-  const [showBackwardAnimation, setShowBackwardAnimation] = useState(false);
-
-  const animationDuration = `${activity.timestamp}s`;
-
-  return (
-    <div className="activity">
-      <div className="activity-info">
-        <p>Truppenstärke: {activity.info.Truppenstärke}</p>
-        <ul>
-          {Object.values(activity.info.Einheiten).map((einheit, index) => (
-            <li key={index}>{einheit}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="activity-visual">
-        <div>
-          <img
-            id="armada-in-activity"
-            src={activity.planets[0].img}
-            alt={activity.planets[0].name}
-          />
-          <p className="activity-planet">{activity.planets[0].name}</p>
-        </div>
-        <div className="timer">
-          {countdown}s
-          {showForwardAnimation && (
-            <img
-              src="/icons/spaceship-right.png"
-              className={`fa-solid fa-shuttle-space ship-forward`}
-              style={{ animationDuration: animationDuration }}
-            ></img>
-          )}
-          {showBackwardAnimation && (
-            <img
-              src="/icons/spaceship-left.png"
-              className={`ship-backward`}
-              style={{ animationDuration: animationDuration }}
-            ></img>
-          )}
-        </div>
-        <div>
-          <img
-            id="armada-in-activity"
-            src={activity.planets[1].img}
-            alt={activity.planets[1].name}
-          />
-          <p className="activity-planet">{activity.planets[1].name}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Armada = () => {
   const { choicePlanet, currentPlayer, setChoicePlanet } =
@@ -193,6 +136,45 @@ const Armada = () => {
     }
   }, [setChoicePlanet]);
 
+  const sendFleet = async () => {
+    if (!choicePlanet || !currentPlayer) return;
+
+    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
+    setChoicePlanet(optimisticPlanet);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/spacemap/colonizePlanet/${currentPlayer._id}/${choicePlanet._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Fehler beim Besiedeln des Planeten");
+      }
+
+      const updatedPlanet = await response.json();
+      console.log("Aktualisierter Planet:", updatedPlanet);
+
+      // setPlanets((prevPlanets) =>
+      //   prevPlanets.map((planet) =>
+      //     planet._id === updatedPlanet._id ? updatedPlanet : planet
+      //   )
+      // );
+
+      // setChoicePlanet(updatedPlanet);
+      // sessionStorage.setItem("choicePlanet", JSON.stringify(choicePlanet));
+
+      console.log("Neues ChoicePlanet:", choicePlanet);
+    } catch (error) {
+      console.error("Fehler beim Besiedeln des Planeten:", error);
+    }
+  };
+
   return (
     <div className="content-box">
       <div className="overview-title">
@@ -311,10 +293,15 @@ const Armada = () => {
                          ? choicePlanet.owner.userName
                          : "Kein Besitzer"
                      }`}</p>
-                    <button className="btn">Planet besiedeln</button>
+                    <button onClick={sendFleet} className="btn">
+                      Flotte losschicken
+                    </button>
                   </div>
                 ) : (
-                  <h4>Kein Planet ausgewählt</h4>
+                  <h4>
+                    Kein Planet ausgewählt. Gehe zur Raumkarte und wähle den
+                    Planeten, den du besiedeln möchtest.
+                  </h4>
                 )}
               </div>
             </div>

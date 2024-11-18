@@ -5,7 +5,6 @@ import { PlanetBox } from "../../components/Spacemap/Planetbox";
 import { useNavigate } from "react-router-dom";
 
 const Spacemap = () => {
-  // const [choicePlanet, setChoicePlanet] = useState(null);
   const { currentPlayer, choicePlanet, setChoicePlanet } =
     useContext(PlayerContext);
   const [planets, setPlanets] = useState([]);
@@ -13,17 +12,9 @@ const Spacemap = () => {
   const navigate = useNavigate();
   const planetsPerPage = 9;
 
-  // console.log(
-  //   "currentPlayer Page:",
-  //   currentPlayer.page,
-  //   currentPlayer.userName,
-  //   currentPlayer
-  // );
-
-  console.log("ausgewählter Planet:", choicePlanet);
-
   useEffect(() => {
     if (currentPlayer?.page) {
+      console.log(currentPlayer.page);
       setCurrentPage(currentPlayer.page);
     }
   }, [currentPlayer]);
@@ -56,7 +47,6 @@ const Spacemap = () => {
         });
 
         setPlanets(sortedData);
-        // console.log("spaceMapdata (sortiert):", sortedData);
       })
       .catch((error) => {
         console.error("Fehler beim Laden der Planeten:", error);
@@ -76,53 +66,13 @@ const Spacemap = () => {
     );
   };
 
-  // const reloadAndNavigate = () => {
-  //  navigate("/armada")
-  // };
-
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("navigateTo")) {
-  //     const targetPage = sessionStorage.getItem("navigateTo");
-
-  //     navigate(targetPage);
-
-  //     sessionStorage.removeItem("navigateTo");
-  //   }
-  // }, [navigate]);
-
-  const colonizePlanetHandler = async () => {
+  const selectAndNavigate = async () => {
     if (!choicePlanet || !currentPlayer) return;
 
     const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
     setChoicePlanet(optimisticPlanet);
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/spacemap/colonizePlanet/${currentPlayer._id}/${choicePlanet._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Fehler beim Besiedeln des Planeten");
-      }
-
-      const updatedPlanet = await response.json();
-      console.log("Aktualisierter Planet:", updatedPlanet);
-
-      setPlanets((prevPlanets) =>
-        prevPlanets.map((planet) =>
-          planet._id === updatedPlanet._id ? updatedPlanet : planet
-        )
-      );
-
-      setChoicePlanet(updatedPlanet);
-      sessionStorage.setItem("choicePlanet", JSON.stringify(choicePlanet));
-      // reloadAndNavigate();
       navigate("/armada");
 
       console.log("Neues ChoicePlanet:", choicePlanet);
@@ -130,11 +80,7 @@ const Spacemap = () => {
       console.error("Fehler beim Besiedeln des Planeten:", error);
     }
   };
-  // useEffect(() => {
-  //   if (choicePlanet) {
-  //     console.log("Planet wurde erfolgreich besiedelt:", choicePlanet);
-  //   }
-  // }, [choicePlanet]);
+
   return (
     <div className="content-box">
       <div className="solarsystem">
@@ -176,10 +122,7 @@ const Spacemap = () => {
                     : "Unbekannter Spieler"
                 }`}</p>
                 {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
-                <button
-                  onClick={colonizePlanetHandler}
-                  className="btn set-armada"
-                >
+                <button onClick={selectAndNavigate} className="btn set-armada">
                   Armada zusammenstellen
                 </button>
               </div>
