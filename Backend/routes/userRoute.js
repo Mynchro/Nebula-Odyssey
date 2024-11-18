@@ -1,10 +1,10 @@
 import express from "express";
 import {
-    register,
-    login,
-    updateUser,
-    logout,
-    checkLoginStatus,
+  register,
+  login,
+  updateUser,
+  logout,
+  checkLoginStatus,
 } from "../controllers/user.js";
 import { authenticateAndRefresh } from "../middleware/authentication.js";
 
