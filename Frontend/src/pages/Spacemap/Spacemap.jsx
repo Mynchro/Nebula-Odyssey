@@ -66,18 +66,6 @@ const Spacemap = () => {
     );
   };
 
-  const selectAndNavigate = async () => {
-    if (!choicePlanet || !currentPlayer) return;
-
-    try {
-      navigate("/armada");
-
-      console.log("Neues ChoicePlanet:", choicePlanet);
-    } catch (error) {
-      console.error("Fehler beim Besiedeln des Planeten:", error);
-    }
-  };
-
   return (
     <div className="content-box">
       <div className="solarsystem">
@@ -119,7 +107,12 @@ const Spacemap = () => {
                     : "Unbekannter Spieler"
                 }`}</p>
                 {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
-                <button onClick={selectAndNavigate} className="btn set-armada">
+                <button
+                  onClick={() => {
+                    navigate("/armada");
+                  }}
+                  className="btn set-armada"
+                >
                   Armada zusammenstellen
                 </button>
               </div>
