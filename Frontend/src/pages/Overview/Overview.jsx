@@ -1,11 +1,10 @@
 import "./Overview.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PlayerContext } from "../../context/PlayerContext";
 import { useOutletContext } from "react-router-dom";
 
 const Overview = () => {
-  const { currentPlayer } = useContext(PlayerContext);
-  const { countdown } = useContext(PlayerContext);
+  const { currentPlayer, countdown, setCountdown, setConstructionEndTime, constructionEndTime, startCountdown } = useContext(PlayerContext);
 
   const userName = currentPlayer.userName || "Guest";
   const planets = currentPlayer.planets || [];
@@ -13,6 +12,20 @@ const Overview = () => {
 
   const { selectedPlanet } = useOutletContext();
   const planetName = selectedPlanet ? selectedPlanet.name : "Unknown Planet";
+
+  useEffect(() => {
+    if (!constructionEndTime || countdown > 0) return; // Timer läuft oder keine Endzeit gesetzt
+    const now = Date.now();
+    if (constructionEndTime > now) {
+      console.log("Starting countdown...");
+      startCountdown(constructionEndTime);
+    } else {
+      console.log("End time in the past. Resetting...");
+      setConstructionEndTime(null);
+      setCountdown(0);
+      localStorage.removeItem("constructionEndTime");
+    }
+  }, [constructionEndTime, countdown, startCountdown]);
 
   const formatCountdown = () => {
     if (!countdown) return ""; // Wenn kein Countdown vorhanden ist

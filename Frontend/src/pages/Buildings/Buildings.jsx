@@ -5,11 +5,20 @@ import { PlayerContext } from "../../context/PlayerContext";
 
 const Buildings = () => {
   const { selectedPlanet } = useOutletContext();
-  const [activeType, setActiveType] = useState("produktion");
-  const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [isBuildingOn, setIsBuildingOn] = useState(false);
-  const { currentPlayer, countdown, constructionEndTime, setConstructionEndTime, startCountdown } = useContext(PlayerContext);
+  const { currentPlayer, countdown, startCountdown, setCountdown, setConstructionEndTime, constructionEndTime, } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
+  const [loading] = useState(false);
+
+
+  const [activeType, setActiveType] = useState(() => {
+    return localStorage.getItem("activeType") || "produktion";
+  });
+
+  const [selectedBuilding, setSelectedBuilding] = useState(() => {
+    const savedBuilding = localStorage.getItem("selectedBuilding");
+    return savedBuilding ? JSON.parse(savedBuilding) : null;
+  });
 
   const buildingDataMap = {
     smallShipyard: "Kleine Raumwerft",
@@ -33,7 +42,6 @@ const Buildings = () => {
     Silicondepot: "Siliconlager",
     Mikrochipdepot: "Mikrochiplager",
   };
-
   useEffect(() => {
     // Initialisiere den Status beim Auswahl des Gebäudes
     if (selectedBuilding) {
@@ -43,43 +51,58 @@ const Buildings = () => {
 
   useEffect(() => {
     const loadConstructionEndTime = async () => {
-      if (selectedBuilding && selectedBuilding.buildingType) {
+      loading(true);
         try {
           const response = await fetch(
             `http://localhost:3000/api/user/${userId}/planet/${selectedPlanet._id}/building/${selectedBuilding.buildingType}`
           );
           const data = await response.json();
           if (data.building.constructionEndTime) {
-            setConstructionEndTime(new Date(data.building.constructionEndTime));
-          }
+            // Wenn eine Bauzeit vorhanden ist, übergebe sie an den PlayerContext
+            const endTime = new Date(data.building.constructionEndTime);
+            setConstructionEndTime(endTime);  // Setzt die Endzeit im PlayerContext
+            }
         } catch (error) {
           console.error("Fehler beim Laden der Bauendzeit:", error);
+        } finally {
+          loading(false);  // Ladezustand deaktivieren
         }
+      };
+
+      if (selectedBuilding && userId && selectedPlanet) {
+        loadConstructionEndTime();
       }
-    };
-    loadConstructionEndTime();
-  }, [selectedBuilding, userId, selectedPlanet]);
+    }, [selectedBuilding, userId, selectedPlanet]);
 
-  // Starte den Countdown, wenn die Bauendzeit geladen ist
-  useEffect(() => {
-    if (constructionEndTime) {
-      startCountdown(constructionEndTime);
-    }
-  }, [constructionEndTime, startCountdown]);
+// Bauendzeit speichern
+useEffect(() => {
+  if (constructionEndTime && constructionEndTime instanceof Date && !isNaN(constructionEndTime)) {
+    localStorage.setItem("constructionEndTime", constructionEndTime.toISOString());
+  }
+}, [constructionEndTime]); // Nur wenn constructionEndTime sich ändert
 
-  const formatCountdown = () => {
-    if (!countdown) return "";
-    const hours = Math.floor(countdown / 3600);
-    const minutes = Math.floor((countdown % 3600) / 60);
-    const seconds = countdown % 60;
-    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  };
+useEffect(() => {
+  if (!constructionEndTime || countdown > 0) return; // Timer läuft oder keine Endzeit gesetzt
+  const now = Date.now();
+  if (constructionEndTime > now) {
+    console.log("Starting countdown...");
+    startCountdown(constructionEndTime);
+  } else {
+    console.log("End time in the past. Resetting...");
+    setConstructionEndTime(null);
+    setCountdown(0);
+    localStorage.removeItem("constructionEndTime");
+  }
+}, [constructionEndTime, countdown, startCountdown]);
 
-  useEffect(() => {
-    if (countdown === 0) {
-      setConstructionEndTime(null);
-    }
-  }, [countdown]);
+
+const formatCountdown = () => {
+  if (!countdown) return "";
+  const hours = Math.floor(countdown / 3600);
+  const minutes = Math.floor((countdown % 3600) / 60);
+  const seconds = countdown % 60;
+  return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+};
 
   const updateStatus = async (userId, planetId, buildingType, status) => {
     try {
@@ -99,11 +122,9 @@ const Buildings = () => {
       console.error("Statusaktualisierung fehlgeschlagen:", error);
     }
   };
-
+console.log("Test")
   const upgradeBuilding = async (userId, planetId, buildingType) => {
     try {
-      console.log("State vor Upgrade:", { userId, selectedPlanet, selectedBuilding });
-
       const response = await fetch(
         `http://localhost:3000/api/user/${userId}/planet/${planetId}/building/${buildingType}/upgrade`,
         {
@@ -122,7 +143,9 @@ const Buildings = () => {
       console.log("Upgrade erfolgreich:", updatedBuilding);
 
       setSelectedBuilding(updatedBuilding.building);
-      setConstructionEndTime(updatedBuilding.building.constructionEndTime);
+      if (updatedBuilding.building.constructionEndTime) {
+        setConstructionEndTime(new Date(updatedBuilding.building.constructionEndTime));
+      }
     } catch (error) {
       console.error("Fehler beim Upgraden des Gebäudes:", error);
     }
@@ -130,33 +153,46 @@ const Buildings = () => {
 
   const toggleBuildingStatus = async () => {
     const newStatus = !isBuildingOn;
-    setIsBuildingOn(newStatus);
-
-    if (selectedBuilding && selectedBuilding.buildingType) {
-      try {
-        await updateStatus(
-          userId,
-          selectedPlanet._id,
-          selectedBuilding.buildingType,
-          newStatus
-        );
-      } catch (error) {
-        console.error("Statusaktualisierung fehlgeschlagen:", error);
+    if (newStatus !== isBuildingOn) { // Nur setzen, wenn der Status wirklich anders ist
+      setIsBuildingOn(newStatus);
+  
+      if (selectedBuilding && selectedBuilding.buildingType) {
+        try {
+          await updateStatus(
+            userId,
+            selectedPlanet._id,
+            selectedBuilding.buildingType,
+            newStatus
+          );
+        } catch (error) {
+          console.error("Statusaktualisierung fehlgeschlagen:", error);
+        }
+      } else {
+        console.error("Building Type is missing.");
       }
-    } else {
-      console.error("Building Type is missing.");
     }
   };
-  console.log("State:", { userId, selectedPlanet, selectedBuilding });
 
   const handleBuildingSelect = (building) => {
-    setSelectedBuilding(building);
-    setIsBuildingOn(building.status);
+    const updatedBuilding = { ...building, isActive: true }; // Markiere das Gebäude als aktiv
+    setSelectedBuilding(updatedBuilding);
+    setIsBuildingOn(building.status); // Falls der Status gebraucht wird
+    localStorage.setItem("selectedBuilding", JSON.stringify(updatedBuilding));
   };
-
+  
   const handleCategorySelect = (type) => {
     setActiveType(type);
   };
+
+  useEffect(() => {
+    localStorage.setItem("activeType", activeType);
+  }, [activeType]);
+
+  useEffect(() => {
+    if (selectedBuilding) {
+      localStorage.setItem("selectedBuilding", JSON.stringify(selectedBuilding));
+    }
+  }, [selectedBuilding]);
 
   if (!selectedPlanet) return <p>Kein Planet ausgewählt.</p>;
 
@@ -444,9 +480,9 @@ const Buildings = () => {
             {filteredBuildings.map((building, index) => (
               <button
                 key={index}
-                className={`building btn  ${
-                  selectedBuilding === building ? "active" : ""
-                }`}
+                className={`building btn ${
+                    selectedBuilding?.buildingType === building.buildingType ? "active" : ""
+                  }`}
                 onClick={() => handleBuildingSelect(building)}
               >
                 {buildingDataMap[building.buildingType] ||
