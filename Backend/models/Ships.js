@@ -208,11 +208,11 @@ shipSchema.methods.setValues = function (shipType, unit) {
     this.dmgVs.vsParticleCannon = unit.dmgversuspartikelkanone;
     this.dmgVs.vsPlanetaryShield = unit.dmgversusplanetarerschildgenerator;
 
-    console.log(shipType);
-    console.log(this.ressourceCosts);
-    console.log(this.values);
-    console.log(this.rapidFire);
-    console.log(this.dmgVs);
+    console.log(shipType+" schiffstyp in ships.js zeile 211");
+    //console.log(this.ressourceCosts);
+    //console.log(this.values);
+    //console.log(this.rapidFire);
+    //console.log(this.dmgVs);
   } else {
     console.log("fehler parameter ist nicht vom typ Unit");
   }

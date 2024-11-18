@@ -5,12 +5,14 @@ import {
   getAllShips,
   getUserResources,
   instantiateShips,
-  getShipData
+  getShipData,
+  getShip
 } from "../controllers/shipYardController.js";
 
 const router = express.Router();
 
 router.post("/user/:userId/ship/:shipType/buildShip/:planetId", buildShip);
+router.get("/user/:userId/ship/:shipType/getShip/:planetId", getShip);
 router.post(
   "/user/:userId/building/:buildingType/downgrade",
   sellShip

@@ -82,6 +82,43 @@ export const instantiateShips = async (req, res) => {
 //"/user/:userId/ship/:shipType/buildShip"
 // GET: http://localhost:3000/shipyard/user/6707f5b128946e558e271814/ship/lightHunter/buildShip
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
+export const getShip = async (req,res)=>{
+  try{
+    const {userId,shipType,planetId} = req.params;
+    const user = await User.findById(userId).populate({
+      path: "planets",
+      populate: { path: "ships" },
+    });
+    if (!user) {
+      return res.status(404).send("Benutzer nicht gefunden");
+    }
+
+    const planet = user.planets.find(
+      (planet) => planet._id.toString() === planetId
+    );
+    if (!planet) {
+      return res.status(404).send("Planetlanet nicht gefunden");
+    }
+
+    const ship = planet.ships.find(
+      (s) => s.shipType.toLowerCase() === shipType.toLowerCase()
+    );
+
+    if (!ship) {
+      return res
+        .status(404)
+        .send(`Schiff mit dem Typ ${shipType} nicht gefunden`);
+    }
+    return res.status(200).send({
+      ship,
+      user,
+    });
+  }
+  catch (error) {
+    console.error("Fehler beim bauen des Schiffs:", error);
+    return res.status(500).send("Serverfehler");
+  }
+}
 export const buildShip = async (req, res) => {
   try {
     const { userId, shipType, planetId } = req.params;
