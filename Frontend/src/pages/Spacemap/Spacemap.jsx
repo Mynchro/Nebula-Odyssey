@@ -69,9 +69,6 @@ const Spacemap = () => {
   const selectAndNavigate = async () => {
     if (!choicePlanet || !currentPlayer) return;
 
-    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
-    setChoicePlanet(optimisticPlanet);
-
     try {
       navigate("/armada");
 
