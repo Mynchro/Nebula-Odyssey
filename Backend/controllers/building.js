@@ -46,7 +46,7 @@ const calculateProductionRate = (
         updatedStorageCapacity = baseStorageCapacity;
     } else {
         updatedStorageCapacity = Math.round(
-            baseStorageCapacity * level * (1 + (level - 1) / 10)
+            baseStorageCapacity * level * (1 + (level - 1) / 5)
         );
     }
 
@@ -105,22 +105,27 @@ export const upgradeBuilding = async (req, res) => {
                 );
         }
 
-        // Überprüfe, ob der Planet genügend Ressourcen hat
-        for (const resource in building.constructionCosts) {
-            const cost = building.constructionCosts[resource];
-            const currentResource = planet.resources[resource];
+        const resources = planet.resources.toObject(); // Konvertiere es in ein einfaches Objekt
+        const constructionCosts = building.constructionCosts.toObject();
 
-            // Überprüfen, ob die Werte gültige Zahlen sind
+        for (const resource in constructionCosts) {
+            if (resource === "_id") {
+                continue; // Diese Iteration überspringen, falls der Schlüssel "_id" ist
+            }
+
+            const cost = constructionCosts[resource];
+            const currentResource = resources[resource]; // Jetzt hast du den Wert der Ressource
+
+            //console.log(`cost: ${cost}`);
+            //console.log(`currentResource: ${currentResource}`);
+
             if (isNaN(cost) || isNaN(currentResource)) {
-                console.error(
-                    `Ungültiger Wert für Ressource ${resource}: cost = ${cost}, currentResource = ${currentResource}`
-                );
+                console.error(`Ungültiger Wert für Ressource ${resource}`);
                 return res
                     .status(400)
                     .send(`Ungültiger Wert für Ressource ${resource}`);
             }
 
-            // Prüfen, ob die Ressource genügend vorhanden ist
             if (currentResource < cost) {
                 return res
                     .status(400)
@@ -129,18 +134,11 @@ export const upgradeBuilding = async (req, res) => {
                     );
             }
 
-            // Ziehe die Ressourcen für das Upgrade ab, wenn der Wert > 0 ist
+            // Ziehe die Ressourcen ab, wenn der Wert > 0 ist
             if (cost > 0) {
                 planet.resources[resource] -= cost;
             }
         }
-
-        console.log(
-            `PR${updatedProductionRate},
-            CC${updatedConstructionCosts},
-            CT${updatedConstructionTime},
-            SC${updatedStorageCapacity},`
-        );
 
         // Setze die Bauendzeit basierend auf der aktuellen Bauzeit
         const constructionEndTime = new Date(
@@ -160,13 +158,6 @@ export const upgradeBuilding = async (req, res) => {
             building.level + 1 // Berechnung für das nächste Level
         );
 
-        console.log({
-            updatedProductionRate,
-            updatedConstructionCosts,
-            updatedConstructionTime,
-            updatedStorageCapacity,
-        });
-
         // Setze die aktualisierte Produktionsrate und erhöhe das Level
         building.productionRate = updatedProductionRate;
         building.constructionCosts = updatedConstructionCosts;
@@ -182,6 +173,7 @@ export const upgradeBuilding = async (req, res) => {
         return res.status(200).send({
             message: "Gebäude wurde erfolgreich aufgewertet",
             building,
+            user,
         });
     } catch (error) {
         console.error("Fehler beim Upgraden des Gebäudes:", error);

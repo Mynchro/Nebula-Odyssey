@@ -6,7 +6,7 @@ import { PlayerContext } from "../../context/PlayerContext";
 const Buildings = () => {
   const { selectedPlanet } = useOutletContext();
   const [isBuildingOn, setIsBuildingOn] = useState(false);
-  const { currentPlayer, countdown, startCountdown, setCountdown, setConstructionEndTime, constructionEndTime, } = useContext(PlayerContext);
+  const { currentPlayer, setCurrentPlayer, countdown, startCountdown, setCountdown, setConstructionEndTime, constructionEndTime } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
   const [loading, setLoading] = useState(false);
   const [buildMessage, setBuildMessage] = useState("");
@@ -123,6 +123,7 @@ const formatCountdown = () => {
       console.error("Statusaktualisierung fehlgeschlagen:", error);
     }
   };
+
   const upgradeBuilding = async (userId, planetId, buildingType) => {
     try {
       const response = await fetch(
@@ -148,14 +149,17 @@ const formatCountdown = () => {
         }
         return;
       }
+      
+      const data = await response.json();
 
-      const updatedBuilding = await response.json();
-      console.log("Upgrade erfolgreich:", updatedBuilding);
+      console.log("Upgrade erfolgreich:", data);
+
       setBuildMessage("Bau wird eingeleitet!");
-      setSelectedBuilding(updatedBuilding.building);
+      setSelectedBuilding(data.building);
+      setCurrentPlayer(data.user);
 
-      if (updatedBuilding.building.constructionEndTime) {
-        setConstructionEndTime(new Date(updatedBuilding.building.constructionEndTime));
+      if (data.building.constructionEndTime) {
+        setConstructionEndTime(new Date(data.building.constructionEndTime));
       }
     } catch (error) {
       console.error("Fehler beim Upgraden des Gebäudes:", error);
