@@ -9,6 +9,7 @@ const Buildings = () => {
   const { currentPlayer, countdown, startCountdown, setCountdown, setConstructionEndTime, constructionEndTime, } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
   const [loading, setLoading] = useState(false);
+  const [buildMessage, setBuildMessage] = useState("");
 
 
   const [activeType, setActiveType] = useState(() => {
@@ -135,20 +136,39 @@ const formatCountdown = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`Fehler: ${response.statusText}`);
+        if (response.status === 400) {
+          const errorData = await response.json();
+          if (errorData.error === "MAX_LEVEL_REACHED") {
+            setBuildMessage("Aktuelles max. Level erreicht!");
+          } else if (errorData.error === "INSUFFICIENT_RESOURCES") {
+            setBuildMessage("Benötigte Ressourcen fehlen!");
+          } else {
+            setBuildMessage("Ein Fehler ist aufgetreten!");
+          }
+        }
+        return;
       }
 
       const updatedBuilding = await response.json();
       console.log("Upgrade erfolgreich:", updatedBuilding);
-
+      setBuildMessage("Bau wird eingeleitet!");
       setSelectedBuilding(updatedBuilding.building);
+
       if (updatedBuilding.building.constructionEndTime) {
         setConstructionEndTime(new Date(updatedBuilding.building.constructionEndTime));
       }
     } catch (error) {
       console.error("Fehler beim Upgraden des Gebäudes:", error);
+      setBuildMessage("Ein Fehler ist aufgetreten");
     }
   };
+
+  useEffect(() => {
+    if (buildMessage) {
+      const timeout = setTimeout(() => setBuildMessage(""), 10000); // Nach 10 Sekunden ausblenden
+      return () => clearTimeout(timeout); // Timeout beim erneuten Rendern aufräumen
+    }
+  }, [buildMessage]);
 
   const toggleBuildingStatus = async () => {
     const newStatus = !isBuildingOn;
@@ -346,7 +366,7 @@ const formatCountdown = () => {
 
           {/* Baukosten anzeigen */}
           <div className="building-menu">
-            <ul>
+            <ul className="constructionUl">
               {/* Nur Baukosten anzeigen, wenn ein Gebäude ausgewählt ist */}
               {selectedBuilding ? (
                 Object.entries(
@@ -424,7 +444,7 @@ const formatCountdown = () => {
                     >
                         {countdown ? `Bauen läuft... ${formatCountdown()}` : "Bauen"}
                     </button>
-            <p className="buy-message"></p>
+            <p className="build-message">{buildMessage}</p>
           </div>
         </div>
         <div className="building-bar-box">

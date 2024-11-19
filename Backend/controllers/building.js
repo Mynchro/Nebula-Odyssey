@@ -25,6 +25,10 @@ const calculateProductionRate = (
 
     // Berechnung der Baukosten für jede Ressource
     for (const resource in constructionCosts) {
+        if (resource === "_id") {
+            continue;
+        }
+
         const baseValue = constructionCosts[resource];
 
         if (level === 0) {
@@ -56,7 +60,6 @@ const calculateProductionRate = (
             constructionTime * level * level * (1 + (level - 1) / 5)
         );
     }
-
     return {
         updatedProductionRate,
         updatedConstructionCosts,
@@ -102,6 +105,44 @@ export const upgradeBuilding = async (req, res) => {
                 );
         }
 
+        // Überprüfe, ob der Planet genügend Ressourcen hat
+        for (const resource in building.constructionCosts) {
+            const cost = building.constructionCosts[resource];
+            const currentResource = planet.resources[resource];
+
+            // Überprüfen, ob die Werte gültige Zahlen sind
+            if (isNaN(cost) || isNaN(currentResource)) {
+                console.error(
+                    `Ungültiger Wert für Ressource ${resource}: cost = ${cost}, currentResource = ${currentResource}`
+                );
+                return res
+                    .status(400)
+                    .send(`Ungültiger Wert für Ressource ${resource}`);
+            }
+
+            // Prüfen, ob die Ressource genügend vorhanden ist
+            if (currentResource < cost) {
+                return res
+                    .status(400)
+                    .send(
+                        `Nicht genügend ${resource}: Benötigt ${cost}, verfügbar ${currentResource}`
+                    );
+            }
+
+            // Ziehe die Ressourcen für das Upgrade ab, wenn der Wert > 0 ist
+            if (cost > 0) {
+                planet.resources[resource] -= cost;
+            }
+        }
+
+        console.log(
+            `PR${updatedProductionRate},
+            CC${updatedConstructionCosts},
+            CT${updatedConstructionTime},
+            SC${updatedStorageCapacity},`
+        );
+
+        // Setze die Bauendzeit basierend auf der aktuellen Bauzeit
         const constructionEndTime = new Date(
             now.getTime() + building.constructionTime * 1000
         );
@@ -118,6 +159,13 @@ export const upgradeBuilding = async (req, res) => {
             building.baseValue.storageCapacity,
             building.level + 1 // Berechnung für das nächste Level
         );
+
+        console.log({
+            updatedProductionRate,
+            updatedConstructionCosts,
+            updatedConstructionTime,
+            updatedStorageCapacity,
+        });
 
         // Setze die aktualisierte Produktionsrate und erhöhe das Level
         building.productionRate = updatedProductionRate;

@@ -206,7 +206,7 @@ input:checked + .btn-switch:active::before {
     justify-content: space-between;
     flex-direction: row;
 }
-.disabled {
+.btn .buy-btn-building .disabled {
   --background-color: linear-gradient(
     to bottom right,
     #091e2c,
@@ -214,4 +214,13 @@ input:checked + .btn-switch:active::before {
   );
   color: white;
   font-weight: bolder;
+}
+
+.build-message{
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.constructionUl{
+  margin-bottom: 5px;
 }
