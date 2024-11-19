@@ -17,7 +17,7 @@ const DefaultDescriptionArmada = () => (
 );
 
 const Armada = () => {
-  const { choicePlanet, currentPlayer, setChoicePlanet } =
+  const { choicePlanet, currentPlayer, setChoicePlanet, setCurrentPlayer } =
     useContext(PlayerContext);
   const { selectedPlanet } = useOutletContext();
   const [description, setDescription] = useState(null);
@@ -28,6 +28,8 @@ const Armada = () => {
   const [counterBig, setCounterBig] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [shipCounters, setShipCounters] = useState({});
+  const [fleetName, setFleetName] = useState("");
+  const [startAnimation, setStartAnimation] = useState(false);
 
   const handleShipType = (type) => {
     setActiveType(type);
@@ -157,8 +159,8 @@ const Armada = () => {
         throw new Error("Fehler beim Besiedeln des Planeten");
       }
 
-      const updatedPlanet = await response.json();
-      console.log("Aktualisierter Planet:", updatedPlanet);
+      const data = await response.json();
+      console.log("Aktualisierter Planet:", data);
 
       // setPlanets((prevPlanets) =>
       //   prevPlanets.map((planet) =>
@@ -168,8 +170,15 @@ const Armada = () => {
 
       // setChoicePlanet(updatedPlanet);
       // sessionStorage.setItem("choicePlanet", JSON.stringify(choicePlanet));
+      setStartAnimation(true);
+      setTimeout(() => {
+        setCurrentPlayer(data.populatedUser);
+      }, 5000);
 
-      console.log("Neues ChoicePlanet:", choicePlanet);
+      console.log("Neuer ChoicePlanet:", choicePlanet);
+      console.log("updatedPlanet:", data.updatedPlanet);
+      console.log("currentPlayer:", data.populatedUser);
+      console.log("selectedPlanet now:", selectedPlanet);
     } catch (error) {
       console.error("Fehler beim Besiedeln des Planeten:", error);
     }
@@ -187,7 +196,7 @@ const Armada = () => {
       ) : (
         <div className="armada-top">
           <div className="armada-info">
-            <div>
+            <div className="fleet-overview">
               <h3>Deine Einheiten</h3>
               <ul>
                 <li>
@@ -207,6 +216,13 @@ const Armada = () => {
                   <p>{totalCount}</p>
                 </li>
               </ul>
+              <input
+                className="fleet-name"
+                placeholder="Flottenname"
+                value={fleetName}
+                maxLength={10}
+                onChange={(e) => setFleetName(e.target.value)}
+              ></input>
             </div>
             <div className="current-position">
               <h4>Du befindest dich auf:</h4>
@@ -270,7 +286,9 @@ const Armada = () => {
                             +
                           </button>
                         </div>
-                        <p>{shipCounters[ship.shipType]}</p>
+                        <p>
+                          {shipCounters[ship.shipType]} / {ship.amount}
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -286,6 +304,12 @@ const Armada = () => {
                     />
                     <h4>Name:</h4>
                     <p>{`${choicePlanet.name}`}</p>
+                    <h4>Position</h4>
+                    {console.log("choiceP:", choicePlanet)}
+                    <p>
+                      {choicePlanet.position.page} -{" "}
+                      {choicePlanet.position.positionOnPage}
+                    </p>
                     <h4>Besitzer:</h4>
                     <p>{`
                      ${
@@ -293,6 +317,7 @@ const Armada = () => {
                          ? choicePlanet.owner.userName
                          : "Kein Besitzer"
                      }`}</p>
+
                     <button onClick={sendFleet} className="btn">
                       Flotte losschicken
                     </button>
@@ -331,7 +356,15 @@ const Armada = () => {
       <div className="activities">
         {activities.length > 0 &&
           activities.map((activity, index) => (
-            <Activity key={index} activity={activity} />
+            <Activity
+              key={index}
+              activity={activity}
+              totalCount={totalCount}
+              selectedPlanet={selectedPlanet}
+              choicePlanet={choicePlanet}
+              fleetName={fleetName}
+              startAnimation={startAnimation}
+            />
           ))}
       </div>
     </div>

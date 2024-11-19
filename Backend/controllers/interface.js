@@ -97,13 +97,25 @@ export const colonizePlanet = async (req, res) => {
       return res.status(404).json({ message: "Planet nicht gefunden" });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
+    const updateUser = await User.findByIdAndUpdate(
       userId,
       { $push: { planets: updatedPlanet._id } },
       { new: true }
     );
 
-    res.json({ updatedPlanet });
+    const populatedUser = await updateUser.populate({
+      path: "planets",
+      populate: [{ path: "buildings" }, { path: "position", select: "page" }],
+    });
+
+    // const user = await User.findOne({ userName }).populate({
+    //   path: "planets",
+    //   populate: [{ path: "buildings" }, { path: "position", select: "page" }],
+    // });
+
+    console.log("log user:", populatedUser);
+
+    res.json({ updatedPlanet, populatedUser });
   } catch (error) {
     console.error("Fehler beim Aktualisieren des Planeten:", error);
     res.status(500).json({ message: "Fehler beim Besiedeln des Planeten" });

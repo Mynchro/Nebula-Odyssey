@@ -14,7 +14,6 @@ const Spacemap = () => {
 
   useEffect(() => {
     if (currentPlayer?.page) {
-      console.log(currentPlayer.page);
       setCurrentPage(currentPlayer.page);
     }
   }, [currentPlayer]);

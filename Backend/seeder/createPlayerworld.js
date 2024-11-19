@@ -116,7 +116,7 @@ export const createPlayerworld = async (userId) => {
 
       const newPlanet = new Planet({
         owner: null,
-        name: `Planet ${i + 1}`,
+        name: `Planet ${pageNumber}-${remainingPositions[i].positionOnPage}`,
         image: randomImage,
         buildings: defaultBuildings.map((building) => ({
           buildingType: building.buildingType,
