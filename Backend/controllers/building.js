@@ -18,8 +18,8 @@ const calculateProductionRate = (
     // Berechnung der Produktionsrate für jede Ressource
     for (const resource in baseProductionRate) {
         const baseValue = baseProductionRate[resource];
-        updatedProductionRate[resource] = parseFloat(
-            (baseValue * level * level * (1 + (level - 1) / 5)).toFixed()
+        updatedProductionRate[resource] = Math.round(
+            baseValue * level * level * (1 + (level - 1) / 5)
         );
     }
 
@@ -30,12 +30,10 @@ const calculateProductionRate = (
         if (level === 0) {
             updatedConstructionCosts[resource] = baseValue;
         } else if (level === 1) {
-            updatedConstructionCosts[resource] = parseFloat(
-                (baseValue * 1.01).toFixed()
-            );
+            updatedConstructionCosts[resource] = Math.round(baseValue * 1.01);
         } else {
-            updatedConstructionCosts[resource] = parseFloat(
-                (baseValue * level * level * (1 + (level - 1) / 5)).toFixed()
+            updatedConstructionCosts[resource] = Math.round(
+                baseValue * level * level * (1 + (level - 1) / 5)
             );
         }
     }
@@ -43,8 +41,8 @@ const calculateProductionRate = (
     if (level === 0) {
         updatedStorageCapacity = baseStorageCapacity;
     } else {
-        updatedStorageCapacity = parseFloat(
-            (baseStorageCapacity * level * (1 + (level - 1) / 10)).toFixed()
+        updatedStorageCapacity = Math.round(
+            baseStorageCapacity * level * (1 + (level - 1) / 10)
         );
     }
 
@@ -52,12 +50,10 @@ const calculateProductionRate = (
     if (level === 0) {
         updatedConstructionTime = constructionTime;
     } else if (level === 1) {
-        updatedConstructionTime = parseFloat(
-            (constructionTime * 1.01).toFixed()
-        );
+        updatedConstructionTime = Math.round(constructionTime * 1.01);
     } else {
-        updatedConstructionTime = parseFloat(
-            (constructionTime * level * level * (1 + (level - 1) / 5)).toFixed()
+        updatedConstructionTime = Math.round(
+            constructionTime * level * level * (1 + (level - 1) / 5)
         );
     }
 
@@ -106,6 +102,9 @@ export const upgradeBuilding = async (req, res) => {
                 );
         }
 
+        const constructionEndTime = new Date(
+            now.getTime() + building.constructionTime * 1000
+        );
         // Berechnung der neuen Produktionsrate
         const {
             updatedProductionRate,
@@ -118,10 +117,6 @@ export const upgradeBuilding = async (req, res) => {
             building.baseValue.constructionTime,
             building.baseValue.storageCapacity,
             building.level + 1 // Berechnung für das nächste Level
-        );
-
-        const constructionEndTime = new Date(
-            now.getTime() + updatedConstructionTime * 1000
         );
 
         // Setze die aktualisierte Produktionsrate und erhöhe das Level

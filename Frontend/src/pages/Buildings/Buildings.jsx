@@ -8,7 +8,7 @@ const Buildings = () => {
   const [isBuildingOn, setIsBuildingOn] = useState(false);
   const { currentPlayer, countdown, startCountdown, setCountdown, setConstructionEndTime, constructionEndTime, } = useContext(PlayerContext);
   const userId = currentPlayer?._id;
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const [activeType, setActiveType] = useState(() => {
@@ -51,7 +51,7 @@ const Buildings = () => {
 
   useEffect(() => {
     const loadConstructionEndTime = async () => {
-      loading(true);
+      setLoading(true);
         try {
           const response = await fetch(
             `http://localhost:3000/api/user/${userId}/planet/${selectedPlanet._id}/building/${selectedBuilding.buildingType}`
@@ -65,7 +65,7 @@ const Buildings = () => {
         } catch (error) {
           console.error("Fehler beim Laden der Bauendzeit:", error);
         } finally {
-          loading(false);  // Ladezustand deaktivieren
+          setLoading(false);  // Ladezustand deaktivieren
         }
       };
 
@@ -122,7 +122,6 @@ const formatCountdown = () => {
       console.error("Statusaktualisierung fehlgeschlagen:", error);
     }
   };
-console.log("Test")
   const upgradeBuilding = async (userId, planetId, buildingType) => {
     try {
       const response = await fetch(
@@ -388,22 +387,22 @@ console.log("Test")
                   <p className="resource-mid">
                     {
                       selectedBuilding.level === 0
-                        ? (
+                        ? Math.round(
                             selectedBuilding.baseValue.constructionTime / 60
-                          ).toFixed(2) // Basiswert für Level 0
+                          ) // Basiswert für Level 0
                         : selectedBuilding.level === 1
-                        ? (
+                        ? Math.round(
                             (selectedBuilding.baseValue.constructionTime *
                               1.01) /
                             60
-                          ).toFixed(2) // Kleine Skalierung für Level 1
+                          ) // Kleine Skalierung für Level 1
                         : (
-                            (selectedBuilding.baseValue.constructionTime *
+                          Math.round(selectedBuilding.baseValue.constructionTime *
                               selectedBuilding.level *
                               selectedBuilding.level *
                               (1 + (selectedBuilding.level - 1) / 5)) /
                             60
-                          ).toFixed() // Vollständige Berechnung für Level 2+
+                          ) // Vollständige Berechnung für Level 2+
                     }{" "}
                     min
                   </p>

@@ -206,3 +206,12 @@ input:checked + .btn-switch:active::before {
     justify-content: space-between;
     flex-direction: row;
 }
+.disabled {
+  --background-color: linear-gradient(
+    to bottom right,
+    #091e2c,
+    #504e4e
+  );
+  color: white;
+  font-weight: bolder;
+}
