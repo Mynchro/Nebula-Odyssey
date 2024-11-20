@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { PlayerContext } from "../../context/PlayerContext";
