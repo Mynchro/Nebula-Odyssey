@@ -1,12 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./Spacemap.css";
 import { PlanetBox } from "../../components/Spacemap/Planetbox";
+import { useNavigate } from "react-router-dom";
 
 const Spacemap = () => {
-  const [choicePlanet, setChoicePlanet] = useState(null);
+  const { currentPlayer, choicePlanet, setChoicePlanet } =
+    useContext(PlayerContext);
   const [planets, setPlanets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const planetsPerPage = 9;
+
+  useEffect(() => {
+    if (currentPlayer?.page) {
+      setCurrentPage(currentPlayer.page);
+    }
+  }, [currentPlayer]);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/planets")
@@ -18,9 +28,9 @@ const Spacemap = () => {
       })
       .then((data) => {
         data.forEach((planet, index) => {
-          console.log(
-            `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
-          );
+          // console.log(
+          //   `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
+          // );
         });
 
         const sortedData = data.sort((a, b) => {
@@ -36,7 +46,6 @@ const Spacemap = () => {
         });
 
         setPlanets(sortedData);
-        console.log("spaceMapdata (sortiert):", sortedData);
       })
       .catch((error) => {
         console.error("Fehler beim Laden der Planeten:", error);
@@ -57,7 +66,7 @@ const Spacemap = () => {
   };
 
   return (
-    <div className="content-box" onClick={() => setChoicePlanet(null)}>
+    <div className="content-box">
       <div className="solarsystem">
         <i
           className="fa-solid fa-spaghetti-monster-flying"
@@ -89,14 +98,22 @@ const Spacemap = () => {
                 src={choicePlanet.image}
                 alt={choicePlanet.name}
               />
-              <div>
+              <div className="planet-menu">
                 <p>{`Planetname: ${choicePlanet.name}`}</p>
                 <p>{`Besitzer: ${
                   choicePlanet.owner
                     ? choicePlanet.owner.userName
-                    : "Unknown Owner"
+                    : "Unbekannter Spieler"
                 }`}</p>
-                <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
+                {/* <p>{`Buildings: ${choicePlanet.buildings.length}`}</p> */}
+                <button
+                  onClick={() => {
+                    navigate("/armada");
+                  }}
+                  className="btn set-armada"
+                >
+                  Armada zusammenstellen
+                </button>
               </div>
             </>
           ) : (
@@ -114,7 +131,9 @@ const Spacemap = () => {
             triangleColor={"#00ff00"}
             skullColor={"#0000ff"}
             planetName={planet.name}
-            playerName={planet.owner ? planet.owner.userName : "Unknown Owner"}
+            playerName={
+              planet.owner ? planet.owner.userName : "Unbekannter Spieler"
+            }
             className={`planet-box ${
               choicePlanet && choicePlanet._id === planet._id ? "choice" : ""
             }`}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import './Planets.css';
+import { useState } from "react";
+import "./Planets.css";
 
 const Planets = ({ planets, onPlanetSelect }) => {
   const [selectedPlanet, setSelectedPlanet] = useState(null); // State für den ausgewählten Planeten
@@ -16,12 +16,21 @@ const Planets = ({ planets, onPlanetSelect }) => {
         {/* Map über das Planeten-Array */}
         {planets.map((planet, index) => (
           <div
-            className={`planet ${selectedPlanet === index || (selectedPlanet === null && index === 0) ? 'selected' : 'noselect'}`} // Dynamische Klasse
+            className={`planet ${
+              selectedPlanet === index ||
+              (selectedPlanet === null && index === 0)
+                ? "selected"
+                : "noselect"
+            }`} // Dynamische Klasse
             key={planet._id}
             onClick={() => handlePlanetClick(index)} // Klick-Event für Planeten-Auswahl
-            style={{ cursor: 'pointer' }} // Zeiger für bessere UX
+            style={{ cursor: "pointer" }} // Zeiger für bessere UX
           >
-            <img src={planet.image || `/planets/p-${index + 1}.png`} alt={planet.name} />
+            {console.log("planetenlog:", planet, planet.image)}
+            <img
+              src={(planet.image && planet.image) || `/planets/s-1.png`}
+              alt={planet.name}
+            />
           </div>
         ))}
       </div>
