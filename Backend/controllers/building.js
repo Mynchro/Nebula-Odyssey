@@ -25,6 +25,10 @@ const calculateProductionRate = (
 
     // Berechnung der Baukosten für jede Ressource
     for (const resource in constructionCosts) {
+        if (resource === "_id") {
+            continue;
+        }
+
         const baseValue = constructionCosts[resource];
 
         if (level === 0) {
@@ -42,7 +46,7 @@ const calculateProductionRate = (
         updatedStorageCapacity = baseStorageCapacity;
     } else {
         updatedStorageCapacity = Math.round(
-            baseStorageCapacity * level * (1 + (level - 1) / 10)
+            baseStorageCapacity * level * (1 + (level - 1) / 5)
         );
     }
 
@@ -56,7 +60,6 @@ const calculateProductionRate = (
             constructionTime * level * level * (1 + (level - 1) / 5)
         );
     }
-
     return {
         updatedProductionRate,
         updatedConstructionCosts,
@@ -102,6 +105,42 @@ export const upgradeBuilding = async (req, res) => {
                 );
         }
 
+        const resources = planet.resources.toObject(); // Konvertiere es in ein einfaches Objekt
+        const constructionCosts = building.constructionCosts.toObject();
+
+        for (const resource in constructionCosts) {
+            if (resource === "_id") {
+                continue; // Diese Iteration überspringen, falls der Schlüssel "_id" ist
+            }
+
+            const cost = constructionCosts[resource];
+            const currentResource = resources[resource]; // Jetzt hast du den Wert der Ressource
+
+            //console.log(`cost: ${cost}`);
+            //console.log(`currentResource: ${currentResource}`);
+
+            if (isNaN(cost) || isNaN(currentResource)) {
+                console.error(`Ungültiger Wert für Ressource ${resource}`);
+                return res
+                    .status(400)
+                    .send(`Ungültiger Wert für Ressource ${resource}`);
+            }
+
+            if (currentResource < cost) {
+                return res
+                    .status(400)
+                    .send(
+                        `Nicht genügend ${resource}: Benötigt ${cost}, verfügbar ${currentResource}`
+                    );
+            }
+
+            // Ziehe die Ressourcen ab, wenn der Wert > 0 ist
+            if (cost > 0) {
+                planet.resources[resource] -= cost;
+            }
+        }
+
+        // Setze die Bauendzeit basierend auf der aktuellen Bauzeit
         const constructionEndTime = new Date(
             now.getTime() + building.constructionTime * 1000
         );
@@ -134,6 +173,7 @@ export const upgradeBuilding = async (req, res) => {
         return res.status(200).send({
             message: "Gebäude wurde erfolgreich aufgewertet",
             building,
+            user,
         });
     } catch (error) {
         console.error("Fehler beim Upgraden des Gebäudes:", error);
