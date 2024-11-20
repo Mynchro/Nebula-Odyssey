@@ -8,6 +8,7 @@ import Buildings from "./pages/Buildings/Buildings";
 import Research from "./pages/Research/Research";
 import Shipyard from "./pages/Shipyard/Shipyard";
 import Defense from "./pages/Defense/Defense";
+import Hangar from "./pages/Hangar/Hangar";
 import Armada from "./pages/Armada/Armada";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
@@ -32,6 +33,7 @@ function App() {
             <Route path="research" element={<Research />} />
             <Route path="shipyard" element={<Shipyard />} />
             <Route path="defense" element={<Defense />} />
+            <Route path="hangar" element={<Hangar />} />
             <Route path="armada" element={<Armada />} />
             <Route path="settings" element={<SettingsForm />} />
             <Route path="*" element={<NotFound />} />
