@@ -108,13 +108,6 @@ export const colonizePlanet = async (req, res) => {
       populate: [{ path: "buildings" }, { path: "position", select: "page" }],
     });
 
-    // const user = await User.findOne({ userName }).populate({
-    //   path: "planets",
-    //   populate: [{ path: "buildings" }, { path: "position", select: "page" }],
-    // });
-
-    console.log("log user:", populatedUser);
-
     res.json({ updatedPlanet, populatedUser });
   } catch (error) {
     console.error("Fehler beim Aktualisieren des Planeten:", error);
