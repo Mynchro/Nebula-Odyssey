@@ -40,17 +40,29 @@ const Armada = () => {
       return [];
     }
 
+    const exclusionLabels = {
+      klein: ["Miningdrohne", "Artillerie"],
+      mittel: ["Ionenkanone"],
+      gross: ["Partikelkanone", "Planetarer Schildgenerator"],
+    };
+
     if (activeType === "klein") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "lightShipyard"
+        (ship) =>
+          ship.shipYardType === "lightShipyard" &&
+          !exclusionLabels.klein.includes(ship.label)
       );
     } else if (activeType === "mittel") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "mediumShipyard"
+        (ship) =>
+          ship.shipYardType === "mediumShipyard" &&
+          !exclusionLabels.mittel.includes(ship.label)
       );
     } else if (activeType === "gross") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "heavyShipyard"
+        (ship) =>
+          ship.shipYardType === "heavyShipyard" &&
+          !exclusionLabels.gross.includes(ship.label)
       );
     }
 
@@ -141,9 +153,6 @@ const Armada = () => {
   const sendFleet = async () => {
     if (!choicePlanet || !currentPlayer) return;
 
-    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
-    setChoicePlanet(optimisticPlanet);
-
     try {
       const response = await fetch(
         `http://localhost:3000/api/spacemap/colonizePlanet/${currentPlayer._id}/${choicePlanet._id}`,
@@ -173,12 +182,9 @@ const Armada = () => {
       setStartAnimation(true);
       setTimeout(() => {
         setCurrentPlayer(data.populatedUser);
+        const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
+        setChoicePlanet(optimisticPlanet);
       }, 5000);
-
-      console.log("Neuer ChoicePlanet:", choicePlanet);
-      console.log("updatedPlanet:", data.updatedPlanet);
-      console.log("currentPlayer:", data.populatedUser);
-      console.log("selectedPlanet now:", selectedPlanet);
     } catch (error) {
       console.error("Fehler beim Besiedeln des Planeten:", error);
     }
@@ -230,7 +236,7 @@ const Armada = () => {
                 className="current-position-img"
                 src={selectedPlanet.image}
               />
-              <p>{selectedPlanet.name}</p>
+              <p className="selected-planet-name">{selectedPlanet.name}</p>
             </div>
           </div>
           <div className="armada-rightbox">
@@ -247,7 +253,7 @@ const Armada = () => {
                   <ul className="armada-shiplist">
                     {getFilteredShips().map((ship, index) => (
                       <li key={index} className="ship-item">
-                        <p> {ship.shipType}</p>
+                        <p> {ship.label}</p>
                         <div className="increment-decrement">
                           <button
                             className="btn minus-ten"
@@ -317,10 +323,15 @@ const Armada = () => {
                          ? choicePlanet.owner.userName
                          : "Kein Besitzer"
                      }`}</p>
-
-                    <button onClick={sendFleet} className="btn">
-                      Flotte losschicken
-                    </button>
+                    {choicePlanet.name === "Nebula" ? (
+                      <p>
+                        <em>Besiedeln unmöglich</em>
+                      </p>
+                    ) : (
+                      <button onClick={sendFleet} className="btn">
+                        Flotte losschicken
+                      </button>
+                    )}
                   </div>
                 ) : (
                   <h4>
