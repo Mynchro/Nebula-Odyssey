@@ -12,6 +12,7 @@ const PlayerProvider = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState({
     user: defaultUser_DEV,
   });
+  const [choicePlanet, setChoicePlanet] = useState(null);
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(null);
   const [constructionEndTime, setConstructionEndTime] = useState(null);
@@ -142,6 +143,8 @@ const PlayerProvider = ({ children }) => {
         setConstructionEndTime,
         setCurrentPlayer,
         handleLogin,
+        choicePlanet,
+        setChoicePlanet,
       }}
     >
       {children}

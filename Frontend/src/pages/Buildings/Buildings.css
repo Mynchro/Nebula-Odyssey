@@ -1,11 +1,11 @@
-.buildings-content{
+.buildings-content {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 1000px;
 }
-.building-default{
+.building-default {
   margin-top: 15px;
   text-align: center;
 }
@@ -21,7 +21,7 @@
   background-image: url(/buildings-img/blank.jpg);
   border-bottom: 2px solid var(--secondary-color);
 }
-.buildings-data{
+.buildings-data {
   display: flex;
   flex-direction: column;
   width: 35%;
@@ -32,41 +32,44 @@
   padding: 10px 10px 0 10px;
   align-self: end;
 }
-.buildings-title{
+.buildings-title {
   text-align: left;
   margin-top: 0px;
 }
-.building-data{
+.building-data {
   margin: 5px 0px;
   text-decoration: underline;
 }
 
-.building-data-arrow, .resource-arrow{
+.building-data-arrow,
+.resource-arrow {
   font-size: 20px;
   font-weight: 100;
 }
-.building-data-update, .resource-right{
+.building-data-update,
+.resource-right {
   color: var(--legend6-color);
 }
-.building-bar-box{
+.building-bar-box {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color:  var(--accent-color);
+  background-color: var(--accent-color);
   margin: 50px;
   height: 100%;
   width: 910px;
 
   border-radius: 0px 0px 25px 25px;
 }
-.building-li-box{
+.building-li-box {
   display: flex;
   flex-direction: column;
   justify-content: left;
 }
 
-.buildings-bar, .btn-building{
+.buildings-bar,
+.btn-building {
   display: flex;
   flex-wrap: wrap-reverse;
   align-items: center;
@@ -74,32 +77,35 @@
   width: 100%;
   height: 50%;
 }
-.btn-building{
- border-top: 2px solid var(--secondary-color);;
+.btn-building {
+  border-top: 2px solid var(--secondary-color);
 }
-.building.btn{
+.building.btn {
   height: 40px;
   margin-right: 5px;
 }
-.building-details{
+.building-details {
   margin-top: 10px;
 }
-.building-resource, .building-details{
+.building-resource,
+.building-details {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   padding: 10px 0;
   font-size: 14px;
 }
-.resource-left, .building-data-left{
+.resource-left,
+.building-data-left {
   width: 98px;
 }
-.resource-mid, .resource-right{
+.resource-mid,
+.resource-right {
   width: 56px;
   text-align: center;
 }
 
-.building-menu{
+.building-menu {
   display: flex;
   flex-direction: column;
   width: 180px;
@@ -114,7 +120,8 @@
   border: 2px solid var(--secondary-color);
   border-radius: 10px;
 }
-.building-menu li, .building-details li {
+.building-menu li,
+.building-details li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,28 +130,68 @@
   font-size: 14px;
 }
 
-#Mine { background-image: url(/buildings-img/mine.jpg); }
-#Ammofactory { background-image: url(/buildings-img/ammoFactory.jpg); }
-#Fuelfactory { background-image: url(/buildings-img/fuelFactory.jpg); }
-#Solarplant { background-image: url(/buildings-img/solarPlant.jpg); }
-#Powerplant { background-image: url(/buildings-img/powerPlant.jpg); }
-#Refinery { background-image: url(/buildings-img/refinery.jpg); }
-#Junkyard { background-image: url(/buildings-img/junkyard.jpg); }
-#Recycler { background-image: url(/buildings-img/recycler.jpg); }
-#Spycenter { background-image: url(/buildings-img/spyCenter.jpg); }
-#Fueldepot { background-image: url(/buildings-img/fuelDepot.jpg); }
-#Chemicaldepot { background-image: url(/buildings-img/chemicalDepot.jpg); }
-#Oredepot { background-image: url(/buildings-img/oreDepot.jpg); }
-#Ammodepot { background-image: url(/buildings-img/ammoDepot.jpg); }
-#Energystorage { background-image: url(/buildings-img/energyStorage.jpg); }
-#Steeldepot { background-image: url(/buildings-img/steelDepot.jpg); }
-#smallShipyard { background-image: url(/buildings-img/lightShipyard.jpg); }
-#mediumShipyard { background-image: url(/buildings-img/mediumShipyard.jpg); }
-#largeShipyard { background-image: url(/buildings-img/heavyShipyard.jpg); }
-#Silicondepot { background-image: url(/buildings-img/siliconDepot.jpg); }
-#Mikrochipdepot { background-image: url(/buildings-img/microchipDepot.jpg); }
+#Mine {
+  background-image: url(/buildings-img/mine.jpg);
+}
+#Ammofactory {
+  background-image: url(/buildings-img/ammoFactory.jpg);
+}
+#Fuelfactory {
+  background-image: url(/buildings-img/fuelFactory.jpg);
+}
+#Solarplant {
+  background-image: url(/buildings-img/solarPlant.jpg);
+}
+#Powerplant {
+  background-image: url(/buildings-img/powerPlant.jpg);
+}
+#Refinery {
+  background-image: url(/buildings-img/refinery.jpg);
+}
+#Junkyard {
+  background-image: url(/buildings-img/junkyard.jpg);
+}
+#Recycler {
+  background-image: url(/buildings-img/recycler.jpg);
+}
+#Spycenter {
+  background-image: url(/buildings-img/spyCenter.jpg);
+}
+#Fueldepot {
+  background-image: url(/buildings-img/fuelDepot.jpg);
+}
+#Chemicaldepot {
+  background-image: url(/buildings-img/chemicalDepot.jpg);
+}
+#Oredepot {
+  background-image: url(/buildings-img/oreDepot.jpg);
+}
+#Ammodepot {
+  background-image: url(/buildings-img/ammoDepot.jpg);
+}
+#Energystorage {
+  background-image: url(/buildings-img/energyStorage.jpg);
+}
+#Steeldepot {
+  background-image: url(/buildings-img/steelDepot.jpg);
+}
+#smallShipyard {
+  background-image: url(/buildings-img/lightShipyard.jpg);
+}
+#mediumShipyard {
+  background-image: url(/buildings-img/mediumShipyard.jpg);
+}
+#largeShipyard {
+  background-image: url(/buildings-img/heavyShipyard.jpg);
+}
+#Silicondepot {
+  background-image: url(/buildings-img/siliconDepot.jpg);
+}
+#Mikrochipdepot {
+  background-image: url(/buildings-img/microchipDepot.jpg);
+}
 
-.buildings-headline{
+.buildings-headline {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -166,7 +213,7 @@
   cursor: pointer;
 }
 .btn-switch::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 1px;
   left: 2px;
@@ -174,10 +221,12 @@
   height: 22px;
   background: #000000eb;
   border-radius: 50%;
-  transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-switch:active::before {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(128,128,128,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(128, 128, 128, 0.1);
 }
 input:checked + .btn-switch {
   background: #248219;
@@ -187,12 +236,12 @@ input:checked + .btn-switch::before {
   background: #000000eb;
 }
 input:checked + .btn-switch:active::before {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(0,150,136,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(0, 150, 136, 0.2);
 }
 .btn-switch.on::before {
   transform: translateX(25px); /* Verschiebt den Knopf nach rechts */
 }
-.btn-switch.on{
+.btn-switch.on {
   justify-content: start;
 }
 .buy-btn-building {
@@ -201,26 +250,22 @@ input:checked + .btn-switch:active::before {
   width: 150px;
 }
 .building-storage-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 }
 .btn .buy-btn-building .disabled {
-  --background-color: linear-gradient(
-    to bottom right,
-    #091e2c,
-    #504e4e
-  );
+  --background-color: linear-gradient(to bottom right, #091e2c, #504e4e);
   color: white;
   font-weight: bolder;
 }
 
-.build-message{
+.build-message {
   font-size: 12px;
   text-align: center;
   margin-bottom: 5px;
 }
-.constructionUl{
+.constructionUl {
   margin-bottom: 5px;
 }

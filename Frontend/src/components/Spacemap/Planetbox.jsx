@@ -1,38 +1,87 @@
 /* eslint-disable react/prop-types */
 
-export const PlanetBox = ({ className, number, image, alt, circleColor, triangleColor, skullColor, planetName, playerName, onClick }) => {
-  
-    // Generiere eine zufällige Zahl zwischen 2 und 22 für den Fallback
-    const getRandomPlanetImage = () => {
-      const randomIndex = Math.floor(Math.random() * 21) + 2; // Zahl zwischen 2 und 22
-      return `/planets/p-${randomIndex}.png`;
-    };
-  
+export const PlanetBox = ({
+  className,
+  number,
+  image,
+  alt,
+  circleColor,
+  triangleColor,
+  skullColor,
+  planetName,
+  playerName,
+  onClick,
+}) => {
+  // Wenn der Planetname "Sun" ist, nur das Bild anzeigen, aber Platz für die anderen Elemente einhalten
+  if (planetName === "Sun") {
     return (
-      <div className={`planet-box ${className}`} onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}>
-  
-        <div className="planetnumber">
+      <div
+        className={`planet-box ${className} sun`}
+        style={{ pointerEvents: "none" }}
+      >
+        <div className="planetnumber" style={{ visibility: "hidden" }}>
           <p>{number}</p>
           <div className="alert-icons">
-            <i className="fa-solid fa-circle" style={{ color: circleColor }}></i>
-            <i className="fa-solid fa-triangle-exclamation" style={{ color: triangleColor }}></i>
-            <i className="fa-solid fa-skull-crossbones" style={{ color: skullColor }}></i>
+            <i
+              className="fa-solid fa-circle"
+              style={{ color: circleColor }}
+            ></i>
+            <i
+              className="fa-solid fa-triangle-exclamation"
+              style={{ color: triangleColor }}
+            ></i>
+            <i
+              className="fa-solid fa-skull-crossbones"
+              style={{ color: skullColor }}
+            ></i>
           </div>
         </div>
-  
-        {/* Verwende entweder das Bild aus der API oder einen zufälligen Fallback */}
+
         <div>
-          <img src={image || getRandomPlanetImage()} alt={alt} />
+          <img src={image} alt={alt} />
         </div>
-  
-        <div className="planet-data">
+
+        {/* Dieser Bereich wird für die Sonne nicht angezeigt, behält aber den Platz */}
+        <div className="planet-data" style={{ visibility: "hidden" }}>
           <p>{planetName}</p>
-          <p>{playerName || "Unknown Owner"}</p>
+          <p>{playerName || "Unbekannter Spieler"}</p>
         </div>
       </div>
     );
-  };
-  
+  }
+
+  // Wenn es keine Sonne ist, die PlanetBox normal anzeigen und onClick ausführen
+  return (
+    <div
+      className={`planet-box ${className}`}
+      onClick={(e) => {
+        e.stopPropagation(); // Verhindert das Weiterleiten des Klicks
+        onClick && onClick(); // Führt onClick nur aus, wenn es definiert ist
+      }}
+    >
+      <div className="planetnumber">
+        <p>{number}</p>
+        <div className="alert-icons">
+          <i className="fa-solid fa-circle" style={{ color: circleColor }}></i>
+          <i
+            className="fa-solid fa-triangle-exclamation"
+            style={{ color: triangleColor }}
+          ></i>
+          <i
+            className="fa-solid fa-skull-crossbones"
+            style={{ color: skullColor }}
+          ></i>
+        </div>
+      </div>
+
+      <div>
+        <img src={image} alt={alt} />
+      </div>
+
+      <div className="planet-data">
+        <p>{planetName}</p>
+        <p>{playerName || "Unbekannter Spieler"}</p>
+      </div>
+    </div>
+  );
+};

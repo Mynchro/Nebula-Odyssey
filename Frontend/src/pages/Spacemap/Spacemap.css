@@ -1,155 +1,172 @@
 .content-box div img {
-    width: 120px;
-    height: 120px;
-  }
-  
-  .galaxy {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  
-  .content-box div {
-    color: white;
-  }
-  .galaxy div p {
-    margin: 10px 0px 0px 10px;
-  }
-  
-  .planet-box {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28%;
-    height: 190px;
-    background-color: var(--accent-color);
-    border-radius: 10%;
-    margin: 10px;
-    padding: 10px;
-  }
-  
-  .planetnumber {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  
-  .planet-data {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 2px;
-    padding-bottom: 5px;
-  }
-  
-  .planet-content{
-      display: none;
-      justify-content: center;
-      align-self: center;
-      margin: 5% 10%;
-      width: 80%;
-      height: 80%;
-      background: var(--accent-color);
-      border: 1px solid white;
-  }
-  .planet-overview{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background: var(--accent-color);
-    width: 94%;
-    height: 245px;
-    border-radius: 25px;
-  }
-  #planet-overview-img{
-    width: 200px;
-    height: 200px;
-  }
-  
-  .coordinate{
-    display: flex;
-    justify-content: center;
-    width: 25px;
-    background-color: rgba(255, 255, 255, 0.481);
-  }
-  
-  .solarsystem {
-    border-bottom: 1px solid var(--secondary-color);
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    background-color: var(--accent-color);
-    padding: 5px 0px 10px;
-  }
-  
-  .coordinate-menu{
-    display: flex;
-    gap: 10px;
-  }
-  
-  .arrow-button {
-    display: flex;
-    color: #C2FFE9;
-    background-color: var(--accent-color);
-    border-radius: 20px;
-    transition: all .3s ease;
-    font-weight: bold;
-    cursor: pointer;
-    align-items: center;
-  }
-  
-  .arrow-button > .arrow-right {
-    width: 6px;
-    height: 6px;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    position: relative;
-    transform: rotate(-45deg);
-    margin: 0 3px;
-    transition: all .3s ease;
-  }
-  
-  
-  .arrow-button > .arrow-left {
-    width: 6px;
-    height: 6px;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    position: relative;
-    transform: rotate(135deg);
-    margin: 0 3px;
-  }
-  
-  .legend{
-    grid-area: 1 / 8  / 2 / 9;
-    width: 50%;
-    height: fit-content;
-    background: var(--accent-color);
-    align-self: auto;
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    color: white;
-    font-size: smaller;
-  }
-  
-  .legend-title{
-    border-bottom: 1px solid var(--secondary-color)
-  }
-  
-  .alert-icons{
-    display: flex;
-    justify-content: space-around;
-    width: 80px;
-    margin: 10px 10px 0px 0px;
-  }
+  width: 120px;
+  height: 120px;
+}
 
-  .planet-box.choice {
-    box-shadow: 0px 0px 6px 2px rgba(51, 241, 255, 0.6);
-  }
+.galaxy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.content-box div {
+  color: white;
+}
+.galaxy div > p {
+  margin: 10px 0px 0px 10px;
+}
+
+.planet-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28%;
+  height: 190px;
+  background-color: var(--accent-color);
+  border-radius: 10%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.planetnumber {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.planet-data {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2px;
+  padding-bottom: 5px;
+}
+
+.planet-content {
+  display: none;
+  justify-content: center;
+  align-self: center;
+  margin: 5% 10%;
+  width: 80%;
+  height: 80%;
+  background: var(--accent-color);
+  border: 1px solid white;
+}
+.planet-overview {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--accent-color);
+  width: 94%;
+  height: 245px;
+  border-radius: 25px;
+}
+#planet-overview-img {
+  width: 200px;
+  height: 200px;
+}
+
+.coordinate {
+  display: flex;
+  justify-content: center;
+  width: 25px;
+  background-color: rgba(255, 255, 255, 0.481);
+}
+
+.solarsystem {
+  border-bottom: 1px solid var(--secondary-color);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: var(--accent-color);
+  padding: 5px 0px 10px;
+}
+
+.coordinate-menu {
+  display: flex;
+  gap: 10px;
+}
+
+.arrow-button {
+  display: flex;
+  color: #c2ffe9;
+  background-color: var(--accent-color);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+}
+
+.arrow-button > .arrow-right {
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  position: relative;
+  transform: rotate(-45deg);
+  margin: 0 3px;
+  transition: all 0.3s ease;
+}
+
+.arrow-button > .arrow-left {
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  position: relative;
+  transform: rotate(135deg);
+  margin: 0 3px;
+}
+
+.legend {
+  grid-area: 1 / 8 / 2 / 9;
+  width: 50%;
+  height: fit-content;
+  background: var(--accent-color);
+  align-self: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  color: white;
+  font-size: smaller;
+}
+
+.legend-title {
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.alert-icons {
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+  margin: 10px 10px 0px 0px;
+}
+
+.planet-box.choice {
+  box-shadow: 0px 0px 6px 2px rgba(51, 241, 255, 0.6);
+}
+
+.set-armada {
+  margin-top: 10px;
+  margin-left: 8px;
+}
+
+.planet-menu {
+  display: flex;
+  text-align: center;
+  width: 200px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.sun {
+  cursor: default;
+}
