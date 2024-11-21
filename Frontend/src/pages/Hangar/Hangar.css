@@ -47,6 +47,31 @@ ul {
   background: rgba(0, 0, 0, 0.7);
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
+
+  /* Custom scrollbar styling */
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
+}
+
+/* WebKit-basiertes Styling */
+.hangar-info::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.hangar-info::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.hangar-info::-webkit-scrollbar-thumb {
+  background: white; /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.hangar-info::-webkit-scrollbar-thumb:hover {
+  background: white; /* Hover-Farbe des Scrollbalkens */
 }
 
 .hangar-img {
@@ -217,4 +242,8 @@ li {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
+}
+
+.hangar-info ul li {
+  justify-content: flex-start;
 }
