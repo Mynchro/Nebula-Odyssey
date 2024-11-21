@@ -112,7 +112,7 @@ const Spacemap = () => {
                   <p>{`Besitzer: ${
                     choicePlanet.owner
                       ? choicePlanet.owner.userName
-                      : "Unbekannter Spieler"
+                      : "Unerforscht"
                   }`}</p>
                   <button
                     onClick={() => {
@@ -140,7 +140,7 @@ const Spacemap = () => {
               skullColor={"#0000ff"}
               planetName={planet.name}
               playerName={
-                planet.owner ? planet.owner.userName : "Unbekannter Spieler"
+                planet.owner ? planet.owner.userName : "Unerforscht"
               }
               className={`planet-box ${
                 choicePlanet && choicePlanet._id === planet._id ? "choice" : ""
