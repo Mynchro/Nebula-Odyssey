@@ -85,7 +85,7 @@ const Activity = ({
             }
             alt={"Dein ausgewählter Planet"}
           />
-          <p className="activity-planet">
+          <p className="selected-planet-name activity-planet">
             {selectedPlanet?.name ? selectedPlanet.name : "N/A"}
           </p>
         </div>
@@ -112,7 +112,7 @@ const Activity = ({
             src={choicePlanet?.image ? choicePlanet.image : "/planets/p-13.png"}
             alt={"Zu besiedelnder Planet"}
           />
-          <p className="activity-planet">
+          <p className="activity-planet selected-planet-name">
             {choicePlanet?.name ? choicePlanet.name : "N/A"}
           </p>
         </div>
