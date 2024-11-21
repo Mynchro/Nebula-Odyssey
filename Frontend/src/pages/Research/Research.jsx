@@ -257,59 +257,48 @@ const Research = () => {
           ) : (
           <>
             <h1 id="forschungs-title">{activeObject.level}</h1>
-            <table width="400px">
-              <thead>
-                <tr>
-                  <td id="forschungs-title"> <td>{""}</td></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th><th>{activeObject.researchHead || imgTypes.blank.researchHead}</th></th>
-                  <th>{activeObject.researchheadCost || imgTypes.blank.researchheadCost}</th>
-                </tr>
-                <tr>
-                  <td>{activeObject.steelString || imgTypes.blank.steelString}</td>
-                  <td>{activeObject.steelCosts || imgTypes.blank.steelCosts}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.electronikString || imgTypes.blank.electronikString}</td>
-                  <td>{activeObject.electronicCost || imgTypes.blank.electronicCost}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.energyString || imgTypes.blank.energyString}</td>
-                  <td>{activeObject.electronicCost || imgTypes.blank.electronicCost}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.fuelString || imgTypes.blank.fuelString}</td>
-                  <td>{activeObject.fuelCost || imgTypes.blank.fuelCost}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.ammostring || imgTypes.blank.ammostring}</td>
-                  <td>{activeObject.ammoCost || imgTypes.blank.ammoCost}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.siliciumString || imgTypes.blank.siliciumString}</td>
-                  <td>{activeObject.siliciumCost || imgTypes.blank.siliciumCost}</td>
-                </tr>
-                <tr>
-                  <td>{activeObject.oreString || imgTypes.blank.oreString}</td>
-                  <td>{activeObject.oreCost || imgTypes.blank.oreCost}</td>
-                </tr>
-              </tbody>
-            </table>
+              <ul>
+                <li>
+                  <p>{activeObject.researchHead || imgTypes.blank.researchHead}</p>
+                  <p>{activeObject.researchheadCost || imgTypes.blank.researchheadCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.steelString || imgTypes.blank.steelString}</p>
+                  <p>{activeObject.steelCosts || imgTypes.blank.steelCosts}</p>
+                </li>
+                <li>
+                  <p>{activeObject.electronikString || imgTypes.blank.electronikString}</p>
+                  <p>{activeObject.electronicCost || imgTypes.blank.electronicCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.energyString || imgTypes.blank.energyString}</p>
+                  <p>{activeObject.electronicCost || imgTypes.blank.electronicCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.fuelString || imgTypes.blank.fuelString}</p>
+                  <p>{activeObject.fuelCost || imgTypes.blank.fuelCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.ammostring || imgTypes.blank.ammostring}</p>
+                  <p>{activeObject.ammoCost || imgTypes.blank.ammoCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.siliciumString || imgTypes.blank.siliciumString}</p>
+                  <p>{activeObject.siliciumCost || imgTypes.blank.siliciumCost}</p>
+                </li>
+                <li>
+                  <p>{activeObject.oreString || imgTypes.blank.oreString}</p>
+                  <p>{activeObject.oreCost || imgTypes.blank.oreCost}</p>
+                </li>
+              </ul>
             </>
           )}
           </div>
           {activeObject.id !== imgTypes.blank.id && (
   <div id="r-footer" className="researchfooter">
-    <div className="box-left">
       <p className="left">{activeObject.description || imgTypes.blank.description}</p>
-    </div>
-    <div className="detail-box">
       <button className="right btn" type="button">Forschung starten</button>
       <button className="right btn" type="button">Details</button>
-    </div>
   </div>
 )}
         </div>
