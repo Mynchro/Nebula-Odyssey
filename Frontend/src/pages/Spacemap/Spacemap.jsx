@@ -96,7 +96,7 @@ const Spacemap = () => {
         </button>
       </div>
       {loading ? (
-        <LoadingScreen message="Scanne Sonnensystem..."/>
+        <LoadingScreen message="Scanne Sonnensystem..." />
       ) : currentPlanets.length ? (
         <div className="galaxy">
           <div className="planet-overview">
@@ -114,14 +114,18 @@ const Spacemap = () => {
                       ? choicePlanet.owner.userName
                       : "Unbekannter Spieler"
                   }`}</p>
-                  <button
-                    onClick={() => {
-                      navigate("/armada");
-                    }}
-                    className="btn set-armada"
-                  >
-                    Armada zusammenstellen
-                  </button>
+                  {choicePlanet.name === "Nebula" ? (
+                    <p>Heimatplaneten können nicht besiedelt werden!</p>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        navigate("/armada");
+                      }}
+                      className="btn set-armada"
+                    >
+                      Armada zusammenstellen
+                    </button>
+                  )}
                 </div>
               </>
             ) : (

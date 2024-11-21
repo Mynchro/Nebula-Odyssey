@@ -185,11 +185,6 @@ const Armada = () => {
         const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
         setChoicePlanet(optimisticPlanet);
       }, 5000);
-
-      console.log("Neuer ChoicePlanet:", choicePlanet);
-      console.log("updatedPlanet:", data.updatedPlanet);
-      console.log("currentPlayer:", data.populatedUser);
-      console.log("selectedPlanet now:", selectedPlanet);
     } catch (error) {
       console.error("Fehler beim Besiedeln des Planeten:", error);
     }
@@ -328,10 +323,15 @@ const Armada = () => {
                          ? choicePlanet.owner.userName
                          : "Kein Besitzer"
                      }`}</p>
-
-                    <button onClick={sendFleet} className="btn">
-                      Flotte losschicken
-                    </button>
+                    {choicePlanet.name === "Nebula" ? (
+                      <p>
+                        <em>Besiedeln unmöglich</em>
+                      </p>
+                    ) : (
+                      <button onClick={sendFleet} className="btn">
+                        Flotte losschicken
+                      </button>
+                    )}
                   </div>
                 ) : (
                   <h4>
