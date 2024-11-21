@@ -40,17 +40,29 @@ const Armada = () => {
       return [];
     }
 
+    const exclusionLabels = {
+      klein: ["Miningdrohne", "Artillerie"],
+      mittel: ["Ionenkanone"],
+      gross: ["Partikelkanone", "Planetarer Schildgenerator"],
+    };
+
     if (activeType === "klein") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "lightShipyard"
+        (ship) =>
+          ship.shipYardType === "lightShipyard" &&
+          !exclusionLabels.klein.includes(ship.label)
       );
     } else if (activeType === "mittel") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "mediumShipyard"
+        (ship) =>
+          ship.shipYardType === "mediumShipyard" &&
+          !exclusionLabels.mittel.includes(ship.label)
       );
     } else if (activeType === "gross") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "heavyShipyard"
+        (ship) =>
+          ship.shipYardType === "heavyShipyard" &&
+          !exclusionLabels.gross.includes(ship.label)
       );
     }
 
@@ -131,18 +143,15 @@ const Armada = () => {
     }
   }, [selectedPlanet]);
 
-  useEffect(() => {
-    const storedChoicePlanet = sessionStorage.getItem("choicePlanet");
-    if (storedChoicePlanet) {
-      setChoicePlanet(JSON.parse(storedChoicePlanet));
-    }
-  }, [setChoicePlanet]);
+  // useEffect(() => {
+  //   const storedChoicePlanet = sessionStorage.getItem("choicePlanet");
+  //   if (storedChoicePlanet) {
+  //     setChoicePlanet(JSON.parse(storedChoicePlanet));
+  //   }
+  // }, [setChoicePlanet]);
 
   const sendFleet = async () => {
     if (!choicePlanet || !currentPlayer) return;
-
-    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
-    setChoicePlanet(optimisticPlanet);
 
     try {
       const response = await fetch(
@@ -173,6 +182,8 @@ const Armada = () => {
       setStartAnimation(true);
       setTimeout(() => {
         setCurrentPlayer(data.populatedUser);
+        const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
+        setChoicePlanet(optimisticPlanet);
       }, 5000);
 
       console.log("Neuer ChoicePlanet:", choicePlanet);
@@ -230,7 +241,7 @@ const Armada = () => {
                 className="current-position-img"
                 src={selectedPlanet.image}
               />
-              <p>{selectedPlanet.name}</p>
+              <p className="selected-planet-name">{selectedPlanet.name}</p>
             </div>
           </div>
           <div className="armada-rightbox">
@@ -247,7 +258,7 @@ const Armada = () => {
                   <ul className="armada-shiplist">
                     {getFilteredShips().map((ship, index) => (
                       <li key={index} className="ship-item">
-                        <p> {ship.shipType}</p>
+                        <p> {ship.label}</p>
                         <div className="increment-decrement">
                           <button
                             className="btn minus-ten"
