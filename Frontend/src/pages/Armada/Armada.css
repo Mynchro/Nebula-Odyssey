@@ -86,8 +86,14 @@ section {
   box-sizing: border-box;
   padding: 20px;
 }
+
+.activities {
+  display: flex;
+  justify-content: center;
+}
 .activity {
   display: flex;
+  width: 94%;
   align-items: center;
   margin-top: 15px;
   padding: 10px 0px;

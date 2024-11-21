@@ -40,17 +40,29 @@ const Armada = () => {
       return [];
     }
 
+    const exclusionLabels = {
+      klein: ["Miningdrohne", "Artillerie"],
+      mittel: ["Ionenkanone"],
+      gross: ["Partikelkanone", "Planetarer Schildgenerator"],
+    };
+
     if (activeType === "klein") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "lightShipyard"
+        (ship) =>
+          ship.shipYardType === "lightShipyard" &&
+          !exclusionLabels.klein.includes(ship.label)
       );
     } else if (activeType === "mittel") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "mediumShipyard"
+        (ship) =>
+          ship.shipYardType === "mediumShipyard" &&
+          !exclusionLabels.mittel.includes(ship.label)
       );
     } else if (activeType === "gross") {
       return selectedPlanet.ships.filter(
-        (ship) => ship.shipYardType === "heavyShipyard"
+        (ship) =>
+          ship.shipYardType === "heavyShipyard" &&
+          !exclusionLabels.gross.includes(ship.label)
       );
     }
 
@@ -246,7 +258,7 @@ const Armada = () => {
                   <ul className="armada-shiplist">
                     {getFilteredShips().map((ship, index) => (
                       <li key={index} className="ship-item">
-                        <p> {ship.shipType}</p>
+                        <p> {ship.label}</p>
                         <div className="increment-decrement">
                           <button
                             className="btn minus-ten"
