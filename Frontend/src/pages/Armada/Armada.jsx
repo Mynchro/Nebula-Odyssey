@@ -141,9 +141,6 @@ const Armada = () => {
   const sendFleet = async () => {
     if (!choicePlanet || !currentPlayer) return;
 
-    const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
-    setChoicePlanet(optimisticPlanet);
-
     try {
       const response = await fetch(
         `http://localhost:3000/api/spacemap/colonizePlanet/${currentPlayer._id}/${choicePlanet._id}`,
@@ -173,6 +170,8 @@ const Armada = () => {
       setStartAnimation(true);
       setTimeout(() => {
         setCurrentPlayer(data.populatedUser);
+        const optimisticPlanet = { ...choicePlanet, owner: currentPlayer };
+        setChoicePlanet(optimisticPlanet);
       }, 5000);
 
       console.log("Neuer ChoicePlanet:", choicePlanet);
@@ -230,7 +229,7 @@ const Armada = () => {
                 className="current-position-img"
                 src={selectedPlanet.image}
               />
-              <p>{selectedPlanet.name}</p>
+              <p className="selected-planet-name">{selectedPlanet.name}</p>
             </div>
           </div>
           <div className="armada-rightbox">
