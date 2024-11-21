@@ -227,17 +227,21 @@ const imgTypes = {
 }
 
 const Research = () => {
-  const [activeObject, setActive] = useState(imgTypes.blank);
+  const [activeObject, setActiveObject] = useState(imgTypes.blank);
+  const [activeButton, setActiveButton] = useState(null);
 
-  const changeImg = (imgTypeObj) => {
-    if (activeObject.id === imgTypes.blank.id) {
-      setActive(imgTypeObj);
-    } else if (activeObject.id !== imgTypeObj.id) {
-      setActive(imgTypeObj);
+  const changeImg = (imgTypeObj, buttonId) => {
+    if (activeButton === buttonId) {
+      // Wenn derselbe Button geklickt wurde, setze zurück
+      setActiveObject(imgTypes.blank);
+      setActiveButton(null);
     } else {
-      setActive(imgTypes.blank);
+      // Anderer Button wurde geklickt
+      setActiveObject(imgTypeObj);
+      setActiveButton(buttonId);
     }
   };
+
   return (
 
 
@@ -247,6 +251,11 @@ const Research = () => {
       <div className="researchheader" style={{ backgroundImage: `url(${activeObject.basicBackground || imgTypes.blank.basicBackground})` }}>
         <div className="researchflex">
           <div id="costtable" className="researchcosts">
+          {activeObject.id === imgTypes.blank.id ? (
+
+          <div className="research-content"><span>Forschung wählen...</span></div>
+          ) : (
+          <>
             <h1 id="forschungs-title">{activeObject.level}</h1>
             <table width="400px">
               <thead>
@@ -289,6 +298,8 @@ const Research = () => {
                 </tr>
               </tbody>
             </table>
+            </>
+          )}
           </div>
           {activeObject.id !== imgTypes.blank.id && (
   <div id="r-footer" className="researchfooter">
@@ -305,39 +316,39 @@ const Research = () => {
       </div>
       <section className="researchoverview">
         <div className="researchbuttons">
-          <div className="element">
-            <input className="f-bergbau" type="button" onClick={() => { changeImg(imgTypes.mining) }} />
-            <span className="tooltip">Bergbau</span>
+          <div className={`element ${activeButton === "mining" ? "activesearch" : ""}`}>
+            <input className="f-bergbau " type="button" placeholder="Berbau" onClick={() => changeImg(imgTypes.mining, "mining")} />
+            <p className="researchtip">Bergbau</p>
           </div>
-          <div className="element">
-            <input className="f-funktechnik" type="button" onClick={() => { changeImg(imgTypes.func) }} />
-            <span className="tooltip">Funktechnik</span>
+          <div className={`element ${activeButton === "func" ? "activesearch" : ""}`}>
+            <input className="f-funktechnik" type="button" onClick={() => changeImg(imgTypes.func, "func")} />
+            <p className="researchtip">Funktechnik</p>
           </div>
-          <div className="element">
-            <input className="f-panzerung" type="button" onClick={() => { changeImg(imgTypes.armor) }} />
-            <span className="tooltip">Panzerung</span>
+          <div className={`element ${activeButton === "armor" ? "activesearch" : ""}`}>
+            <input className="f-panzerung" type="button" onClick={() => changeImg(imgTypes.armor, "armor")} />
+            <p className="researchtip">Panzerung</p>
           </div>
-          <div className="element">
-            <input className="f-ballistik" type="button" onClick={() => { changeImg(imgTypes.ballistic) }} />
-            <span className="tooltip">Ballistik</span>
+          <div className={`element ${activeButton === "ballistic" ? "activesearch" : ""}`}>
+            <input className="f-ballistik" type="button" onClick={() => changeImg(imgTypes.ballistic, "ballistic")} />
+            <p className="researchtip">Ballistik</p>
           </div>
         </div>
-        <div>
-          <div className="element">
-            <input className="f-energiewaffen" type="button" onClick={() => { changeImg(imgTypes.energyWeapons) }} />
-            <span className="tooltip">Energiewaffen</span>
+        <div className="researchbuttons">
+          <div className={`element ${activeButton === "energyWeapons" ? "activesearch" : ""}`}>
+            <input className="f-energiewaffen" type="button" onClick={() => { changeImg(imgTypes.energyWeapons, "energyWeapons") }} />
+            <p className="researchtip">Energiewaffen</p>
           </div>
-          <div className="element">
-            <input className="f-sprungantrieb" type="button" onClick={() => { changeImg(imgTypes.jumpDrives) }} />
-            <span className="tooltip">Schildtechnik</span>
+          <div className={`element ${activeButton === "jumpDrives" ? "activesearch" : ""}`}>
+            <input className="f-sprungantrieb" type="button" onClick={() => { changeImg(imgTypes.jumpDrives, "jumpDrives") }} />
+            <p className="researchtip">Schildtechnik</p>
           </div>
-          <div className="element">
-            <input className="f-verbrennung" type="button" onClick={() => { changeImg(imgTypes.thrusters) }} />
-            <span className="tooltip">Sprungantriebe</span>
+          <div className={`element ${activeButton === "thrusters" ? "activesearch" : ""}`}>
+            <input className="f-verbrennung" type="button" onClick={() => { changeImg(imgTypes.thrusters, "thrusters") }} />
+            <p className="researchtip">Sprungantriebe</p>
           </div>
-          <div className="element">
-            <input className="f-schildtechnik" type="button" onClick={() => { changeImg(imgTypes.shieldTech) }} />
-            <span className="tooltip">Verbrennungstriebwerke</span>
+          <div className={`element ${activeButton === "shieldTech" ? "activesearch" : ""}`}>
+            <input className="f-schildtechnik" type="button" onClick={() => { changeImg(imgTypes.shieldTech, "shieldTech") }} />
+            <p className="researchtip">Verbrennungstriebwerke</p>
           </div>
         </div>
       </section>

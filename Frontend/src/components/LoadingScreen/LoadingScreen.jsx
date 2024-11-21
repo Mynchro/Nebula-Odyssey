@@ -1,8 +1,9 @@
 import "./LoadingScreen.css";
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ message }) => {
   return (
     <div className="loading-animation">
+      <p className="loading-message">{message}</p>
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
           <filter id="gooey">

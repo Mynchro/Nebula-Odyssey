@@ -96,7 +96,7 @@ const Spacemap = () => {
         </button>
       </div>
       {loading ? (
-        <LoadingScreen />
+        <LoadingScreen message="Scanne Sonnensystem..."/>
       ) : currentPlanets.length ? (
         <div className="galaxy">
           <div className="planet-overview">

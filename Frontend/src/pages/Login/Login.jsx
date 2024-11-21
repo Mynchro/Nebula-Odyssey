@@ -149,12 +149,12 @@ const Login = () => {
 
       <img
         className="schlachtkreuzer-img"
-        src="/werften/große_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png"
+        src="/werften/grosse_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png"
         alt="schlachtkreuzer"
       />
       <img
         className="schlachtschiff-img"
-        src="/werften/große_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png"
+        src="/werften/grosse_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png"
         alt="schlachtschiff"
       />
     </div>
