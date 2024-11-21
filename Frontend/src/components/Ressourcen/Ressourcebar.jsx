@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+
+import { useState } from "react";
 import "./Ressourcebar.css";
 
 const Ressourcebar = ({ resources }) => {
