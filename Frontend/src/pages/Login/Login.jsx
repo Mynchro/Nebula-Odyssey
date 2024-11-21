@@ -25,29 +25,6 @@ const Login = () => {
     }
   };
 
-    /*const handleLogin = async (data) => {
-    console.log(data);
-    try {
-      const response = await fetch("http://localhost:3000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      console.log("result:", result);
-      if (response.status === 200) {
-        setCurrentPlayer(result);
-        navigate("/overview");
-      } else {
-        console.log(result.message);
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  };*/
-
   const handleRegister = async (data) => {
     try {
       const response = await fetch("http://localhost:3000/user/register", {
@@ -154,7 +131,7 @@ const Login = () => {
       {/* Video Toggle */}
       <div className="video-toggle-container">
         <button className="toggle-button" onClick={toggleVideoVisibility}>
-        ▼ Intro Video anschauen ▼
+          ▼ Intro Video anschauen ▼
         </button>
       </div>
 
