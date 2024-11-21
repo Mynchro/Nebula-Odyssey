@@ -48,6 +48,8 @@ const Hangar = () => {
     setActiveShip(ship.id);
   };
 
+  const defaultImage = "/werften/misc/default-hangar_1.png";
+
   return (
     selectedPlanet && (
       <div className="content-box">
@@ -85,7 +87,7 @@ const Hangar = () => {
             </ul>
           </div>
           <div className="hangar-img">
-            <img src={image} alt="Hangar"></img>
+            <img src={image || defaultImage} alt="Hangar"></img>
           </div>
         </div>
         <div className="hangar-bot">
@@ -111,7 +113,9 @@ const Hangar = () => {
           <div className="hangar-description">
             {selectedWerft ? (
               <div>
-                <h3 className="ship-description-head-left">Schiffe der {selectedWerft === "klein" ? "Kleinen" : selectedWerft === "mittel" ? "Mittleren" : "Großen"} Werft</h3>
+                <h3 className="ship-description-head-left">
+                  Schiffe der {selectedWerft === "klein" ? "Kleinen" : selectedWerft === "mittel" ? "Mittleren" : "Großen"} Werft
+                </h3>
                 <div className="hangar-ship-buttons">
                   {werften[selectedWerft].map((ship) => (
                     <button
@@ -125,9 +129,13 @@ const Hangar = () => {
                 </div>
               </div>
             ) : (
-              <p  className=".ship-description-head-right">Wähle eine Werft, um die verfügbaren Schiffe zu sehen!</p>
+              <p className="ship-description-head-right">
+              </p>
             )}
-            {description && <p className=".ship-description-head-right">{description}</p>}
+            {/* Zeigt entweder die Beschreibung des ausgewählten Schiffs oder eine Standardnachricht */}
+            <p className="ship-description-head-right">
+              {description || "Wähle ein Schiff, um eine Beschreibung zu sehen!"}
+            </p>
           </div>
         </div>
       </div>
