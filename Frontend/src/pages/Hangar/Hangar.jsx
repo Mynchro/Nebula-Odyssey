@@ -112,7 +112,7 @@ const Hangar = () => {
           </div>
           <div className="hangar-description">
             {selectedWerft ? (
-              <div>
+              <div className="maik">
                 <h3 className="ship-description-head-left">
                   Schiffe der {selectedWerft === "klein" ? "Kleinen" : selectedWerft === "mittel" ? "Mittleren" : "Großen"} Werft
                 </h3>
