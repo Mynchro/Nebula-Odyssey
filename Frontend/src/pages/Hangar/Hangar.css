@@ -171,7 +171,7 @@ ul {
   background: var(--border-color);
   z-index: -2;
 }
-.hangar-ship-buttons{
+.hangar-ship-buttons {
   width: 100%;
   padding-left: 35px;
   margin-top: 40px;
@@ -181,10 +181,10 @@ ul {
 }
 
 .hangar-description p {
-  text-align:center;
+  text-align: center;
   margin: 5px;
 }
-.maik{
+.maik {
   width: 75%;
   display: flex;
   flex-direction: column;
@@ -235,8 +235,8 @@ ul {
   font-size: larger;
   padding: 10px;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .active {
@@ -256,5 +256,7 @@ li {
   width: 100%;
 }
 .hangar-info ul li {
-  justify-content: flex-start;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  font-weight: 200;
 }
