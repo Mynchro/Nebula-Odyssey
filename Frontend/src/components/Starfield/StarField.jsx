@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './StarField.css';
 
-const NUMBER_OF_STARS = 100;  // Anzahl der Sterne auf 10 setzen
+const NUMBER_OF_STARS = 50;  // Anzahl der Sterne auf 10 setzen
 
 const StarField = () => {
   const containerRef = useRef(null);
