@@ -8,7 +8,6 @@ export const defaultUser_DEV = {
 };
 
 const PlayerProvider = ({ children }) => {
-  const [playerData, setPlayerData] = useState({});
   const [currentPlayer, setCurrentPlayer] = useState({
     user: defaultUser_DEV,
   });
@@ -134,7 +133,6 @@ const PlayerProvider = ({ children }) => {
   return (
     <PlayerContext.Provider
       value={{
-        playerData,
         currentPlayer,
         countdown, 
         setCountdown, 
