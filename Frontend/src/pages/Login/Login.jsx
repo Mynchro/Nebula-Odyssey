@@ -39,11 +39,9 @@ const Login = () => {
       });
       const result = await response.json();
       if (response.status === 201) {
-        console.log("Registered successfully:", result.message);
         alert("Erfolgreich registriert!");
         setIsRegistered(false);
       } else {
-        console.log(result.message);
         alert(`Registrierung fehlgeschlagen: ${result.message}`);
       }
     } catch (error) {

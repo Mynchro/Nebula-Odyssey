@@ -1,10 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { PlayerContext } from "../../context/PlayerContext";
-import { useOutletContext } from "react-router-dom";
-import werftTypen from "../../assets/data/werften";
-import activities from "../../assets/data/activities";
 import "../../pages/Armada/Armada.css";
 
 const Activity = ({

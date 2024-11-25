@@ -14,7 +14,6 @@ import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import StarField from "./components/Starfield/StarField";
 import SettingsForm from "./pages/Settings/Settings";
-// import Playermanager from "./components/Playermanager/Playermanager";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
     <BrowserRouter>
       <PlayerProvider>
         <StarField />
-        {/* <Playermanager /> */}
         <Routes>
           <Route index element={<Login />} />
           <Route path="/" element={<SharedLayout />}>

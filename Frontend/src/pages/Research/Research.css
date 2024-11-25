@@ -151,16 +151,6 @@ tr>th:nth-child(2) {
   margin-left: 40px;
 }
 
-/* .left {
-  font-size: 1.2em;
-  color: rgb(255, 255, 255);
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
-} */
-
 .detail-box {
   height: 100px;
   width: 30%;
@@ -206,40 +196,3 @@ tr>th:nth-child(2) {
   /* padding: 10px; */
   background-color: rgba(0, 0, 0, 0.8);
 }
-
-/* .left {
-    padding: 2%;
-    flex: 4;
-    font-size: small;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-  } */
-/* .right {
-    margin-top: 5%;
-    width: 50%;
-    height: 50%;
-    flex: 1;
-  } */
-/*
-  .tooltip {
-    position: relative;
-    background-color: var(--highlight-color);
-    border: 1px solid black;
-    padding: 0;
-    margin-top: 0.5%;
-    border-radius: 3px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-weight: bold;
-    z-index: 5;
-  }
-/*
-  .element:hover .tooltip {
-    display: block;
-  }
-  
-  .element img:hover {
-    transform: scale(1.05);
-  }
-    */
-/* Muss in jeder Seite eingefügt werden, da der button durch die home.css sonst immer 
-  gehighlighted ist */

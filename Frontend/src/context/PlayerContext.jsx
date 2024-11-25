@@ -44,7 +44,7 @@ const PlayerProvider = ({ children }) => {
         const color = result.user?.settings?.color || "#cccccc"; // Verwendet Grau als Fallback
         setSecondaryColor(color);
 
-        console.log("Aktueller Spieler nach dem Login:", result.user);
+        //console.log("Aktueller Spieler nach dem Login:", result.user);
         return true;
       } else {
         console.error("Login fehlgeschlagen:", response.statusText);
@@ -73,7 +73,7 @@ const PlayerProvider = ({ children }) => {
         setSecondaryColor(color);
       } else {
         navigate("/");
-        console.log("Keine Benutzerdaten gefunden:", response.statusText);
+        //console.log("Keine Benutzerdaten gefunden:", response.statusText);
       }
     } catch (error) {
       console.error(

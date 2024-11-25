@@ -143,13 +143,6 @@ const Armada = () => {
     }
   }, [selectedPlanet]);
 
-  // useEffect(() => {
-  //   const storedChoicePlanet = sessionStorage.getItem("choicePlanet");
-  //   if (storedChoicePlanet) {
-  //     setChoicePlanet(JSON.parse(storedChoicePlanet));
-  //   }
-  // }, [setChoicePlanet]);
-
   const sendFleet = async () => {
     if (!choicePlanet || !currentPlayer) return;
 
@@ -169,16 +162,7 @@ const Armada = () => {
       }
 
       const data = await response.json();
-      //console.log("Aktualisierter Planet:", data);
 
-      // setPlanets((prevPlanets) =>
-      //   prevPlanets.map((planet) =>
-      //     planet._id === updatedPlanet._id ? updatedPlanet : planet
-      //   )
-      // );
-
-      // setChoicePlanet(updatedPlanet);
-      // sessionStorage.setItem("choicePlanet", JSON.stringify(choicePlanet));
       setStartAnimation(true);
       setTimeout(() => {
         setCurrentPlayer(data.populatedUser);
@@ -311,7 +295,6 @@ const Armada = () => {
                     <h4>Name:</h4>
                     <p>{`${choicePlanet.name}`}</p>
                     <h4>Position</h4>
-                    {console.log("choiceP:", choicePlanet)}
                     <p>
                       {choicePlanet.position.page} -{" "}
                       {choicePlanet.position.positionOnPage}
