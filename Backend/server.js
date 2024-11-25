@@ -24,30 +24,8 @@ app.use("/api", interfaceRoute);
 app.use("/api", buildingsRoutes);
 app.use("/shipyard", shipYardRoute);
 
-// seedResources();
-// createGameworld();
 //startResourceCalculation();
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
-
-// const startServer = async () => {
-//   try {
-//     await connectToDB();
-//     app.use("/admin", adminRoute);
-//     app.use("/user", userRoute);
-//     app.use("/api", interfaceRoute);
-//     // seedResources();
-//     createGameworld();
-
-//     app.listen(port, () => {
-//       console.log(`Server is running on port ${port}`);
-//       // calculateResources();
-//     });
-//   } catch (error) {
-//     console.error("Fehler beim Starten des Servers:", error);
-//   }
-// };
-
-// startServer();
