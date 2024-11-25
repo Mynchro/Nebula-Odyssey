@@ -169,7 +169,7 @@ const Armada = () => {
       }
 
       const data = await response.json();
-      console.log("Aktualisierter Planet:", data);
+      //console.log("Aktualisierter Planet:", data);
 
       // setPlanets((prevPlanets) =>
       //   prevPlanets.map((planet) =>

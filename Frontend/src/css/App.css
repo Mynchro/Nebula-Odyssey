@@ -7,8 +7,6 @@
 
 :root {
   font-size: 62.5%;
-
-  background-image: url(/background-img/background-a.jpg);
   /* Allgemeine Farben */
   --primary-color: #0e1b24;
   --secondary-color: #cccccc;

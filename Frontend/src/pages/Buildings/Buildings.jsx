@@ -69,7 +69,6 @@ const Buildings = () => {
           setLoading(false);  // Ladezustand deaktivieren
         }
       };
-
       if (selectedBuilding && userId && selectedPlanet) {
         loadConstructionEndTime();
       }
@@ -151,8 +150,6 @@ const formatCountdown = () => {
       }
       
       const data = await response.json();
-
-      console.log("Upgrade erfolgreich:", data);
 
       setBuildMessage("Bau wird eingeleitet!");
       setSelectedBuilding(data.building);
