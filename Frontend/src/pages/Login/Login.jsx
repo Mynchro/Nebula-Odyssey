@@ -14,14 +14,19 @@ const Login = () => {
   const { handleLogin } = useContext(PlayerContext);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (isRegistered) {
-      handleRegister(data);
+      await handleRegister(data);
     } else {
-      handleLogin(data);
-      navigate("/overview");
+      const success = await handleLogin(data);
+      if (success) {
+        navigate("/overview");
+      } else {
+        setErrorMessage("Ungültige Login-Daten! Bitte erneut versuchen.");
+      }
     }
   };
 
@@ -35,17 +40,23 @@ const Login = () => {
       const result = await response.json();
       if (response.status === 201) {
         console.log("Registered successfully:", result.message);
+        alert("Erfolgreich registriert!");
         setIsRegistered(false);
       } else {
         console.log(result.message);
+        alert(`Registrierung fehlgeschlagen: ${result.message}`);
       }
     } catch (error) {
       console.error("Registration failed:", error);
+      alert(
+        "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+      );
     }
   };
 
   const toggleAuthMode = () => {
     setIsRegistered(!isRegistered);
+    setErrorMessage("");
   };
 
   const toggleVideoVisibility = () => {
@@ -62,6 +73,7 @@ const Login = () => {
       <h1 className="login-title">Nebula Odyssey</h1>
       <div className="login-box">
         <h2>{isRegistered ? "Register" : "Login"}</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("userName", { required: "Username is required!" })}
