@@ -31,6 +31,10 @@ const Navbar = () => {
         {},
         { withCredentials: true }
       );
+      localStorage.removeItem("countdown"),
+      localStorage.removeItem("constructionEndTime"),
+      localStorage.removeItem("selectedBuilding"),
+      localStorage.removeItem("activeType"),
       setCurrentPlayer(defaultUser_DEV);
       navigate("/");
     } catch (error) {

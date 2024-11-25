@@ -58,11 +58,6 @@ const Overview = () => {
     Mikrochipdepot: "Mikrochiplager",
   };
 
-  console.log("Aktueller Spieler:", currentPlayer);
-  console.log("Benutzername:", userName);
-  console.log("Aktueller Planetenname:", selectedPlanet);
-  console.log("testet", buildingInProgress)
-
   return (
     <div className="content-box">
       <div className="overview-title">

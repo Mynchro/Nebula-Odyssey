@@ -139,9 +139,9 @@ const formatCountdown = () => {
       if (!response.ok) {
         if (response.status === 400) {
           const errorData = await response.json();
-          if (errorData.error === "MAX_LEVEL_REACHED") {
+          if (errorData.message === "Maximales Level erreicht") {
             setBuildMessage("Aktuelles max. Level erreicht!");
-          } else if (errorData.error === "INSUFFICIENT_RESOURCES") {
+          } else if (errorData.message === "Nicht genügend Ressourcen vorhanden!") {
             setBuildMessage("Benötigte Ressourcen fehlen!");
           } else {
             setBuildMessage("Ein Fehler ist aufgetreten!");

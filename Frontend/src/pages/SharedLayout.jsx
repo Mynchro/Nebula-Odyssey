@@ -6,6 +6,7 @@ import Menubox from "../components/Menubox/Menubox";
 import Chatbox from "../components/Chatbox/Chatbox";
 import { useState, useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";
+import Footer from "../components/Footer/Footer";
 
 const SharedLayout = () => {
   const { currentPlayer } = useContext(PlayerContext);
@@ -37,6 +38,7 @@ const SharedLayout = () => {
         <Chatbox />
       </main>
       {/* footer */}
+      <Footer />
     </>
   );
 };

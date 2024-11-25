@@ -91,7 +91,9 @@ export const upgradeBuilding = async (req, res) => {
                 .status(404)
                 .send(`Gebäude vom Typ ${buildingType} nicht gefunden`);
         if (building.level >= 15)
-            return res.status(400).send("Maximales Level erreicht");
+            return res
+                .status(400)
+                .send({ message: "Maximales Level erreicht" });
 
         const now = new Date();
         if (
@@ -127,11 +129,9 @@ export const upgradeBuilding = async (req, res) => {
             }
 
             if (currentResource < cost) {
-                return res
-                    .status(400)
-                    .send(
-                        `Nicht genügend ${resource}: Benötigt ${cost}, verfügbar ${currentResource}`
-                    );
+                return res.status(400).send({
+                    message: `Nicht genügend Ressourcen vorhanden!`,
+                });
             }
 
             // Ziehe die Ressourcen ab, wenn der Wert > 0 ist

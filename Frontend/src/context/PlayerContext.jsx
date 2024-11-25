@@ -8,7 +8,6 @@ export const defaultUser_DEV = {
 };
 
 const PlayerProvider = ({ children }) => {
-  const [playerData, setPlayerData] = useState({});
   const [currentPlayer, setCurrentPlayer] = useState({
     user: defaultUser_DEV,
   });
@@ -46,11 +45,14 @@ const PlayerProvider = ({ children }) => {
         setSecondaryColor(color);
 
         console.log("Aktueller Spieler nach dem Login:", result.user);
+        return true;
       } else {
         console.error("Login fehlgeschlagen:", response.statusText);
+        return false;
       }
     } catch (error) {
       console.error("Fehler beim Login:", error);
+      return false;
     }
   };
 
@@ -87,17 +89,17 @@ const PlayerProvider = ({ children }) => {
     timerRef.current = setInterval(() => {
       const timeRemaining = new Date(endTime) - new Date();
       if (timeRemaining <= 0) {
-        clearInterval(timerRef.current);  // Stoppe den Timer
+        clearInterval(timerRef.current); // Stoppe den Timer
         setTimerRunning(false);
-        setCountdown(0);  // Countdown zurücksetzen
+        setCountdown(0); // Countdown zurücksetzen
         localStorage.removeItem("countdown");
         localStorage.removeItem("constructionEndTime");
       } else {
-        setCountdown(Math.floor(timeRemaining / 1000));  // Setze den Countdown
+        setCountdown(Math.floor(timeRemaining / 1000)); // Setze den Countdown
       }
     }, 1000);
 
-    setTimerRunning(true);  // Timer läuft jetzt
+    setTimerRunning(true); // Timer läuft jetzt
   };
 
   useEffect(() => {
@@ -116,7 +118,7 @@ const PlayerProvider = ({ children }) => {
   useEffect(() => {
     return () => {
       if (timerRef.current) {
-        clearInterval(timerRef.current);  // Stoppe den Timer beim Unmount
+        clearInterval(timerRef.current); // Stoppe den Timer beim Unmount
       }
     };
   }, []);
@@ -134,12 +136,11 @@ const PlayerProvider = ({ children }) => {
   return (
     <PlayerContext.Provider
       value={{
-        playerData,
         currentPlayer,
-        countdown, 
-        setCountdown, 
-        startCountdown, 
-        constructionEndTime, 
+        countdown,
+        setCountdown,
+        startCountdown,
+        constructionEndTime,
         setConstructionEndTime,
         setCurrentPlayer,
         handleLogin,
