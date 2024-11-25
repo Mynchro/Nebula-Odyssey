@@ -241,7 +241,7 @@ export const logout = async (req, res) => {
             sameSite: "lax",
             secure: process.env.NODE_ENV === "production",
         });
-        localStorage.clear();
+
         res.status(200).json({ message: "Logout erfolgreich!" });
     } catch (error) {
         return res.status(400).json({ message: "Ungültiger Token." });
