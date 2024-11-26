@@ -24,11 +24,11 @@ const Shipyard = () => {
 
   const handleShipType = async (type) => {
     const loadedShips = await loadShips(); // Schiffe laden
-    console.log("Geladene Schiffe:", loadedShips); // Debugging: Zeige alle geladenen Schiffe an
+    //console.log("Geladene Schiffe:", loadedShips); // Debugging: Zeige alle geladenen Schiffe an
 
     // Verwende reduce, um Schiffe mit dem gültigen shipYardType zu sammeln
     const filteredShips = loadedShips.reduce((result, ship) => {
-      console.log(type + " der typ");
+      //console.log(type + " der typ");
       //console.log(ship.shipYardType + " shipyardtype");
       if (type === ship.shipYardType) {
         result.push(ship); // Füge das Schiff der Ergebnisliste hinzu
@@ -73,9 +73,9 @@ const Shipyard = () => {
         break; // Wenn das Schiff gefunden wurde, beende die Schleife
       }
     }
-
-    console.log("aktueller planet " + selectedPlanet)
-    console.log("Gefundenes Schiff:", item); // Gib das gefundene Schiff aus
+    
+    //console.log("aktueller planet " + selectedPlanet)
+    //console.log("Gefundenes Schiff:", item); // Gib das gefundene Schiff aus
 
     if (item) {
       setShipData({
@@ -83,8 +83,12 @@ const Shipyard = () => {
         ...item.values, // Alle Eigenschaften von 'values'
 
       });
+
+      //console.log("shipdata zum anzeigen lassen" +shipData.steel)
+
+
       setShipAmount(item.amount);
-      console.log(item.label +" das sollte das label sein")
+      //console.log(item.label +" das sollte das label sein")
       setShipImage(`url(${item.img})`);
       setShipTitle(item.label);
       setShipDescription(item.description);
@@ -94,7 +98,7 @@ const Shipyard = () => {
   };
 
   // Counter
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const maxCount = 100;
 
   const incrementCount = () => {
@@ -256,25 +260,25 @@ const Shipyard = () => {
             <li>
               <p className="data-left">Stahlkosten:</p>{" "}
               <p className="data-right">
-                {(shipData?.steelcosts ?? 0) * (count ?? 0)}
+                {(shipData?.steel ?? 0) * (count ?? 0)}
               </p>
             </li>
             <li>
               <p className="data-left">Mikrochipkosten:</p>{" "}
               <p className="data-right">
-                {(shipData?.mikroshipkosten ?? 0) * (count ?? 0)}
+                {(shipData?.electronics ?? 0) * (count ?? 0)}
               </p>
             </li>
             <li>
               <p className="data-left">Chemiekosten:</p>{" "}
               <p className="data-right">
-                {(shipData?.chemicalcosts ?? 0) * (count ?? 0)}
+                {(shipData?.chemicals ?? 0) * (count ?? 0)}
               </p>
             </li>
             <li>
               <p className="data-left">Energiekosten:</p>{" "}
               <p className="data-right">
-                {(shipData?.energycosts ?? 0) * (count ?? 0)}
+                {(shipData?.energy ?? 0) * (count ?? 0)}
               </p>
             </li>
           </ul>

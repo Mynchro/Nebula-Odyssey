@@ -249,14 +249,8 @@ ul {
   font-weight: bolder;
 }
 
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-}
 .hangar-info ul li {
   justify-content: space-between;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 200;
 }
