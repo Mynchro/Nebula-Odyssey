@@ -49,6 +49,7 @@ export const instantiateShips = async (req, res) => {
             new unitData.LaserGeschütz(),
             new unitData.IonenKanone(),
             new unitData.PartikelKanone(),
+            new unitData.Railgun(),
             new unitData.PlanetarerSchildGenerator(),
         ];
         const shipTypes = shipSchema.path("shipType").enumValues;
