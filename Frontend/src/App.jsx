@@ -12,7 +12,6 @@ import Hangar from "./pages/Hangar/Hangar";
 import Armada from "./pages/Armada/Armada";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
-import StarField from "./components/Starfield/StarField";
 import SettingsForm from "./pages/Settings/Settings";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
@@ -20,7 +19,6 @@ function App() {
   return (
     <BrowserRouter>
       <PlayerProvider>
-        <StarField />
         <Routes>
           <Route index element={<Login />} />
           <Route path="/" element={<SharedLayout />}>

@@ -427,7 +427,7 @@ class FlakGeschütz extends Unit {
         this.ammoconsume = 5;
         this.hangaring = 0;
         this.cargo = 0;
-        this.unittype = Unit.unittype.flakgeschuetz;
+        this.unittype = Unit.unittype.flak;
         this.rapidfirevsleichterjaeger = 20;
         this.rapidfirevsschwererjaeger = 20;
         this.rapidfirevsbomber = 20;
@@ -455,7 +455,7 @@ class Artillerie extends Unit {
         this.ammoconsume = 50;
         this.hangaring = 0;
         this.cargo = 0;
-        this.unittype = Unit.unittype.flak;
+        this.unittype = Unit.unittype.artillerie;
         this.img = "/werften/kleine_werft/artillerie/artillerie.png";
         this.label = "Artillerie";
         this.description =

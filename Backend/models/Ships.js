@@ -24,6 +24,7 @@ export const shipSchema = new Schema({
             "battleCruiser",
             "carrier",
             "flak",
+            "artillerie",
             "ionCannon",
             "laserCannon",
             "railGun",
@@ -137,6 +138,7 @@ shipSchema.methods.setValues = function (shipType, unit) {
         "miningDrone",
         "smallTransporter",
         "flak",
+        "artillerie",
         "laserCannon",
     ];
     const mediumShips = [
@@ -147,7 +149,7 @@ shipSchema.methods.setValues = function (shipType, unit) {
         "colonyShip",
         "miningShip",
         "ionCannon",
-        "railgun",
+        "railGun",
     ];
     const heavyShips = [
         "battleShip",

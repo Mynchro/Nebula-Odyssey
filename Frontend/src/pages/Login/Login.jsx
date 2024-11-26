@@ -156,17 +156,6 @@ const Login = () => {
           allowFullScreen
         />
       </div>
-
-      <img
-        className="schlachtkreuzer-img"
-        src="/werften/grosse_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png"
-        alt="schlachtkreuzer"
-      />
-      <img
-        className="schlachtschiff-img"
-        src="/werften/grosse_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png"
-        alt="schlachtschiff"
-      />
     </div>
   );
 };
