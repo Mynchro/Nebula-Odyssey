@@ -49,9 +49,9 @@ const werftTypen = {
         "Eine Mining-Drohne, die für den Abbau von Ressourcen in Asteroidenfeldern und auf Planetenoberflächen konzipiert ist. Ausgestattet mit speziellen Bergbauwerkzeugen und -technologien. Effizient und autonom arbeitend, ideal für die Unterstützung bei Bergbauoperationen. Robust und zuverlässig.",
     },
     {
-      id: "flaggeschuetz",
+      id: "flakgeschuetz",
       class: "btn btn7",
-      label: "Flaggeschuetz",
+      label: "Flakgeschuetz",
       img: "/werften/kleine_werft/flaggeschuetz/flaggeschuetz.png",
       description:
         "Ein Flakgeschütz, das zur Verteidigung gegen feindliche Flugzeuge und Drohnen eingesetzt wird. Mit schnellen und präzisen Geschossen ausgestattet. Es bietet eine starke Verteidigungslinie gegen Luftangriffe. Essenziell für den Schutz von Basen und Flotten.",
@@ -63,6 +63,14 @@ const werftTypen = {
       img: "/werften/kleine_werft/lasergeschuetz/lasergeschuetz.jpg",
       description:
         "Ein Lasergeschütz, das hochenergetische Laserstrahlen abfeuert. Effektiv gegen gepanzerte Ziele und feindliche Schiffe. Es bietet eine hohe Präzision und Reichweite. Ideal zur Unterstützung von Boden- und Weltraumoperationen.",
+    },
+    {
+      id: "artillerie",
+      class: "btn btn8",
+      label: "Artillerie",
+      img: "/werften/kleine_werft/artillerie/artillerie.png",
+      description:
+        "Artillerie bezeichnet großkalibrige Waffen, die dazu entwickelt wurden, Ziele über weite Entfernungen zu bekämpfen. Artilleriesysteme nutzen Sprengladungen, um Granaten oder andere Munition mit hoher Geschwindigkeit abzufeuern.",
     },
   ],
   mittel: [
@@ -126,7 +134,7 @@ const werftTypen = {
       id: "railgun",
       class: "btn btn8",
       label: "Railgun",
-      img: "/werften/mittlere_werft/railgun/railgun.png",
+      img: "/werften/mittlere_werft/railgun/railgun.jpg",
       description:
         "Eine Railgun, die Projektile mit extrem hoher Geschwindigkeit abfeuert. Kann schwere Panzerungen durchdringen und massive Schäden verursachen. Ideal für lange Reichweiten und präzise Angriffe. Bietet überlegene Feuerkraft.",
     },
@@ -160,7 +168,7 @@ const werftTypen = {
       id: "partikelgeschuetz",
       class: "btn btn12",
       label: "Partikelgeschuetz",
-      img: "/werften/große_werft/partikelgeschuetz/partikelgeschuetz.jpg",
+      img: "/werften/grosse_werft/partikelgeschuetz/partikelgeschuetz.jpg",
       description:
         "Ein Partikelgeschütz, das hochenergetische Partikelstrahlen abfeuert. Effektiv gegen starke Panzerungen und Schilde. Bietet präzise und zerstörerische Feuerkraft. Ideal zur Unterstützung von schweren Angriffsoperationen.",
     },
@@ -168,7 +176,7 @@ const werftTypen = {
       id: "planetarer_schildgenerator",
       class: "btn btn12",
       label: "Planetarer Schildgenerator",
-      img: "/werften/planetare_schutzsysteme/planetarer_schildgenerator/schildgenerator1.jpg",
+      img: "/werften/grosse_werft/planetarer_schildgenerator/planetarer_schildgenerator.png",
       description:
         "Ein planetarer Schildgenerator, der eine massive Energiekuppel erzeugt, um ganze Planeten vor Angriffen zu schützen. Effektiv gegen Orbitalbombardements, Raketen und Angriffe von Großkampfschiffen. Ein unverzichtbarer Verteidigungsmechanismus für strategisch wichtige Welten.",
     },

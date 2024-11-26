@@ -111,8 +111,14 @@ const Defense = () => {
               Übersicht
             </button>
             <button
-              className={`btn ${active === "flaggeschuetz" ? "active" : ""}`}
-              onClick={() => changeDescriptionAndImage("flaggeschuetz")}
+              className={`btn ${active === "flakgeschuetz" ? "active" : ""}`}
+              onClick={() => changeDescriptionAndImage("flakgeschuetz")}
+            >
+              Flakgeschütz
+            </button>
+            <button
+              className={`btn ${active === "artillerie" ? "active" : ""}`}
+              onClick={() => changeDescriptionAndImage("artillerie")}
             >
               Artillerie
             </button>
@@ -123,13 +129,18 @@ const Defense = () => {
               Ionenkanone
             </button>
             <button
-              className={`btn ${
-                active === "partikelgeschuetz" ? "active" : ""
-              }`}
-              onClick={() => changeDescriptionAndImage("partikelgeschuetz")}
+              className={`btn ${active === "lasergeschuetz" ? "active" : ""}`}
+              onClick={() => changeDescriptionAndImage("lasergeschuetz")}
             >
-              Partikelkanone
+              Lasergeschütz
             </button>
+            <button
+              className={`btn ${active === "railgun" ? "active" : ""}`}
+              onClick={() => changeDescriptionAndImage("railgun")}
+            >
+              Railgun
+            </button>
+
             <button
               className={`btn ${
                 active === "planetarer_schildgenerator" ? "active" : ""
@@ -141,17 +152,12 @@ const Defense = () => {
               Planetarer Schildgenerator
             </button>
             <button
-              className={`btn ${active === "lasergeschuetz" ? "active" : ""}`}
-              onClick={() => changeDescriptionAndImage("lasergeschuetz")}
+              className={`btn ${
+                active === "partikelgeschuetz" ? "active" : ""
+              }`}
+              onClick={() => changeDescriptionAndImage("partikelgeschuetz")}
             >
-              Lasergeschuetz
-            </button>
-
-            <button
-              className={`btn ${active === "railgun" ? "active" : ""}`}
-              onClick={() => changeDescriptionAndImage("railgun")}
-            >
-              Railgun
+              Partikelkanone
             </button>
           </div>
           <div className="defense-description">
