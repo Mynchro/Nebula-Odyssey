@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { PlayerContext } from "../../context/PlayerContext";
@@ -15,7 +15,18 @@ const Login = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (loggedIn) {
+      document.body.classList.add("logged-in");
+    } else {
+      document.body.classList.remove("logged-in");
+    }
+    setIsLoggedIn(loggedIn);
+  }, []);
 
   const onSubmit = async (data) => {
     if (isRegistered) {
@@ -23,12 +34,23 @@ const Login = () => {
     } else {
       const success = await handleLogin(data);
       if (success) {
+        localStorage.setItem("isLoggedIn", "true");
+        document.body.classList.add("logged-in");
         navigate("/overview");
       } else {
         setErrorMessage("Ungültige Login-Daten! Bitte erneut versuchen.");
       }
     }
   };
+
+    // Effekt für Hintergrundwechsel
+    useEffect(() => {
+      if (isLoggedIn) {
+        document.body.classList.add("logged-in");
+      } else {
+        document.body.classList.remove("logged-in");
+      }
+    }, [isLoggedIn]);
 
   const handleRegister = async (data) => {
     try {

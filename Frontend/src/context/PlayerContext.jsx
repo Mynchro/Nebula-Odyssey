@@ -114,6 +114,15 @@ const PlayerProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (loggedIn) {
+      document.body.classList.add("logged-in");
+    } else {
+      document.body.classList.remove("logged-in");
+    }
+  }, []);
+
   // Bereinigung
   useEffect(() => {
     return () => {
