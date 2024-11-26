@@ -79,10 +79,15 @@ Explore more on <a href="https://nebula-odyssey.vercel.app/">Nebula Odyssey</a>
 
 ### Built With
 
- [![React][React.js]][React-url]
+ 
  [![CSS3][CSS3-logo]][CSS3-url]
  [![HTML5][HTML5-logo]][HTML5-url]
  [![JavaScript][JavaScript-logo]][JavaScript-url]
+ [![React][React.js]][React-url]
+ [![MongoDB][MongoDB-logo]][MongoDB-url]
+[![Express.js][Express-logo]][Express-url]
+[![Node.js][Node-logo]][Node-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,18 +121,18 @@ Adjust game settings in the user dashboard to optimize your experience.
 
 - [x] Build the project in React
   - [x] Main-Components
-  - [ ] Notes
-  - [ ] Settings
-  - [ ] Support
-- [ ] Add Backend
-     - [ ] Implement serverstructure
-     - [ ] Add registration and login
-     - [ ] Add playerdata
-     - [ ] Add gamedata
+  - [x] Notes
+  - [x] Settings
+  - [x] Support
+- [x] Add Backend
+     - [x] Implement serverstructure
+     - [x] Add registration and login
+     - [x] Add playerdata
+     - [x] Add gamedata
      - [ ] Add chat
      - [ ] Add datatransfer
      - [ ] Update battlesystem
-- [ ] Deployment
+- [x] Deployment
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
@@ -206,3 +211,10 @@ Project Link: https://github.com/MrGummibear/Nebula-Odyssey.git
 [HTML5-url]: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5
 [JavaScript-logo]: https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[MongoDB-logo]: https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/
+[Express-logo]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
+[Express-url]: https://expressjs.com/
+[Node-logo]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
+[Node-url]: https://nodejs.org/
+
