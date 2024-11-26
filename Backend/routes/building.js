@@ -2,6 +2,7 @@ import express from "express";
 import {
     upgradeBuilding,
     updateBuildingStatus,
+    getBuilding,
 } from "../controllers/building.js";
 
 const router = express.Router();
@@ -14,5 +15,8 @@ router.patch(
     "/user/:userId/planet/:planetId/building/:buildingType/status",
     updateBuildingStatus
 );
-
+router.get(
+    "/user/:userId/planet/:planetId/building/:buildingType",
+    getBuilding
+);
 export default router;

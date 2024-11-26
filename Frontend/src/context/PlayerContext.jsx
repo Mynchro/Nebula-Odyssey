@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const PlayerContext = createContext();
@@ -8,11 +8,15 @@ export const defaultUser_DEV = {
 };
 
 const PlayerProvider = ({ children }) => {
-  const [playerData, setPlayerData] = useState({});
   const [currentPlayer, setCurrentPlayer] = useState({
     user: defaultUser_DEV,
   });
+  const [choicePlanet, setChoicePlanet] = useState(null);
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(null);
+  const [constructionEndTime, setConstructionEndTime] = useState(null);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const timerRef = useRef(null);
 
   const setSecondaryColor = (color) => {
     document.documentElement.style.setProperty(
@@ -40,12 +44,15 @@ const PlayerProvider = ({ children }) => {
         const color = result.user?.settings?.color || "#cccccc"; // Verwendet Grau als Fallback
         setSecondaryColor(color);
 
-        console.log("Aktueller Spieler nach dem Login:", result.user);
+        //console.log("Aktueller Spieler nach dem Login:", result.user);
+        return true;
       } else {
         console.error("Login fehlgeschlagen:", response.statusText);
+        return false;
       }
     } catch (error) {
       console.error("Fehler beim Login:", error);
+      return false;
     }
   };
 
@@ -66,7 +73,7 @@ const PlayerProvider = ({ children }) => {
         setSecondaryColor(color);
       } else {
         navigate("/");
-        console.log("Keine Benutzerdaten gefunden:", response.statusText);
+        //console.log("Keine Benutzerdaten gefunden:", response.statusText);
       }
     } catch (error) {
       console.error(
@@ -76,6 +83,52 @@ const PlayerProvider = ({ children }) => {
     }
   };
 
+  const startCountdown = (endTime) => {
+    if (timerRunning) return; // Verhindere doppeltes Starten des Timers
+
+    timerRef.current = setInterval(() => {
+      const timeRemaining = new Date(endTime) - new Date();
+      if (timeRemaining <= 0) {
+        clearInterval(timerRef.current); // Stoppe den Timer
+        setTimerRunning(false);
+        setCountdown(0); // Countdown zurücksetzen
+        localStorage.removeItem("countdown");
+        localStorage.removeItem("constructionEndTime");
+      } else {
+        setCountdown(Math.floor(timeRemaining / 1000)); // Setze den Countdown
+      }
+    }, 1000);
+
+    setTimerRunning(true); // Timer läuft jetzt
+  };
+
+  useEffect(() => {
+    const savedEndTimeString = localStorage.getItem("constructionEndTime");
+    if (savedEndTimeString) {
+      const endTime = new Date(savedEndTimeString).getTime();
+      if (!isNaN(endTime)) {
+        setConstructionEndTime(endTime);
+      } else {
+        console.error("Fehler beim Parsen der Endzeit:", savedEndTimeString);
+      }
+    }
+  }, []);
+
+  // Bereinigung
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current); // Stoppe den Timer beim Unmount
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (constructionEndTime && countdown === null) {
+      startCountdown(constructionEndTime);
+    }
+  }, [constructionEndTime, timerRunning]);
+
   useEffect(() => {
     checkLoggedInUser();
   }, []);
@@ -83,10 +136,16 @@ const PlayerProvider = ({ children }) => {
   return (
     <PlayerContext.Provider
       value={{
-        playerData,
         currentPlayer,
+        countdown,
+        setCountdown,
+        startCountdown,
+        constructionEndTime,
+        setConstructionEndTime,
         setCurrentPlayer,
         handleLogin,
+        choicePlanet,
+        setChoicePlanet,
       }}
     >
       {children}

@@ -21,13 +21,13 @@ ul {
   margin: 0;
 }
 
-.defense-info ul li {
-  justify-content: flex-start;
+.hangar-info ul li {
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
 }
-.defense-top {
+
+.hangar-top {
   border: 2px solid var(--primary-color);
   width: 95%;
   height: 500px;
@@ -37,7 +37,7 @@ ul {
   padding: 0px 0 0 25px;
 }
 
-.defense-info {
+.hangar-info {
   width: 200px;
   height: 90%;
   border: 2px solid var(--secondary-color);
@@ -45,9 +45,36 @@ ul {
   padding: 10px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+
+  /* Custom scrollbar styling */
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
 }
 
-.defense-img {
+/* WebKit-basiertes Styling */
+.hangar-info::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.hangar-info::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.hangar-info::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.421); /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.hangar-info::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.421); /* Hover-Farbe des Scrollbalkens */
+}
+
+.hangar-img {
   width: 70%;
   height: 80%;
   margin: auto;
@@ -56,13 +83,22 @@ ul {
   border: 2px solid var(--secondary-color);
 }
 
-.content-box .defense-img img {
+.content-box .hangar-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.defense-bot {
+.ship-description-head-left {
+  text-align: center;
+}
+
+.ship-description-head-right {
+  max-width: 45%;
+  text-align: right;
+}
+
+.hangar-bot {
   border: 2px solid var(--primary-color);
   width: 95%;
   height: 300px;
@@ -71,7 +107,7 @@ ul {
   padding: 25px 0 0 25px;
 }
 
-.defense-btnbox {
+.hangar-btnbox {
   width: 200px;
   height: 100%;
   border: 2px solid var(--secondary-color);
@@ -84,9 +120,11 @@ ul {
   gap: 20px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.defense-description {
+.hangar-description {
   width: 70%;
   height: 100%;
   border: 2px solid var(--secondary-color);
@@ -133,6 +171,26 @@ ul {
   background: var(--border-color);
   z-index: -2;
 }
+.hangar-ship-buttons {
+  width: 100%;
+  padding-left: 35px;
+  margin-top: 40px;
+}
+.hangar-ship-buttons .btn {
+  margin: 5px;
+}
+
+.hangar-description p {
+  text-align: center;
+  margin: 5px;
+}
+.maik {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .btn::after {
   content: "";
@@ -172,11 +230,13 @@ ul {
   );
 }
 
-.defense-description {
+.hangar-description {
   color: white;
   font-size: larger;
   padding: 10px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .active {
@@ -194,4 +254,9 @@ li {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
+}
+.hangar-info ul li {
+  justify-content: space-between;
+  font-size: 1.6rem;
+  font-weight: 200;
 }

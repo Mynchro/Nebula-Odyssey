@@ -1,151 +1,342 @@
+@font-face {
+  font-family: "Amiga4ever";
+  src: url("/amiga_forever/amiga4ever.ttf") format("truetype");
+}
+
 .armada-top {
-    border: 2px solid var(--primary-color);
-    width: 100%;
-    height: 454px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 10px;
-    margin-top: -10px;
-  }
+  border: 2px solid var(--primary-color);
+  width: 100%;
+  height: 454px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: -10px;
+}
 .armada-info {
-    width: 200px;
-    height: 93%;
-    border: 2px solid var(--secondary-color);
-    margin: auto 0;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.7);
-  }
-  .armada-info ul li {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    list-style: none;
-  }
+  width: 200px;
+  height: 93%;
+  border: 2px solid var(--secondary-color);
+  margin: auto 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.armada-info ul li {
+  border-radius: 5px;
+  gap: 10px;
+  margin-bottom: 15px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.fleet-overview {
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
 .armada-btnbox {
-    width: 100%;
-    height: 60px;
-    border: 2px solid var(--secondary-color);
-    margin: auto 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.7);
-  }
-.armada-rightbox{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    width: 70%;
+  width: 100%;
+  height: 60px;
+  border: 2px solid var(--secondary-color);
+  margin: auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+}
+.armada-rightbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 70%;
 }
 .armada-img {
-    width: 100%;
-    height: 80%;
-    margin: auto;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 2px solid var(--secondary-color);
-  }
-#armada-in-activity{
-    width: 80px;
-    height: 80px;
+  width: 100%;
+  height: 80%;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--secondary-color);
+  display: flex;
+  position: relative;
 }
-  .content-box .armada-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+#armada-in-activity {
+  width: 80px;
+  height: 80px;
 }
-section{
-    position: relative;
-    width: 100%;
-    height:45%;
-    box-sizing: border-box;
-    padding: 20px;
+
+section {
+  position: relative;
+  width: 100%;
+  height: 45%;
+  box-sizing: border-box;
+  padding: 20px;
 }
-.activity{
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    padding: 10px 0px;
-    background: var(--accent-color);
-    --edge-size: 1.25em;
-    clip-path: polygon(
-      var(--edge-size) 0%,
-      100% 0,
-      100% calc(100% - var(--edge-size)),
-      calc(100% - var(--edge-size)) 100%,
-      0 100%,
-      0% var(--edge-size)
-    );
-    box-shadow: 0px 0px 0px 5px var(--secondary-color),
-      inset 0px 10px 27px -8px #141414,
-      inset 0px -10px 27px -8px var(--secondary-color),
-      1px -2px 31px 34px rgba(0, 0, 0, 0);
+
+.activities {
+  display: flex;
+  justify-content: center;
 }
-.activity-visual{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 50%;
+.activity {
+  display: flex;
+  width: 94%;
+  align-items: center;
+  margin-top: 15px;
+  padding: 10px 0px;
+  background: var(--accent-color);
+  --edge-size: 1.25em;
+  clip-path: polygon(
+    var(--edge-size) 0%,
+    100% 0,
+    100% calc(100% - var(--edge-size)),
+    calc(100% - var(--edge-size)) 100%,
+    0 100%,
+    0% var(--edge-size)
+  );
+  box-shadow: 0px 0px 0px 5px var(--secondary-color),
+    inset 0px 10px 27px -8px #141414,
+    inset 0px -10px 27px -8px var(--secondary-color),
+    1px -2px 31px 34px rgba(0, 0, 0, 0);
 }
-.activity-info{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 50%;
-    list-style: none;
+.activity-visual {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+.activity-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  list-style: none;
 }
 @keyframes forwardMove {
-    from { transform: translateX(-90px); }
-    to { transform: translateX(90px); }
+  from {
+    transform: translateX(-90px);
+  }
+  to {
+    transform: translateX(90px);
+  }
 }
 @keyframes backwardMove {
-    from { transform: translateX(90px); }
-    to { transform: translateX(-90px) }
+  from {
+    transform: translateX(90px);
+  }
+  to {
+    transform: translateX(-90px);
+  }
 }
-.ship-backward, .ship-forward {
-    height: 25px !important;
-    width: 25px !important;
+.ship-backward,
+.ship-forward {
+  height: 25px !important;
+  width: 25px !important;
 }
 .ship-forward {
-    animation: forwardMove linear;
+  animation: forwardMove linear;
 }
 .ship-backward {
-    animation: backwardMove linear;
+  animation: backwardMove linear;
 }
 .ship-hidden {
-    display: none;
+  display: none;
 }
-.timer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.armada-title{
-    height: 10%;
-    width: 100%;
-    border-bottom: var(--secondary-color) 2px solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding-bottom: 15px;
-  }
-.activity-planet{  
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    margin: -30px 0px 15px 0px;
+.armada-title {
+  height: 10%;
+  width: 100%;
+  border-bottom: var(--secondary-color) 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 15px;
 }
-.text-title{
-    text-align: left;
-    width: 100%;
-    margin-top: 5px;
-    text-decoration: none;
+.activity-planet {
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  margin: -30px 0px 15px 0px;
+}
+.text-title {
+  text-align: left;
+  width: 100%;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+.active {
+  --background-color: linear-gradient(
+    to bottom right,
+    #091e2c,
+    var(--secondary-color)
+  );
+  color: white;
+  font-weight: bolder;
+}
+
+.armada-screen-left {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.armada-screen-right {
+  width: 30%;
+  height: 100%;
+  border-left: 2px solid var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.579);
+  text-align: center;
+}
+
+.planet-to-colonize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  gap: 10px;
+}
+
+.planet-to-colonize h4 {
+  text-decoration: underline;
+}
+.planet-to-colonize p {
+  text-align: center;
+}
+
+.planet-to-colonize > h4 {
+  text-align: center;
+}
+
+.choicePlanet-img {
+  max-width: 75px;
+  max-height: 75px;
+  margin: 10px 0 10px 0;
+}
+
+.armada-screen-description {
+  border-bottom: 2px solid var(--secondary-color);
+  background: rgba(0, 0, 0, 0.579);
+  height: 20%;
+  font-family: "Amiga4ever", sans-serif;
+  color: rgb(29, 242, 29);
+
+  padding-top: 10px;
+}
+
+.armada-screen-selection {
+  background: rgba(0, 0, 0, 0.579);
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  font-family: "Amiga4ever", sans-serif;
+  color: rgb(29, 242, 29);
+  font-size: smaller;
+}
+
+.armada-shiplist {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ship-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--secondary-color);
+  font-family: "Amiga4ever", sans-serif;
+
+  font-size: small;
+}
+.ship-item p {
+  margin: 0;
+  font-weight: bold;
+  flex-basis: 30%; /* Adjust the width for each column */
+}
+
+.current-position {
+  height: 50%;
+  border-top: 2px solid var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-position h4 {
+  margin-bottom: 15px;
+  text-decoration: underline;
+}
+
+.current-position p {
+  margin-top: 15px;
+}
+
+.current-position-img {
+  max-height: 75px;
+  max-width: 75px;
+  cursor: default;
+}
+
+.increment-decrement {
+  display: flex;
+  align-items: center;
+  flex-basis: 40%;
+}
+
+.increment-decrement input.addShips {
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  font-size: small;
+  margin-right: 5px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.increment-decrement button {
+  font-size: small;
+  margin-left: 2px;
+  margin-right: 2px;
+  background: var(--secondary-color); /* Button background color */
+}
+
+.plus-ten,
+.minus-ten {
+  min-width: fit-content;
+}
+
+.selected-planet-name {
+  text-shadow: 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000,
+    -1px -1px 0 #000000, 1px 0px 0 #000000, 0px 1px 0 #000000,
+    -1px 0px 0 #000000, 0px -1px 0 #000000;
 }

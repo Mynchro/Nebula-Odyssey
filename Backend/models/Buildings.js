@@ -47,6 +47,9 @@ export const buildingSchema = new Schema({
         type: Number,
         default: 0,
     },
+    constructionEndTime: {
+        type: Date,
+    },
     constructionCosts: {
         type: resourceSchema,
         default: {},
@@ -62,6 +65,9 @@ export const buildingSchema = new Schema({
     storageCapacity: {
         type: Number,
         default: 0,
+    },
+    shipTyps: {
+        type: Object,
     },
 });
 

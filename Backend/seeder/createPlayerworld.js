@@ -33,10 +33,9 @@ export const createPlayerworld = async (userId) => {
     if (!user) throw new Error(`Benutzer mit der ID ${userId} nicht gefunden!`);
 
     const defaultBuildings = await Building.find();
-    const defaultResources = await Resource.findOne();
     const defaultShips = await ship.find();
 
-    if (!defaultResources || !defaultBuildings) {
+    if (!defaultBuildings) {
       throw new Error(
         "Keine Ressourcen oder Gebäude in der Datenbank gefunden!"
       );
@@ -73,11 +72,14 @@ export const createPlayerworld = async (userId) => {
         category: building.category,
         originalBuildingId: building._id,
         constructionTime: building.constructionTime,
+        constructionEndTime: building.constructionEndTime,
         constructionCosts: building.constructionCosts,
         baseValue: building.baseValue,
         productionRate: building.productionRate,
         storageCapacity: building.storageCapacity,
+        shipTyps: building.shipTyps,
       })),
+      buildingInProgress: user.buildingInProgress,
       ships: defaultShips.map((ship) => ({
         shipType: ship.shipType,
         shipYardType: ship.shipYardType,
@@ -89,10 +91,19 @@ export const createPlayerworld = async (userId) => {
         dmgVs: ship.dmgVs,
         label: ship.label,
         description: ship.description,
-        img: ship.img
-
+        img: ship.img,
       })),
-      resources: defaultResources._id,
+      resources: {
+        silicon: 1000,
+        ores: 500,
+        chemicals: 300,
+        fuel: 200,
+        energy: 1000,
+        steel: 700,
+        electronics: 400,
+        ammo: 600,
+      },
+
       position: {
         page: pageNumber,
         positionOnPage: 0,
@@ -120,7 +131,7 @@ export const createPlayerworld = async (userId) => {
 
       const newPlanet = new Planet({
         owner: null,
-        name: `Planet ${i + 1}`,
+        name: `Planet ${pageNumber}-${remainingPositions[i].positionOnPage}`,
         image: randomImage,
         buildings: defaultBuildings.map((building) => ({
           buildingType: building.buildingType,
@@ -147,7 +158,16 @@ export const createPlayerworld = async (userId) => {
           description: ship.description,
           img: ship.img,
         })),
-        resources: defaultResources._id,
+        resources: {
+          silicon: 500,
+          ores: 300,
+          chemicals: 200,
+          fuel: 100,
+          energy: 500,
+          steel: 400,
+          electronics: 200,
+          ammo: 300,
+        },
         position: {
           page: pageNumber,
           positionOnPage: remainingPositions[i].positionOnPage,

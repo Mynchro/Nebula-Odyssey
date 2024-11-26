@@ -19,7 +19,7 @@ export const register = async (req, res) => {
   // check password-safety with regex
   const isPasswordStrong = (password) => {
     const passwordRequirements =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/; // Mindestens 8 Zeichen, mindestens 1 Kleinbuchstabe, 1 Großbuchstabe, 1 Zahl und 1 Sonderzeichen
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/; // At least 8 characters, at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character
     return passwordRequirements.test(password);
   };
 
@@ -31,7 +31,6 @@ export const register = async (req, res) => {
   }
 
   try {
-    // check existing User
     const existingUser = await User.findOne({ userName });
     if (existingUser) {
       return res.status(400).json({
@@ -39,15 +38,15 @@ export const register = async (req, res) => {
       });
     }
 
-    // Bestimme die nächste verfügbare Seite
+    // set next available page
     const userCount = await User.countDocuments();
-    const pageNumber = userCount + 1; // Setze die Seite auf userCount + 1
+    const pageNumber = userCount + 1;
 
     // hash password with bcrypt
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Create a new user
+    // create a new user
     const newUser = new User({
       userName,
       email,
@@ -55,12 +54,10 @@ export const register = async (req, res) => {
       page: pageNumber,
     });
 
-    // Save the user
+    // save the user
     await newUser.save();
 
     const homePlanet = await createPlayerworld(newUser._id);
-
-    // newUser.planets.push(homePlanet._id);
 
     return res.status(201).json({
       message: "Benutzer erfolgreich registriert! Heimatplanet zugewiesen!",
@@ -87,10 +84,9 @@ export const login = async (req, res) => {
   const { userName, password } = req.body;
 
   try {
-    // check if user exists in the db
     const user = await User.findOne({ userName }).populate({
       path: "planets",
-      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+      populate: [{ path: "buildings" }, { path: "position", select: "page" }],
     });
 
     if (!user) {
@@ -132,6 +128,8 @@ export const login = async (req, res) => {
         planets: user.planets,
         _id: user._id,
         settings: user.settings,
+        page: user.page,
+        buildingInProgress: user.buildingInProgress,
       },
     });
   } catch (error) {
@@ -185,7 +183,7 @@ export const checkLoginStatus = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate({
       path: "planets",
-      populate: { path: "buildings" }, // Populiere die Gebäude des Planeten
+      populate: [{ path: "buildings" }, { path: "position", select: "page" }], // Populiere die Gebäude des Planeten
     });
     if (!user) return res.sendStatus(404);
 
@@ -194,11 +192,8 @@ export const checkLoginStatus = async (req, res) => {
       userName: user.userName,
       settings: user.settings,
       planets: user.planets,
-      // user: {
-      //   userName: user.userName,
-      //   planets: user.planets,
-      //   _id: user._id,
-      // },
+      page: user.page,
+      buildingInProgress: user.buildingInProgress,
     });
   } catch (error) {
     console.error("Fehler bei /check:", error);
@@ -233,6 +228,7 @@ export const logout = async (req, res) => {
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
     });
+
     res.status(200).json({ message: "Logout erfolgreich!" });
   } catch (error) {
     return res.status(400).json({ message: "Ungültiger Token." });

@@ -1,14 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
 import "./Spacemap.css";
 import { PlanetBox } from "../../components/Spacemap/Planetbox";
+import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 const Spacemap = () => {
-  const [choicePlanet, setChoicePlanet] = useState(null);
+  const { currentPlayer, choicePlanet, setChoicePlanet } =
+    useContext(PlayerContext);
   const [planets, setPlanets] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const planetsPerPage = 9;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (currentPlayer?.page) {
+      setCurrentPage(currentPlayer.page);
+    }
+  }, [currentPlayer]);
+
+  useEffect(() => {
+    setLoading(true);
     fetch("http://localhost:3000/api/planets")
       .then((response) => {
         if (!response.ok) {
@@ -18,9 +31,9 @@ const Spacemap = () => {
       })
       .then((data) => {
         data.forEach((planet, index) => {
-          console.log(
-            `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
-          );
+          // console.log(
+          //   `Planet ${index}: Page - ${planet.position?.page}, PositionOnPage - ${planet.position?.positionOnPage}`
+          // );
         });
 
         const sortedData = data.sort((a, b) => {
@@ -36,10 +49,12 @@ const Spacemap = () => {
         });
 
         setPlanets(sortedData);
-        console.log("spaceMapdata (sortiert):", sortedData);
       })
       .catch((error) => {
         console.error("Fehler beim Laden der Planeten:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -57,7 +72,7 @@ const Spacemap = () => {
   };
 
   return (
-    <div className="content-box" onClick={() => setChoicePlanet(null)}>
+    <div className="content-box">
       <div className="solarsystem">
         <i
           className="fa-solid fa-spaghetti-monster-flying"
@@ -80,48 +95,67 @@ const Spacemap = () => {
           <span className="arrow-right"></span>
         </button>
       </div>
-      <div className="galaxy">
-        <div className="planet-overview">
-          {choicePlanet ? (
-            <>
-              <img
-                id="planet-overview-img"
-                src={choicePlanet.image}
-                alt={choicePlanet.name}
-              />
-              <div>
-                <p>{`Planetname: ${choicePlanet.name}`}</p>
-                <p>{`Besitzer: ${
-                  choicePlanet.owner
-                    ? choicePlanet.owner.userName
-                    : "Unknown Owner"
-                }`}</p>
-                <p>{`Buildings: ${choicePlanet.buildings.length}`}</p>
-              </div>
-            </>
-          ) : (
-            <p>Klicke auf einen Planeten, um Details zu sehen</p>
-          )}
+      {loading ? (
+        <LoadingScreen message="Scanne Sonnensystem..." />
+      ) : currentPlanets.length ? (
+        <div className="galaxy">
+          <div className="planet-overview">
+            {choicePlanet ? (
+              <>
+                <img
+                  id="planet-overview-img"
+                  src={choicePlanet.image}
+                  alt={choicePlanet.name}
+                />
+                <div className="planet-menu">
+                  <p>{`Planetname: ${choicePlanet.name}`}</p>
+                  <p>{`Besitzer: ${
+                    choicePlanet.owner
+                      ? choicePlanet.owner.userName
+                      : "Unerforscht"
+                  }`}</p>
+                  {choicePlanet.name === "Nebula" ? (
+                    <p>Heimatplaneten können nicht besiedelt werden!</p>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        navigate("/armada");
+                      }}
+                      className="btn set-armada"
+                    >
+                      Armada zusammenstellen
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <p>Klicke auf einen Planeten, um Details zu sehen</p>
+            )}
+          </div>
+          {currentPlanets.map((planet) => (
+            <PlanetBox
+              key={planet._id}
+              number={planet.position.positionOnPage + 1}
+              image={planet.image}
+              alt="planet"
+              info={`Buildings: ${planet.buildings.length}`}
+              circleColor={"#ff0000"}
+              triangleColor={"#00ff00"}
+              skullColor={"#0000ff"}
+              planetName={planet.name}
+              playerName={
+                planet.owner ? planet.owner.userName : "Unerforscht"
+              }
+              className={`planet-box ${
+                choicePlanet && choicePlanet._id === planet._id ? "choice" : ""
+              }`}
+              onClick={() => setChoicePlanet(planet)}
+            />
+          ))}
         </div>
-        {currentPlanets.map((planet) => (
-          <PlanetBox
-            key={planet._id}
-            number={planet.position.positionOnPage + 1}
-            image={planet.image}
-            alt="planet"
-            info={`Buildings: ${planet.buildings.length}`}
-            circleColor={"#ff0000"}
-            triangleColor={"#00ff00"}
-            skullColor={"#0000ff"}
-            planetName={planet.name}
-            playerName={planet.owner ? planet.owner.userName : "Unknown Owner"}
-            className={`planet-box ${
-              choicePlanet && choicePlanet._id === planet._id ? "choice" : ""
-            }`}
-            onClick={() => setChoicePlanet(planet)}
-          />
-        ))}
-      </div>
+      ) : (
+        <p>Keine Planeten gefunden.</p>
+      )}
     </div>
   );
 };

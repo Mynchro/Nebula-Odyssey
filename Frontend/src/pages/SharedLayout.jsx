@@ -6,6 +6,7 @@ import Menubox from "../components/Menubox/Menubox";
 import Chatbox from "../components/Chatbox/Chatbox";
 import { useState, useContext } from "react";
 import { PlayerContext } from "../context/PlayerContext";
+import Footer from "../components/Footer/Footer";
 
 const SharedLayout = () => {
   const { currentPlayer } = useContext(PlayerContext);
@@ -13,7 +14,6 @@ const SharedLayout = () => {
 
   // Hol das Planeten-Array vom aktuellen Spieler
   const planets = currentPlayer?.planets || [];
-  console.log("xyz:", currentPlayer.planets);
 
   // Funktion zum Aktualisieren des ausgewählten Planeten
   const handlePlanetSelect = (index) => {
@@ -38,6 +38,7 @@ const SharedLayout = () => {
         <Chatbox />
       </main>
       {/* footer */}
+      <Footer />
     </>
   );
 };

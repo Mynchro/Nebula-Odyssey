@@ -28,6 +28,9 @@ const Menubox = () => {
             <NavLink to='/defense'className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn verteidigung">Verteidigung</button>
             </NavLink>
+            <NavLink to='/hangar'className={({ isActive }) => isActive ? 'active' : ''}>
+                <button className="btn hangar">Hangar</button>
+            </NavLink>
             <NavLink to='/armada' className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn armada">Armada</button>
             </NavLink>
