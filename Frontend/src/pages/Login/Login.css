@@ -2,11 +2,18 @@ body {
   margin: 0;
   background: url('/background-img/background-a.jpg') no-repeat center center;
   background-size: cover;
-  transition: background 1s ease;
+  transition: 
+    background-color 0.2s ease-in-out, 
+    transform 0.2s cubic-bezier(0.2, 0, 0.2, 0.2s), 
+    opacity 0.2s ease;
 }
 body.logged-in {
   background: url('/background-img/background-old.jpg');
   background-size: cover;
+  transition: 
+    background-color 0.2s ease-in-out, 
+    transform 0.2s cubic-bezier(0.2, 0, 0.2, 0.2s), 
+    opacity 0.2s ease;
 }
 
 .login-content {
