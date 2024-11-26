@@ -101,14 +101,12 @@ Ensure you have a modern web browser like Chrome or Firefox.
 
 #### Registration
 Visit Nebula Odyssey and click on "Sign Up".
-Create an account using your email or social login.
-Verify your email to activate the account.
+Create an account using your email.
 
 #### Installation
 No installation is required; simply log in and begin exploring the galaxy!
 
 #### First Steps
-Customize your avatar.
 Visit your first planet and gather resources.
 Join the community in multiplayer mode.
 Optional: Configure Settings
@@ -170,7 +168,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 - MrGummibear  (https://github.com/MrGummibear)
 - Mynchro  (https://github.com/Mynchro)
 
-Project Link: https://github.com/MrGummibear/Nebula-Odyssey.git
+Project Link: https://github.com/Mynchro/Nebula-Odyssey
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
