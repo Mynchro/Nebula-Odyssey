@@ -1,8 +1,14 @@
-body{
-  background-image: url(/background-img/background-a.jpg);
-  background-repeat: no-repeat;
+body {
+  margin: 0;
+  background: url('/background-img/background-a.jpg') no-repeat center center;
+  background-size: cover;
+  transition: background 1s ease;
+}
+body.logged-in {
+  background: url('/background-img/background-old.jpg');
   background-size: cover;
 }
+
 .login-content {
   width: 100%;
   height: 100vh;

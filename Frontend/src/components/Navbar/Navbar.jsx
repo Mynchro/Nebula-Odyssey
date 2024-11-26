@@ -31,10 +31,15 @@ const Navbar = () => {
         {},
         { withCredentials: true }
       );
+
+      // Entferne die Hintergrundklasse
+      document.body.classList.remove("logged-in");
+
       localStorage.removeItem("countdown"),
       localStorage.removeItem("constructionEndTime"),
       localStorage.removeItem("selectedBuilding"),
       localStorage.removeItem("activeType"),
+      localStorage.removeItem("isLoggedIn", "true"),
       setCurrentPlayer(defaultUser_DEV);
       navigate("/");
     } catch (error) {
