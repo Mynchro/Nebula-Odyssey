@@ -22,11 +22,13 @@ ul {
 }
 
 .defense-info ul li {
-  justify-content: flex-start;
+  justify-content: space-between;
+  font-size: 1.4rem;
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
 }
+
 .defense-top {
   border: 2px solid var(--primary-color);
   width: 95%;
@@ -45,6 +47,32 @@ ul {
   padding: 10px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
+}
+
+/* WebKit-basiertes Styling */
+.defense-info::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.defense-info::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.defense-info::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.421); /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.defense-info::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.421); /* Hover-Farbe des Scrollbalkens */
 }
 
 .defense-img {
@@ -84,6 +112,31 @@ ul {
   gap: 20px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
+}
+
+/* WebKit-basiertes Styling */
+.defense-btnbox ::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.defense-btnbox ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.defense-btnbox ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.421); /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.defense-btnbox ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.421); /* Hover-Farbe des Scrollbalkens */
 }
 
 .defense-description {
@@ -189,9 +242,6 @@ ul {
   font-weight: bolder;
 }
 
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
+.btn-uebersicht {
+  margin-top: 60px;
 }

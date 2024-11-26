@@ -265,6 +265,13 @@ section {
   align-items: center;
 }
 
+.armada-shiplist li {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
 .ship-item {
   display: flex;
   align-items: center;
