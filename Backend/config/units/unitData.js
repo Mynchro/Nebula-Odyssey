@@ -187,7 +187,7 @@ class GrosserTransporter extends Unit {
         this.cargo = 50000;
         this.unittype = Unit.unittype.largeTransporter;
         this.img =
-            "/werften/mittlere_werft/grosser_transporter/groser_transporter.png";
+            "/werften/mittlere_werft/grosser_transporter/grosser_transporter.png";
         this.label = "Großer Transporter";
         this.description =
             "Ein großer Transporter mit erhöhter Ladefähigkeit für den Transport großer Mengen an Gütern. Gut geschützt und mit defensiven Waffensystemen ausgestattet. Ideal für längere Handelsrouten und Versorgungsmissionen. Bietet hohe Sicherheit für wertvolle Ladungen.";
