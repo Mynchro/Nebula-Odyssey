@@ -30,19 +30,6 @@ body{
   position: absolute;
   z-index: -1;
 }
-.schlachtkreuzer-img {
-  position: absolute;
-  left: 100px;
-  bottom: 100px;
-  z-index: -2;
-}
-.schlachtschiff-img {
-  position: absolute;
-  right: 100px;
-  bottom: 200px;
-  z-index: -2;
-}
-
 .login-title {
   font-size: 5rem;
   text-shadow: 0 0 15px #15cdd7, 0 0 10px #048087;
