@@ -24,22 +24,20 @@ const Shipyard = () => {
 
   const [lightShipyardIsBuilding, setLightShipyardIsBuilding] = useState(false);
   const [lightShipInProcess, setLightShipInProcess] = useState("");
-  const [lightShipTimeLeft, setLightShipTimeLeft] = useState("00:00:00")
-  const [mediumShipyardIsBuilding, setMediumShipyardIsBuilding] = useState(false);
+  const [lightShipTimeLeft, setLightShipTimeLeft] = useState("00:00:00");
+  const [mediumShipyardIsBuilding, setMediumShipyardIsBuilding] =
+    useState(false);
   const [mediumShipInProcess, setMediumShipInProcess] = useState("");
-  const [mediumShipTimeLeft, setMediumShipTimeLeft] = useState("00:00:00")
+  const [mediumShipTimeLeft, setMediumShipTimeLeft] = useState("00:00:00");
   const [heavyShipyardIsBuilding, setHeavyShipyardIsBuilding] = useState(false);
   const [heavyShipInProcess, setHeavyShipInProcess] = useState("");
-  const [heavyShipTimeLeft, setHeavyShipTimeLeft] = useState("00:00:00")
+  const [heavyShipTimeLeft, setHeavyShipTimeLeft] = useState("00:00:00");
 
   const handleShipType = async (type) => {
     const loadedShips = await loadShips(); // Schiffe laden
-    //console.log("Geladene Schiffe:", loadedShips); // Debugging: Zeige alle geladenen Schiffe an
     const loadetPlanet = await loadPlanet();
     // Verwende reduce, um Schiffe mit dem gültigen shipYardType zu sammeln
     const filteredShips = loadedShips.reduce((result, ship) => {
-      //console.log(type + " der typ");
-      //console.log(ship.shipYardType + " shipyardtype");
       if (type === ship.shipYardType) {
         result.push(ship); // Füge das Schiff der Ergebnisliste hinzu
       }
@@ -47,39 +45,45 @@ const Shipyard = () => {
     }, []);
     setShips(filteredShips); // Setze den Zustand mit den gefilterten Schiffen
     setActiveType(type); // Setze den aktiven Werfttyp
-    
+
     setLightShipyardIsBuilding(loadetPlanet.lightShipIsBuilding);
     setMediumShipyardIsBuilding(loadetPlanet.mediumShipIsBuilding);
     setHeavyShipyardIsBuilding(loadetPlanet.heavyShipIsBuilding);
 
-    setLightShipTimeLeft(getTimeRemaining(loadetPlanet.finishingTimeOfLightShipsInBuilding) );
-    setMediumShipTimeLeft(getTimeRemaining(loadetPlanet.finishingTimeOfMediumShipsInBuilding));
-    setHeavyShipTimeLeft(getTimeRemaining(loadetPlanet.finishingTimeOfHeavyShipsInBuilding));
+    setLightShipTimeLeft(
+      getTimeRemaining(loadetPlanet.finishingTimeOfLightShipsInBuilding)
+    );
+    setMediumShipTimeLeft(
+      getTimeRemaining(loadetPlanet.finishingTimeOfMediumShipsInBuilding)
+    );
+    setHeavyShipTimeLeft(
+      getTimeRemaining(loadetPlanet.finishingTimeOfHeavyShipsInBuilding)
+    );
 
     setLightShipInProcess(loadetPlanet.typeOfLightShipsInBuilding);
     setMediumShipInProcess(loadetPlanet.typeOfMediumShipsInBuilding);
     setHeavyShipInProcess(loadetPlanet.typeOfHeavyShipsInBuilding);
-    
   };
   const loadPlanet = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/user/${currentPlayer._id}/planet/${selectedPlanet._id}/getPlanetById`)
+      const response = await fetch(
+        `http://localhost:3000/api/user/${currentPlayer._id}/planet/${selectedPlanet._id}/getPlanetById`
+      );
       if (!response.ok) {
         throw new Error("Fehler beim Laden des Planeten");
       }
-      //console.log(await response.json());
-
 
       return response.json();
+    } catch {
+      throw new Error("loadPlanet funktioniert nicht");
     }
-    catch {
-      throw new Error("loadPlanet funktioniert nicht")
-    }
-  }
+  };
   const loadShips = async () => {
     try {
       //"/user/:userId/:planetId/getPlayerShips"
-      const response = await fetch(`http://localhost:3000/shipyard/user/${currentPlayer._id}/${selectedPlanet._id}/getPlayerShips`);
+      const response = await fetch(
+        `http://localhost:3000/shipyard/user/${currentPlayer._id}/${selectedPlanet._id}/getPlayerShips`
+      );
       //const response = await fetch("http://localhost:3000/shipyard/shipdata");
       //`http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/getShip/${selectedPlanet._id}`,
       if (!response.ok) {
@@ -97,8 +101,6 @@ const Shipyard = () => {
   };
   const changeDescriptionAndImage = async (descriptionKey) => {
     let item = null;
-    //console.log(selectedPlanet._id + " das hier ist DER AUSGEWÄHLÖTE PLANET")
-    //console.log("Schiffe im State:", ships); // Ausgabe der Schiffe im State
 
     // Suche nach dem Schiff anhand des shipType
     for (const ship of ships) {
@@ -109,27 +111,18 @@ const Shipyard = () => {
       }
     }
 
-    //console.log("aktueller planet " + selectedPlanet)
-    //console.log("Gefundenes Schiff:", item); // Gib das gefundene Schiff aus
-
     if (item) {
       setShipData({
         ...item.ressourceCosts, // Alle Eigenschaften von 'ressourceCosts'
         ...item.values, // Alle Eigenschaften von 'values'
-
       });
 
-      //console.log("shipdata zum anzeigen lassen" +shipData.steel)
-
-      //console.log(selectedPlanet + " ausgewählter")
       setShipAmount(item.amount);
-      setshipBuildTime(item.buildTime)
-      //console.log(item.label +" das sollte das label sein")
+      setshipBuildTime(item.buildTime);
       setShipImage(`url(${item.img})`);
       setShipTitle(item.label);
       setShipDescription(item.description);
       setActiveShip(descriptionKey); // Set the active ship button
-
     }
   };
 
@@ -161,8 +154,7 @@ const Shipyard = () => {
   const { currentPlayer } = useContext(PlayerContext);
   const [buyMessage, setBuyMessage] = useState("");
 
-  const update = async () =>
-  {
+  const update = async () => {
     try {
       const response = await fetch(
         `http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/getShip/${selectedPlanet._id}`,
@@ -178,18 +170,15 @@ const Shipyard = () => {
         const data = await response.json(); // Antwort des Servers (falls im JSON-Format)
         setCurrentPlayer(data.user);
         setShipAmount(data.ship.amount);
-
       } else {
         console.error("Fehler beim laden der Daten:", response.statusText);
       }
     } catch (error) {
       console.error("Es gab einen Fehler:", error);
-    };
+    }
   };
   const buildShip = async () => {
     try {
-      //console.log(activeShip + " mein aktives activeShip");
-      //const planetId =currentPlayer.
       const response = await fetch(
         `http://localhost:3000/shipyard/user/${currentPlayer._id}/ship/${activeShip}/buildShip/${selectedPlanet._id}/${count}`,
         {
@@ -203,53 +192,60 @@ const Shipyard = () => {
 
       if (response.ok) {
         const data = await response.json(); // Antwort des Servers (falls im JSON-Format)
-        setLightShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfLightShipsInBuilding))
-        setMediumShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfMediumShipsInBuilding))
-        setHeavyShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfHeavyShipsInBuilding))
+        setLightShipTimeLeft(
+          getTimeRemaining(data.planet.finishingTimeOfLightShipsInBuilding)
+        );
+        setMediumShipTimeLeft(
+          getTimeRemaining(data.planet.finishingTimeOfMediumShipsInBuilding)
+        );
+        setHeavyShipTimeLeft(
+          getTimeRemaining(data.planet.finishingTimeOfHeavyShipsInBuilding)
+        );
         if (data.ship.shipYardType === "lightShipyard") {
           setLightShipyardIsBuilding(true);
-          setLightShipInProcess(data.ship.label)
-          setLightShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfLightShipsInBuilding))
+          setLightShipInProcess(data.ship.label);
+          setLightShipTimeLeft(
+            getTimeRemaining(data.planet.finishingTimeOfLightShipsInBuilding)
+          );
         }
         if (data.ship.shipYardType === "mediumShipyard") {
           setMediumShipyardIsBuilding(true);
-          setMediumShipInProcess(data.ship.label)
-          setMediumShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfMediumShipsInBuilding))
+          setMediumShipInProcess(data.ship.label);
+          setMediumShipTimeLeft(
+            getTimeRemaining(data.planet.finishingTimeOfMediumShipsInBuilding)
+          );
         }
         if (data.ship.shipYardType === "heavyShipyard") {
           setHeavyShipyardIsBuilding(true);
-          setHeavyShipInProcess(data.ship.label)
-          setHeavyShipTimeLeft(getTimeRemaining(data.planet.finishingTimeOfHeavyShipsInBuilding))
+          setHeavyShipInProcess(data.ship.label);
+          setHeavyShipTimeLeft(
+            getTimeRemaining(data.planet.finishingTimeOfHeavyShipsInBuilding)
+          );
         }
         setCurrentPlayer(data.user);
         setShipAmount(data.ship.amount);
 
         console.log("Schiff erfolgreich gebaut:", data);
-        //console.log("Antwort vom Backend:", data);
       } else {
         console.error("Fehler beim Bauen des Schiffs:", response.statusText);
       }
-      
     } catch (error) {
       console.error("Es gab einen Fehler:", error);
     }
-  
-    //location.reload();
   };
-  
+
   const toggleBuyButton = () => {
     if (activeType === "lightShipyard") {
       if (lightShipyardIsBuilding) {
         return (
           <button className="btn buy-btn" disabled>
-            {lightShipInProcess + " im Bau " +lightShipTimeLeft}
+            {lightShipInProcess + " im Bau " + lightShipTimeLeft}
           </button>
         );
-      }
-      else {
+      } else {
         return (
           <button className="btn buy-btn" onClick={() => buildShip()}>
-            Kaufen
+            Bauen
           </button>
         );
       }
@@ -258,13 +254,13 @@ const Shipyard = () => {
       if (mediumShipyardIsBuilding) {
         return (
           <button className="btn buy-btn" disabled>
-            {mediumShipInProcess + " im Bau " +mediumShipTimeLeft }
+            {mediumShipInProcess + " im Bau " + mediumShipTimeLeft}
           </button>
         );
       }
       return (
         <button className="btn buy-btn" onClick={() => buildShip()}>
-          Kaufen
+          Bauen
         </button>
       );
     }
@@ -272,44 +268,40 @@ const Shipyard = () => {
       if (heavyShipyardIsBuilding) {
         return (
           <button className="btn buy-btn" disabled>
-            {heavyShipInProcess + " im Bau " +heavyShipTimeLeft}
+            {heavyShipInProcess + " im Bau " + heavyShipTimeLeft}
           </button>
         );
       }
       return (
         <button className="btn buy-btn" onClick={() => buildShip()}>
-          Kaufen
+          Bauen
         </button>
       );
     }
-  }
+  };
 
   useEffect(() => {
     // Erstelle ein Intervall, das jede Sekunde den State verändert
     const interval = setInterval(() => {
-      
-      console.log(lightShipTimeLeft)
-      if(lightShipInProcess){
+      if (lightShipInProcess) {
         setLightShipTimeLeft(reduceSecond(lightShipTimeLeft));
-        //console.log(lightShipTimeLeft+" hier lightshiptimeleft" );
-        if(isTimeZeroOrNegative(lightShipTimeLeft)){
+        if (isTimeZeroOrNegative(lightShipTimeLeft)) {
           setLightShipyardIsBuilding(false);
           setLightShipInProcess(false);
           //update();
         }
       }
-      if(mediumShipInProcess){
+      if (mediumShipInProcess) {
         setMediumShipTimeLeft(reduceSecond(mediumShipTimeLeft));
-        if(isTimeZeroOrNegative(mediumShipTimeLeft)){
+        if (isTimeZeroOrNegative(mediumShipTimeLeft)) {
           setMediumShipyardIsBuilding(false);
           setMediumShipInProcess(false);
           //update();
         }
       }
-      if(heavyShipInProcess)
-      {
+      if (heavyShipInProcess) {
         setHeavyShipTimeLeft(reduceSecond(heavyShipTimeLeft));
-        if(isTimeZeroOrNegative(heavyShipTimeLeft)){
+        if (isTimeZeroOrNegative(heavyShipTimeLeft)) {
           setHeavyShipyardIsBuilding(false);
           setHeavyShipInProcess(false);
           //update();
@@ -324,82 +316,79 @@ const Shipyard = () => {
   function getTimeRemaining(finishingTime) {
     // Holen der aktuellen Zeit
     const now = new Date();
-  
+
     // Zerlegen der finishingTime in Stunden, Minuten und Sekunden
     const [hours, minutes, seconds] = finishingTime.split(":").map(Number);
-  
+
     // Erstellen eines Date-Objekts für die Fertigstellungszeit
     const finishDate = new Date(now);
     finishDate.setHours(hours, minutes, seconds, 0); // setze Stunden, Minuten und Sekunden
-  
+
     // Berechne die verbleibende Zeit (in Millisekunden)
     const timeDifference = finishDate - now;
-  
+
     // Wenn die Zeit bereits vorbei ist (negative Differenz), zurückgeben 00:00:00
     if (timeDifference <= 0) {
       return "00:00:00";
     }
-  
+
     // Berechne verbleibende Stunden, Minuten und Sekunden
     const remainingHours = Math.floor(timeDifference / (1000 * 60 * 60));
-    const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const remainingMinutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
     const remainingSeconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-  
+
     // Formatieren der verbleibenden Zeit im Format "00:00:00"
-    const formattedTime = [
-      remainingHours,
-      remainingMinutes,
-      remainingSeconds
-    ].map(unit => unit.toString().padStart(2, "0")).join(":");
-  
+    const formattedTime = [remainingHours, remainingMinutes, remainingSeconds]
+      .map((unit) => unit.toString().padStart(2, "0"))
+      .join(":");
+
     return formattedTime;
   }
   function isTimeZeroOrNegative(timeString) {
     // Zerlege den Zeitstring in Stunden, Minuten und Sekunden
-    const [hours, minutes, seconds] = timeString.split(':').map(Number);
-  
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
+
     // Prüfe, ob Stunden, Minuten und Sekunden alle kleiner oder gleich 0 sind
     return hours <= 0 && minutes <= 0 && seconds <= 0;
   }
-  const reduceSecond = (time)=>{
+  const reduceSecond = (time) => {
     // Zerlege die Zeit in Stunden, Minuten und Sekunden
     const [hours, minutes, seconds] = time.split(":").map(Number);
-  
+
     // Verringere die Sekunden um 1
     let newSeconds = seconds - 1;
     let newMinutes = minutes;
     let newHours = hours;
-    if(newSeconds === 0&&newMinutes===0&&newHours===0)
-    {
-      return "00:00:00"
+    if (newSeconds === 0 && newMinutes === 0 && newHours === 0) {
+      return "00:00:00";
     }
     // Falls die Sekunden unter 0 fallen, setze sie auf 59 und verringere die Minuten
     if (newSeconds < 0) {
       newSeconds = 59;
       newMinutes -= 1;
     }
-  
+
     // Falls die Minuten unter 0 fallen, setze sie auf 59 und verringere die Stunden
     if (newMinutes < 0) {
       newMinutes = 59;
       newHours -= 1;
     }
-  
+
     // Falls die Stunden unter 0 fallen, setze sie auf 23 (für den Fall, dass wir um Mitternacht herum rechnen)
     if (newHours < 0) {
       newHours = 23;
     }
-  
+
     // Formatieren der neuen Zeit im Format "HH:MM:SS"
-    const formattedTime = [
-      newHours,
-      newMinutes,
-      newSeconds
-    ].map(unit => unit.toString().padStart(2, "0")).join(":");
-  
+    const formattedTime = [newHours, newMinutes, newSeconds]
+      .map((unit) => unit.toString().padStart(2, "0"))
+      .join(":");
+
     return formattedTime;
-  }
-  
+  };
+
   useEffect(() => {
     if (buyMessage) {
       const timer = setTimeout(() => {
@@ -517,24 +506,27 @@ const Shipyard = () => {
         <div className="werft">
           <div className="werft-bar">
             <button
-              className={`btn ${activeType === "lightShipyard" ? "active" : ""
-                }`}
+              className={`btn ${
+                activeType === "lightShipyard" ? "active" : ""
+              }`}
               id="change-klein"
               onClick={() => handleShipType("lightShipyard")}
             >
               Kleine Werft
             </button>
             <button
-              className={`btn ${activeType === "mediumShipyard" ? "active" : ""
-                }`}
+              className={`btn ${
+                activeType === "mediumShipyard" ? "active" : ""
+              }`}
               id="change-mittel"
               onClick={() => handleShipType("mediumShipyard")}
             >
               Mittlere Werft
             </button>
             <button
-              className={`btn ${activeType === "heavyShipyard" ? "active" : ""
-                }`}
+              className={`btn ${
+                activeType === "heavyShipyard" ? "active" : ""
+              }`}
               id="change-gross"
               onClick={() => handleShipType("heavyShipyard")}
             >
@@ -546,8 +538,9 @@ const Shipyard = () => {
               <button
                 key={ship.shipType}
                 id={ship.shipType}
-                className={`${"btn"} ${activeShip === ship.shipType ? "active" : ""
-                  }`}
+                className={`${"btn"} ${
+                  activeShip === ship.shipType ? "active" : ""
+                }`}
                 onClick={() => changeDescriptionAndImage(ship.shipType)}
               >
                 {ship.label}
