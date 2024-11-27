@@ -6,6 +6,7 @@ import {
   getUserResources,
   getAllPlanets,
   colonizePlanet,
+  getPlanetById
 } from "../controllers/interface.js";
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.get("/user/:userId/buildings", getAllBuildings);
 
 router.get("/user/:userId/resources", getUserResources);
 
+router.get("/user/:userId/planet/:planetId/getPlanetById",getPlanetById)
 router.get("/planets", getAllPlanets);
 router.patch("/user/:userId", updatePlayerColor);
 router.get("/user/:userId", getPlayer);
