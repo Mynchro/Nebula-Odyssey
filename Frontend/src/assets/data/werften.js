@@ -176,7 +176,7 @@ const werftTypen = {
       id: "planetarer_schildgenerator",
       class: "btn btn12",
       label: "Planetarer Schildgenerator",
-      img: "/werften/grosse_werft/planetarer_schildgenerator/planetarer_schildgenerator.png",
+      img: "/werften/grosse_werft/planetarer_schildgenerator/planetarer_schildgenerator.jpg",
       description:
         "Ein planetarer Schildgenerator, der eine massive Energiekuppel erzeugt, um ganze Planeten vor Angriffen zu schützen. Effektiv gegen Orbitalbombardements, Raketen und Angriffe von Großkampfschiffen. Ein unverzichtbarer Verteidigungsmechanismus für strategisch wichtige Welten.",
     },
