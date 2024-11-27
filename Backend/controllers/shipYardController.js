@@ -194,21 +194,21 @@ export const buildShip = async (req, res) => {
             console.log(buildFinishTime + " backend finishtime vorm setzen ")
             //console.log(planet.buildProcesses.lightShipYardBuildProcess.default)
             if (ship.shipYardType === "lightShipyard") {
-                planet.typeOfLightShipsInBuilding = shipType;
+                planet.typeOfLightShipsInBuilding = ship.label;
                 planet.lightShipIsBuilding = true;
                 planet.amountOfLightShipsInBuilding = amount;
                 planet.finishingTimeOfLightShipsInBuilding = buildFinishTime;
             }
 
             if (ship.shipYardType === "mediumShipyard") {
-                planet.typeOfMediumShipsInBuilding = shipType;
+                planet.typeOfMediumShipsInBuilding = ship.label;
                 planet.mediumShipIsBuilding = true;
                 planet.amountOfMediumShipsInBuilding = amount;
                 planet.finishingTimeOfMediumShipsInBuilding = buildFinishTime;
             }
 
             if (ship.shipYardType === "heavyShipyard") {
-                planet.typeOfHeavyShipsInBuilding = shipType;
+                planet.typeOfHeavyShipsInBuilding = ship.label;
                 planet.heavyShipIsBuilding = true;
                 planet.amountOfHeavyShipsInBuilding = amount;
                 planet.finishingTimeOfHeavyShipsInBuilding = buildFinishTime;
