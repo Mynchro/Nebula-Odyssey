@@ -159,13 +159,15 @@ export const buildShip = async (req, res) => {
         for (const key in planet.resources.toObject()) {
             if (
                 planet.resources[key] -
-                    ship.ressourceCosts[key] * shipsToBuild <
+                ship.ressourceCosts[key] * shipsToBuild <
                 0
             ) {
                 console.log(`nicht genug ${key} für den bau vorhanden`);
                 canBuild = false;
             }
         }
+
+
         if (canBuild) {
             for (const key in planet.resources.toObject()) {
                 if (typeof planet.resources[key] === "number") {
@@ -175,14 +177,78 @@ export const buildShip = async (req, res) => {
                     canBuild = false;
                 }
             }
-            ship.amount += shipsToBuild;
+            //ship.amount += shipsToBuild;
+            const buildDuration = ship.buildTime*shipsToBuild * 1000; // in Millisekunden
+            let buildFinishTime = new Date(Date.now() + buildDuration);
+            const formatTimeUnit = (unit) => (unit < 10 ? `0${unit}` : unit);
+
+            // Funktion, um die Zeit im Format "HH:mm:ss" zu erhalten
+            const formatBuildFinishTime = (date) => {
+                const hours = formatTimeUnit(date.getHours());
+                const minutes = formatTimeUnit(date.getMinutes());
+                const seconds = formatTimeUnit(date.getSeconds());
+
+                return `${hours}:${minutes}:${seconds}`;
+            };
+            buildFinishTime = formatBuildFinishTime(buildFinishTime);
+            console.log(buildFinishTime + " backend finishtime vorm setzen ")
+            //console.log(planet.buildProcesses.lightShipYardBuildProcess.default)
+            if (ship.shipYardType === "lightShipyard") {
+                planet.typeOfLightShipsInBuilding = shipType;
+                planet.lightShipIsBuilding = true;
+                planet.amountOfLightShipsInBuilding = amount;
+                planet.finishingTimeOfLightShipsInBuilding = buildFinishTime;
+            }
+
+            if (ship.shipYardType === "mediumShipyard") {
+                planet.typeOfMediumShipsInBuilding = shipType;
+                planet.mediumShipIsBuilding = true;
+                planet.amountOfMediumShipsInBuilding = amount;
+                planet.finishingTimeOfMediumShipsInBuilding = buildFinishTime;
+            }
+
+            if (ship.shipYardType === "heavyShipyard") {
+                planet.typeOfHeavyShipsInBuilding = shipType;
+                planet.heavyShipIsBuilding = true;
+                planet.amountOfHeavyShipsInBuilding = amount;
+                planet.finishingTimeOfHeavyShipsInBuilding = buildFinishTime;
+            }
+            
+            // Plane eine Funktion, die das Schiff nach der Bauzeit aktualisiert
+            await planet.save();
+            setTimeout(async () => {
+                // Erhöhe die Anzahl der Schiffe
+                ship.amount += shipsToBuild;
+                if (ship.shipYardType === "lightShipyard") {
+                    planet.typeOfLightShipsInBuilding = "none";
+                    planet.lightShipIsBuilding = false;
+                    planet.amountOfLightShipsInBuilding = 0;
+                }
+    
+                if (ship.shipYardType === "mediumShipyard") {
+                    planet.typeOfMediumShipsInBuilding = "none";
+                    planet.mediumShipIsBuilding = false;
+                    planet.amountOfMediumShipsInBuilding = 0;
+                }
+    
+                if (ship.shipYardType === "heavyShipyard") {
+                    planet.typeOfHeavyShipsInBuilding = "none";
+                    planet.heavyShipIsBuilding = false;
+                    planet.amountOfHeavyShipsInBuilding = 0;
+                }
+                // Speichern der neuen Anzahl
+                await planet.save();
+
+                console.log(`Bau von ${shipsToBuild} ${shipType} abgeschlossen!`);
+            }, buildDuration);
         }
 
-        await planet.save();
+        //await planet.save();
         return res.status(200).send({
             message: "Schiff wurde erfolgreich gebaut",
             ship,
             user,
+            planet,
         });
     } catch (error) {
         console.error("Fehler beim bauen des Schiffs:", error);

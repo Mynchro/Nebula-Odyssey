@@ -79,10 +79,12 @@ export const createPlayerworld = async (userId) => {
         storageCapacity: building.storageCapacity,
         shipTyps: building.shipTyps,
       })),
+
       buildingInProgress: user.buildingInProgress,
       ships: defaultShips.map((ship) => ({
         shipType: ship.shipType,
         shipYardType: ship.shipYardType,
+        buildTime: ship.buildTime,
         amount: ship.amount,
         originalShipId: ship._id,
         ressourceCosts: ship.ressourceCosts,
@@ -94,14 +96,14 @@ export const createPlayerworld = async (userId) => {
         img: ship.img,
       })),
       resources: {
-        silicon: 1000,
-        ores: 500,
-        chemicals: 300,
-        fuel: 200,
-        energy: 1000,
-        steel: 700,
-        electronics: 400,
-        ammo: 600,
+        silicon: 100000,
+        ores: 100000,
+        chemicals: 100000,
+        fuel: 100000,
+        energy: 100000,
+        steel: 100000,
+        electronics: 100000,
+        ammo: 100000,
       },
 
       position: {
@@ -149,6 +151,7 @@ export const createPlayerworld = async (userId) => {
           shipType: ship.shipType,
           shipYardType: ship.shipYardType,
           amount: ship.amount,
+          buildTime: ship.buildTime,
           originalShipId: ship._id,
           ressourceCosts: ship.ressourceCosts,
           values: ship.values,
