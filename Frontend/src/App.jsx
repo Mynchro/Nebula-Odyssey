@@ -8,19 +8,17 @@ import Buildings from "./pages/Buildings/Buildings";
 import Research from "./pages/Research/Research";
 import Shipyard from "./pages/Shipyard/Shipyard";
 import Defense from "./pages/Defense/Defense";
+import Hangar from "./pages/Hangar/Hangar";
 import Armada from "./pages/Armada/Armada";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
-import StarField from "./components/Starfield/StarField";
-// import Playermanager from "./components/Playermanager/Playermanager";
+import SettingsForm from "./pages/Settings/Settings";
 import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 function App() {
   return (
-    <PlayerProvider>
-      <BrowserRouter>
-        <StarField />
-        {/* <Playermanager /> */}
+    <BrowserRouter>
+      <PlayerProvider>
         <Routes>
           <Route index element={<Login />} />
           <Route path="/" element={<SharedLayout />}>
@@ -31,12 +29,14 @@ function App() {
             <Route path="research" element={<Research />} />
             <Route path="shipyard" element={<Shipyard />} />
             <Route path="defense" element={<Defense />} />
+            <Route path="hangar" element={<Hangar />} />
             <Route path="armada" element={<Armada />} />
+            <Route path="settings" element={<SettingsForm />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </PlayerProvider>
+      </PlayerProvider>
+    </BrowserRouter>
   );
 }
 

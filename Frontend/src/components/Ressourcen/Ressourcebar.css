@@ -1,57 +1,80 @@
 .ressources {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-  
-  .raw-material {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 50px;
-  }
-  
-  .products {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin-left: 150px;
-  }
-  
-  .ressource-counter {
-    color: white;
-  }
-  
-  img:hover {
-    cursor: pointer;
-  }
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
 
-  .raw img {
-    max-width: 4rem;
-    max-height: 4rem;
-  }
-  
-  .prod img {
-    max-width: 4rem;
-    max-height: 4rem;
-  }
+.raw-material {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 50px;
+}
 
-  .tooltip {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    pointer-events: none;
-    white-space: nowrap;
-    transform: translate(-630px, -30px);
-    z-index: 1000;
-    display: none;
-  }
-  
-  .img-container {
-    position: relative;
-  }
-  
+.products {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-left: 150px;
+}
+
+.ressource-counter {
+  color: white;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.raw,
+.prod {
+  position: relative; /* Notwendig für die Positionierung des Tooltips */
+  display: inline-block; /* Gruppiert Tooltip mit Bild */
+}
+
+.raw img {
+  max-width: 4rem;
+  max-height: 4rem;
+  cursor: pointer; /* Ändert Cursor beim Hovern */
+}
+
+.prod img {
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+.tooltip {
+  position: fixed; /* Position relativ zum Viewport */
+  background-color: rgba(0, 0, 0, 0.75); /* Dunkler Hintergrund */
+  color: white; /* Textfarbe */
+  padding: 5px 10px; /* Abstand innerhalb der Box */
+  border-radius: 4px; /* Abgerundete Ecken */
+  pointer-events: none; /* Blockiert keine Mausereignisse */
+  white-space: nowrap; /* Kein Zeilenumbruch */
+  z-index: 1000; /* Immer über anderen Elementen */
+  font-size: 1.5rem; /* Kleinere Schrift */
+  opacity: 0.9; /* Leicht transparent */
+  transition: opacity 0.2s ease; /* Weiches Erscheinen */
+
+  /* Abstand vom Mauszeiger */
+  transform: translate(
+    10px,
+    10px
+  ); /* Bewegt den Tooltip leicht nach unten rechts */
+}
+
+.raw:hover .tooltip {
+  visibility: visible; /* Zeigt den Tooltip an */
+  opacity: 1; /* Macht ihn sichtbar */
+}
+
+.prod:hover .tooltip {
+  visibility: visible; /* Zeigt den Tooltip an */
+  opacity: 1; /* Macht ihn sichtbar */
+}
+
+.img-container {
+  position: relative;
+}

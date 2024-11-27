@@ -1,18 +1,16 @@
 import express from "express";
 import {
-  upgradeBuilding,
-  downgradeBuilding,
+  updatePlayerColor,
+  getPlayer,
   getAllBuildings,
   getUserResources,
-} from "../controllers/interfaceController.js";
+  getAllPlanets,
+  colonizePlanet,
+  getPlanetById
+} from "../controllers/interface.js";
 
 const router = express.Router();
 
-router.post("/user/:userId/building/:buildingType/upgrade", upgradeBuilding);
-router.post(
-  "/user/:userId/building/:buildingType/downgrade",
-  downgradeBuilding
-);
 router.get("/user/:userId/buildings", getAllBuildings);
 
 // POST: http://localhost:3000/api/user/6707f5b128946e558e271814/building/Mine/upgrade  für Mine upgrade
@@ -20,6 +18,13 @@ router.get("/user/:userId/buildings", getAllBuildings);
 // GET: http://localhost:3000/api/user/6707f5b128946e558e271814/buildings für abfrufen aller Gebäude
 
 router.get("/user/:userId/resources", getUserResources);
+
+router.get("/user/:userId/planet/:planetId/getPlanetById",getPlanetById)
+router.get("/planets", getAllPlanets);
+router.patch("/user/:userId", updatePlayerColor);
+router.get("/user/:userId", getPlayer);
+
+router.patch("/spacemap/colonizePlanet/:userId/:planetId", colonizePlanet);
 
 export default router;
 

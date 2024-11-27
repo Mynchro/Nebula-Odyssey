@@ -4,23 +4,43 @@ import Ressourcebar from "../components/Ressourcen/Ressourcebar";
 import Planets from "../components/Planets/Planets";
 import Menubox from "../components/Menubox/Menubox";
 import Chatbox from "../components/Chatbox/Chatbox";
-
+import { useState, useContext } from "react";
+import { PlayerContext } from "../context/PlayerContext";
+import Footer from "../components/Footer/Footer";
 
 const SharedLayout = () => {
-    return (
-        <>
-        {/* nav/header */}
-        <Navbar />
-        <Ressourcebar />
-        <Planets />
-        <main className='main-container'>
-            <Menubox />
-            <Outlet />
-            <Chatbox />
-        </main>
-        {/* footer */} 
-        </>
-    );
-}
+  const { currentPlayer } = useContext(PlayerContext);
+  const [selectedPlanetIndex, setSelectedPlanetIndex] = useState(0); // State für den ausgewählten Planeten
+
+  // Hol das Planeten-Array vom aktuellen Spieler
+  const planets = currentPlayer?.planets || [];
+
+  // Funktion zum Aktualisieren des ausgewählten Planeten
+  const handlePlanetSelect = (index) => {
+    setSelectedPlanetIndex(index);
+  };
+
+  return (
+    <>
+      {/* nav/header */}
+      <Navbar />
+      {planets.length > 0 && (
+        <Ressourcebar
+          resources={planets[selectedPlanetIndex]?.resources || {}}
+        />
+      )}
+      <Planets planets={planets} onPlanetSelect={handlePlanetSelect} />
+      <main className="main-container">
+        <Menubox />
+        <Outlet
+          context={{ planets, selectedPlanet: planets[selectedPlanetIndex] }}
+        />
+        <Chatbox />
+      </main>
+      {/* footer */}
+      <Footer />
+    </>
+  );
+};
 
 export default SharedLayout;

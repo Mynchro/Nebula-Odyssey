@@ -17,7 +17,7 @@ const Menubox = () => {
                 <button className="btn raumkarte">Raumkarte</button>
             </NavLink>
             <NavLink to='/buildings' className={({ isActive }) => isActive ? 'active' : ''}>
-                <button className="btn ziviler">Gebaeude</button>
+                <button className="btn ziviler">Gebäude</button>
             </NavLink>
             <NavLink to='/research' className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn forschung">Forschung</button>
@@ -27,6 +27,9 @@ const Menubox = () => {
             </NavLink>
             <NavLink to='/defense'className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn verteidigung">Verteidigung</button>
+            </NavLink>
+            <NavLink to='/hangar'className={({ isActive }) => isActive ? 'active' : ''}>
+                <button className="btn hangar">Hangar</button>
             </NavLink>
             <NavLink to='/armada' className={({ isActive }) => isActive ? 'active' : ''}>
                 <button className="btn armada">Armada</button>

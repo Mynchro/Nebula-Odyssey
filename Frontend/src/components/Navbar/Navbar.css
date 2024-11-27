@@ -1,3 +1,4 @@
+
 header {
     /*width: 100%;*/
     display: flex;
@@ -48,4 +49,19 @@ header {
     min-width: 100px;
     color: white;
   }
-  
+  .colorpicker{
+    background: transparent;
+    border: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none;
+  }
+  .colorpickerbox{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    caret-color: transparent;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none;
+  }

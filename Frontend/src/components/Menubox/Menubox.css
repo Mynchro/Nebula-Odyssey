@@ -31,7 +31,8 @@
     --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
     --border-width: 0.2em;
     --edge-size: 0.5em;
-    color: #0e1b24;
+    color: #fdf8f8;
+    font-weight: lighter;
     cursor: pointer;
     background: var(--background-color);
     padding: 0.5em 1.5em;
@@ -106,5 +107,6 @@
   .active .btn{
     --background-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
     color: white;
+    font-weight: bolder;
   }
   

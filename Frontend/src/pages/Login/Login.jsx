@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { PlayerContext } from "../../context/PlayerContext";
@@ -11,32 +11,47 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { setCurrentPlayer } = useContext(PlayerContext);
-  const [isRegistered, setIsRegistered] = useState(false); // State für Modus (Login/Register)
+  const { handleLogin } = useContext(PlayerContext);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (data) => {
-    console.log(data);
-    try {
-      const response = await fetch("http://localhost:3000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      console.log("result:", result);
-      if (response.status === 200) {
-        setCurrentPlayer(result);
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (loggedIn) {
+      document.body.classList.add("logged-in");
+    } else {
+      document.body.classList.remove("logged-in");
+    }
+    setIsLoggedIn(loggedIn);
+  }, []);
+
+  const onSubmit = async (data) => {
+    if (isRegistered) {
+      await handleRegister(data);
+    } else {
+      const success = await handleLogin(data);
+      if (success) {
+        localStorage.setItem("isLoggedIn", "true");
+        document.body.classList.add("logged-in");
         navigate("/overview");
       } else {
-        console.log(result.message);
+        setErrorMessage("Ungültige Login-Daten! Bitte erneut versuchen.");
       }
-    } catch (error) {
-      console.error("Login failed:", error);
     }
   };
+
+    // Effekt für Hintergrundwechsel
+    useEffect(() => {
+      if (isLoggedIn) {
+        document.body.classList.add("logged-in");
+      } else {
+        document.body.classList.remove("logged-in");
+      }
+    }, [isLoggedIn]);
+
   const handleRegister = async (data) => {
     try {
       const response = await fetch("http://localhost:3000/user/register", {
@@ -46,27 +61,26 @@ const Login = () => {
       });
       const result = await response.json();
       if (response.status === 201) {
-        console.log("Registered successfully:", result.message);
-        setIsRegistered(false); // Nach erfolgreicher Registrierung zum Login-Modus wechseln
+        alert("Erfolgreich registriert!");
+        setIsRegistered(false);
       } else {
-        console.log(result.message);
+        alert(`Registrierung fehlgeschlagen: ${result.message}`);
       }
     } catch (error) {
       console.error("Registration failed:", error);
+      alert(
+        "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+      );
     }
   };
 
-  const onSubmit = (data) => {
-    if (isRegistered) {
-      handleRegister(data);
-    } else {
-      handleLogin(data);
-    }
-  };
-
-  // Umschalten zwischen Login und Registrierung
-  const toggleMode = () => {
+  const toggleAuthMode = () => {
     setIsRegistered(!isRegistered);
+    setErrorMessage("");
+  };
+
+  const toggleVideoVisibility = () => {
+    setIsVideoVisible(!isVideoVisible);
   };
 
   return (
@@ -79,8 +93,8 @@ const Login = () => {
       <h1 className="login-title">Nebula Odyssey</h1>
       <div className="login-box">
         <h2>{isRegistered ? "Register" : "Login"}</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-          {/* Username */}
           <input
             {...register("userName", { required: "Username is required!" })}
             type="text"
@@ -90,7 +104,6 @@ const Login = () => {
             <span className="error-message">{errors.userName.message}</span>
           )}
 
-          {/* Password */}
           <input
             type="password"
             placeholder="Password"
@@ -100,7 +113,6 @@ const Login = () => {
             <span className="error-message">{errors.password.message}</span>
           )}
 
-          {/* Confirm Password - Nur anzeigen, wenn Registrierung */}
           {isRegistered && (
             <>
               <input
@@ -118,7 +130,6 @@ const Login = () => {
                 </span>
               )}
 
-              {/* E-Mail */}
               <input
                 type="email"
                 placeholder="E-mail"
@@ -139,26 +150,34 @@ const Login = () => {
           <button type="submit">{isRegistered ? "Register" : "Login"}</button>
         </form>
 
-        {/* Link zum Umschalten zwischen Login und Register */}
         <p>
           {isRegistered
             ? "Already have an account? "
             : "Don't have an account? "}
-          <a className="loginATag" href="#" onClick={toggleMode}>
+          <a className="loginATag" href="#" onClick={toggleAuthMode}>
             {isRegistered ? "Login here" : "Register here"}
           </a>
         </p>
       </div>
-      <img
-        className="schlachtkreuzer-img"
-        src="/werften/große_werft/schlachtkreuzer/schlachtkreuzer_1-removebg-preview.png"
-        alt="schlachtkreuzer"
-      />
-      <img
-        className="schlachtschiff-img"
-        src="/werften/große_werft/schlachtschiff/schlachtschiff_1-removebg-preview.png"
-        alt="schlachtschiff"
-      />
+
+      {/* Video Toggle */}
+      <div className="video-toggle-container">
+        <button className="toggle-button" onClick={toggleVideoVisibility}>
+          ▼ Intro Video anschauen ▼
+        </button>
+      </div>
+
+      {/* Video Content */}
+      <div className={`video-content ${isVideoVisible ? "open" : ""}`}>
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/77jkkRwZT6Q"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 };

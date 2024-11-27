@@ -22,35 +22,57 @@ ul {
 }
 
 .defense-info ul li {
+  justify-content: space-between;
+  font-size: 1.4rem;
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
-}
-
-.uebersicht {
-  --background-color: var(--tertiary-color);
-  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
-  color: #0e1b24;
 }
 
 .defense-top {
   border: 2px solid var(--primary-color);
   width: 95%;
   height: 500px;
-  margin-bottom: 40px;
+  margin-top: -10px;
   display: flex;
   border-radius: 10px;
-  padding: 25px 0 0 25px;
+  padding: 0px 0 0 25px;
 }
 
 .defense-info {
   width: 200px;
-  height: 100%;
+  height: 90%;
   border: 2px solid var(--secondary-color);
   margin: auto 0;
   padding: 10px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
+}
+
+/* WebKit-basiertes Styling */
+.defense-info::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.defense-info::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.defense-info::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.421); /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.defense-info::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.421); /* Hover-Farbe des Scrollbalkens */
 }
 
 .defense-img {
@@ -90,6 +112,31 @@ ul {
   gap: 20px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto; /* Für Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.421) rgba(0, 0, 0, 0.5); /* Für Firefox */
+}
+
+/* WebKit-basiertes Styling */
+.defense-btnbox ::-webkit-scrollbar {
+  width: 10px; /* Breite der Scrollbar */
+}
+
+.defense-btnbox ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3); /* Hintergrund der Scroll-Leiste */
+  border-radius: 10px;
+}
+
+.defense-btnbox ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.421); /* Farbe des Scrollbalkens */
+  border-radius: 10px;
+  border-radius: 3px solid white;
+}
+
+.defense-btnbox ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.421); /* Hover-Farbe des Scrollbalkens */
 }
 
 .defense-description {
@@ -104,10 +151,15 @@ ul {
 
 .btn {
   --background-color: var(--tertiary-color);
-  --border-color: linear-gradient(to bottom right, #0e1b24, var(--secondary-color));
+  --border-color: linear-gradient(
+    to bottom right,
+    #0e1b24,
+    var(--secondary-color)
+  );
   --border-width: 0.2em;
   --edge-size: 0.5em;
-  color: #0e1b24;
+  color: #f2f9ff;
+  font-weight: lighter;
   cursor: pointer;
   background: var(--background-color);
   padding: 0.5em 1.5em;
@@ -181,6 +233,15 @@ ul {
 }
 
 .active {
-  --background-color: linear-gradient(to bottom right, #091e2c, var(--secondary-color));
+  --background-color: linear-gradient(
+    to bottom right,
+    #091e2c,
+    var(--secondary-color)
+  );
   color: white;
+  font-weight: bolder;
+}
+
+.btn-uebersicht {
+  margin-top: 75%;
 }
