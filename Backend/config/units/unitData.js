@@ -3,6 +3,7 @@ import Unit from "./unit.js";
 class LeichterJaeger extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Leichter Jaeger";
         this.steelcosts = 200;
@@ -25,12 +26,13 @@ class LeichterJaeger extends Unit {
         this.img = "/werften/kleine_werft/leichter_jaeger/leichter_jaeger.png";
         this.label = "Leichter Jaeger";
         this.description =
-            "Ein leichter Jäger, der sich durch hohe Geschwindigkeit und Wendigkeit auszeichnet. Ausgestattet mit leichten Waffen eignet er sich hervorragend für schnelle Angriffe und Verteidigungsmissionen. Besonders effektiv in Schwärmen. Perfekt für kurze, präzise Einsätze.g";
+            "Ein leichter Jäger, der sich durch hohe Geschwindigkeit und Wendigkeit auszeichnet. Ausgestattet mit leichten Waffen eignet er sich hervorragend für schnelle Angriffe und Verteidigungsmissionen. Besonders effektiv in Schwärmen. Perfekt für kurze, präzise Einsätze.";
     }
 }
 class SchwererJaeger extends Unit {
     constructor() {
         super();
+        this.buildTime = 10;
         this.attackEnergy = 100;
         this.name = "Schwerer Jaeger";
         this.steelcosts = 800;
@@ -59,6 +61,7 @@ class SchwererJaeger extends Unit {
 class Bomber extends Unit {
     constructor() {
         super();
+        this.buildTime = 15;
         this.attackEnergy = 100;
         this.name = "Bomber";
         this.steelcosts = 1500;
@@ -97,6 +100,7 @@ class Bomber extends Unit {
 class KleinerTransporter extends Unit {
     constructor() {
         super();
+        this.buildTime = 20;
         this.attackEnergy = 100;
         this.name = "Kleiner Transporter";
         this.steelcosts = 500;
@@ -122,6 +126,7 @@ class KleinerTransporter extends Unit {
 class MiningDrohne extends Unit {
     constructor() {
         super();
+        this.buildTime = 25;
         this.attackEnergy = 100;
         this.name = "Miningdrohne";
         this.steelcosts = 500;
@@ -146,6 +151,7 @@ class MiningDrohne extends Unit {
 class Fregatte extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Fregatte";
         this.steelcosts = 5000;
@@ -171,6 +177,7 @@ class Fregatte extends Unit {
 class GrosserTransporter extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Großer Transporter";
         this.steelcosts = 5000;
@@ -196,6 +203,7 @@ class GrosserTransporter extends Unit {
 class Zerstörer extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Zerstörer";
         this.steelcosts = 15000;
@@ -226,6 +234,7 @@ class Zerstörer extends Unit {
 class Kreuzer extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Kreuzer";
         this.steelcosts = 20000;
@@ -254,6 +263,7 @@ class Kreuzer extends Unit {
 class FlugDeckKreuzer extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Flugdeckkreuzer";
         this.steelcosts = 50000;
@@ -281,6 +291,7 @@ class FlugDeckKreuzer extends Unit {
 class KolonieSchiff extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Kolonieschiff";
         this.steelcosts = 8000;
@@ -305,6 +316,7 @@ class KolonieSchiff extends Unit {
 class BergBauSchiff extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Bergbauschiff";
         this.steelcosts = 20000;
@@ -329,6 +341,7 @@ class BergBauSchiff extends Unit {
 class SchlachtSchiff extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Schlachtschiff";
         this.steelcosts = 300000;
@@ -364,6 +377,7 @@ class SchlachtSchiff extends Unit {
 class SchlachtKreuzer extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Schlachtkreuzer";
         this.steelcosts = 250000;
@@ -389,6 +403,7 @@ class SchlachtKreuzer extends Unit {
 class TraegerSchiff extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Traegerschiff";
         this.steelcosts = 1000000;
@@ -413,6 +428,7 @@ class TraegerSchiff extends Unit {
 class FlakGeschütz extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Flakgeschütz";
         this.steelcosts = 300;
@@ -441,6 +457,7 @@ class FlakGeschütz extends Unit {
 class Artillerie extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Artillerie";
         this.steelcosts = 1000;
@@ -465,6 +482,7 @@ class Artillerie extends Unit {
 class IonenKanone extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Ionenkanone";
         this.steelcosts = 500;
@@ -489,6 +507,7 @@ class IonenKanone extends Unit {
 class LaserGeschütz extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Lasergeschütz";
         this.steelcosts = 5000;
@@ -513,6 +532,7 @@ class LaserGeschütz extends Unit {
 class Railgun extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Railgun";
         this.steelcosts = 20000;
@@ -540,6 +560,7 @@ class Railgun extends Unit {
 class PartikelKanone extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.attackenergy = 100;
         this.name = "Partikelkanone";
@@ -570,6 +591,7 @@ class PartikelKanone extends Unit {
 class PlanetarerSchildGenerator extends Unit {
     constructor() {
         super();
+        this.buildTime = 5;
         this.attackEnergy = 100;
         this.name = "Planetarer Schildgenerator";
         this.steelcosts = 100000;

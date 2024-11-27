@@ -14,7 +14,7 @@ export default class Unit {
     static cargo;
     static unittype;
     static attackEnergy;
-
+    static buildTime;
     img = "kein bild vorhanden";
     label = "nicht gefundener name";
     description = "keine beschreibung";

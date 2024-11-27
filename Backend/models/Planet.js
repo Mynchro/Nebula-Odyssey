@@ -19,7 +19,54 @@ const planetSchema = new Schema({
     type: String,
     default: "",
   },
-
+  lightShipIsBuilding: {
+    type: Boolean,
+    default: false
+  },
+  mediumShipIsBuilding:{
+    type:Boolean,
+    default:false,
+  },
+  heavyShipIsBuilding:{
+    type:Boolean,
+    default:false,
+  },
+  typeOfLightShipsInBuilding:{
+    type:String,
+    default:"none"
+  },
+  typeOfMediumShipsInBuilding:{
+    type:String,
+    default:"none"
+  },
+  typeOfHeavyShipsInBuilding:{
+    type:String,
+    default:"none"
+  },
+  amountOfLightShipsInBuilding:{
+    type:Number,
+    default:1,
+  },
+  amountOfMediumShipsInBuilding:{
+    type:Number,
+    default:1,
+  },
+  amountOfHeavyShipsInBuilding:{
+    type:Number,
+    default:1,
+  },
+  finishingTimeOfLightShipsInBuilding:{
+    type:String,
+    default:"00:00:00",
+  },
+  finishingTimeOfMediumShipsInBuilding:{
+    type:String,
+    default:"00:00:00",
+  },
+  finishingTimeOfHeavyShipsInBuilding:{
+    type:String,
+    default:"00:00:00",
+  },
   buildings: [buildingSchema], // Gebäude als Unterdokumente
   resources: {
     type: resourceSchema, // Ressourcen bleiben gleich
