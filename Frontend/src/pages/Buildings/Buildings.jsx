@@ -43,6 +43,18 @@ const Buildings = () => {
     Silicondepot: "Siliconlager",
     Mikrochipdepot: "Mikrochiplager",
   };
+
+  const resourceDataMap = {
+    ores: "Erze",
+    steel: "Stahl",
+    fuel: "Treibstoff",
+    energy: "Energie",
+    silicon: "Silizium",
+    electronics: "Mikrochip",
+    chemicals: "Chemikalien",
+    ammo: "Munition",
+  };
+
   useEffect(() => {
     // Initialisiere den Status beim Auswahl des Gebäudes
     if (selectedBuilding) {
@@ -277,32 +289,30 @@ const formatCountdown = () => {
                     {selectedBuilding.productionRate && (
                       <div>
                         <div className="building-data-box">
-                          {Object.entries(selectedBuilding?.baseValue?.baseProductionRate || {})
-                            .filter(([resource]) => resource !== "_id")
-                            .map(([resource, baseRate]) => {
-                              const upRate =
-                                baseRate *
-                                (selectedBuilding.level + 1) *
-                                (selectedBuilding.level + 1) *
-                                (1 + (selectedBuilding.level + 1 - 1) / 5);
-                              const rate =
-                                baseRate *
-                                selectedBuilding.level *
-                                selectedBuilding.level *
-                                (1 + (selectedBuilding.level - 1) / 5);
-                              return (
-                                <li key={resource}>
-                                  <p className="resource-left">
-                                    {resource.charAt(0).toUpperCase() +
-                                      resource.slice(1).toLowerCase()}
-                                    :
-                                  </p>
-                                  <p className="resource-mid">{Math.round(rate)}</p>
-                                  <p className="resource-arrow">→</p>
-                                  <p className="resource-right">{Math.round(upRate)}</p>
-                                </li>
-                              );
-                            })}
+                        {Object.entries(selectedBuilding?.baseValue?.baseProductionRate || {})
+                                .filter(([resource]) => resource !== "_id")
+                                .map(([resource, baseRate]) => {
+                                  const rate =
+                                    baseRate *
+                                    selectedBuilding.level *
+                                    selectedBuilding.level *
+                                    (1 + (selectedBuilding.level - 1) / 5);
+                                  const upRate =
+                                    baseRate *
+                                    (selectedBuilding.level + 1) *
+                                    (selectedBuilding.level + 1) *
+                                    (1 + (selectedBuilding.level + 1 - 1) / 5);
+                                  return (
+                                    <li key={resource}>
+                                      <p className="resource-left">
+                                        {resourceDataMap[resource] || resource}
+                                      :</p>
+                                      <p className="resource-mid">{Math.round(rate)}</p>
+                                      <p className="resource-arrow">→</p>
+                                      <p className="resource-right">{Math.round(upRate)}</p>
+                                    </li>
+                                  );
+                                })}
                         </div>
                       </div>
                     )}
@@ -370,32 +380,26 @@ const formatCountdown = () => {
             <ul className="constructionUl">
               {/* Nur Baukosten anzeigen, wenn ein Gebäude ausgewählt ist */}
               {selectedBuilding ? (
-                Object.entries(
-                  selectedBuilding?.baseValue?.constructionCosts || {}
-                )
-                  .filter(([resource]) => resource !== "_id") // filtert "_id" und "0" heraus
+                Object.entries(selectedBuilding?.baseValue?.constructionCosts || {})
+                  .filter(([resource]) => resource !== "_id") // filtert "_id" heraus
                   .map(([resource, baseRate]) => {
                     const rate =
                       baseRate *
                       selectedBuilding.level *
                       selectedBuilding.level *
                       (1 + (selectedBuilding.level - 1) / 5);
-
                     return (
                       <li key={resource}>
                         <p className="resource-left">
-                          {resource.charAt(0).toUpperCase() +
-                            resource.slice(1).toLowerCase()}
-                          :
-                        </p>
+                          {resourceDataMap[resource] || resource}
+                        :</p>
                         <p className="resource-mid">
                           {selectedBuilding.level === 1
-                            ? Math.round((baseRate * 1.01))
+                            ? Math.round(baseRate * 1.01)
                             : rate === 0
                             ? baseRate
                             : Math.round(rate)}
-                        </p>{" "}
-                        {/* Hier wird der Wert angezeigt */}
+                        </p>
                       </li>
                     );
                   })
