@@ -41,8 +41,8 @@ const Armada = () => {
     }
 
     const exclusionLabels = {
-      klein: ["Miningdrohne", "Artillerie"],
-      mittel: ["Ionenkanone"],
+      klein: ["Artillerie", "Flakgeschütz", "Lasergeschütz"],
+      mittel: ["Ionenkanone", "Railgun"],
       gross: ["Partikelkanone", "Planetarer Schildgenerator"],
     };
 
