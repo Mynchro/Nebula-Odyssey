@@ -5,7 +5,7 @@ import "./audio.css";
 
 const AudioPlayer = () => {
   const audioRef = useRef(null);
-  const [volume, setVolume] = useState(0); // Lautstärke von 0 bis 1
+  const [volume, setVolume] = useState(0.05); // Lautstärke von 0 bis 1
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
