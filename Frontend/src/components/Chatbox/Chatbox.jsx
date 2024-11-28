@@ -44,7 +44,7 @@ const Chatbox = () => {
     const interval = setInterval(() => {
       const dummyMessage = generateDummyMessage();
       setMessages((prevMessages) => [...prevMessages, dummyMessage]);
-    }, 10000);
+    }, 20000);
 
     const timeout = setTimeout(() => {
       clearInterval(interval);

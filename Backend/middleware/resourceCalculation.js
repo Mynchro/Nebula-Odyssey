@@ -8,25 +8,20 @@ const calculateResourcesForTimePeriod = (
     currentTime
 ) => {
     const timeDifferenceInSeconds = (currentTime - lastCalculation) / 1000; // Zeitunterschied in Sekunden
+    if (timeDifferenceInSeconds <= 0) return;
 
-    // Ressourcen basierend auf der Produktionsrate und dem verstrichenen Zeitraum berechnen
+    // Schleife durch alle Gebäude des Planeten
     planet.buildings.forEach((building) => {
-        planet.resources.silicon +=
-            building.productionRate.silicon * timeDifferenceInSeconds;
-        planet.resources.ores +=
-            building.productionRate.ores * timeDifferenceInSeconds;
-        planet.resources.chemicals +=
-            building.productionRate.chemicals * timeDifferenceInSeconds;
-        planet.resources.fuel +=
-            building.productionRate.fuel * timeDifferenceInSeconds;
-        planet.resources.energy +=
-            building.productionRate.energy * timeDifferenceInSeconds;
-        planet.resources.steel +=
-            building.productionRate.steel * timeDifferenceInSeconds;
-        planet.resources.electronics +=
-            building.productionRate.electronics * timeDifferenceInSeconds;
-        planet.resources.ammo +=
-            building.productionRate.ammo * timeDifferenceInSeconds;
+        if (!building.productionRate) return; // Skip, wenn keine Produktionsrate vorhanden
+
+        // Schleife durch alle Ressourcen in der Produktionsrate
+        Object.keys(building.productionRate).forEach((resource) => {
+            const hourlyRate = building.productionRate[resource] || 0; // Fallback auf 0
+            const perSecondRate = hourlyRate / 3600; // Umrechnung auf Produktion pro Sekunde
+            planet.resources[resource] =
+                (planet.resources[resource] || 0) +
+                perSecondRate * timeDifferenceInSeconds;
+        });
     });
 };
 
