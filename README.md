@@ -74,7 +74,7 @@
 
 Nebula Odyssey is an interactive space exploration game where players can visit planets, gather resources, and interact with other players in a futuristic cosmic environment. The game emphasizes a detailed and visually rich experience, allowing players to explore various celestial bodies and engage in activities such as resource collection and multiplayer interactions. The platform offers a blend of adventure and strategy as players navigate through space, uncovering new areas, and collaborating or competing with others.
 
-Explore more on <a href="https://nebula-odyssey.vercel.app/">Nebula Odyssey</a>
+!Deployment in progress!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
